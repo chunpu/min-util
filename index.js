@@ -1,0 +1,224 @@
+var is = require('min-is')
+
+exports.is = is
+
+function extend(dst) {
+	var len = arguments.length
+	if (len > 1) {
+		for (var i = 1; i < len; i++) {
+			var hash = arguments[i]
+			if (hash) {
+				for (var key in hash) {
+					var val = hash[key]
+					if (is.undef(val) || val === dst[key] || val == dst) continue
+					dst[key] = val
+				}
+			}
+		}
+	}
+	return dst
+}
+
+exports.keys = function(hash) {
+	var ret = []
+	if (hash) {
+		for (var key in hash) {
+			ret.push(key)
+		}
+	}
+	return ret
+}
+
+exports.extend = extend
+
+function fix(arr) {
+	if (!is.arraylike(arr)) arr = []
+	return arr
+}
+
+function identity(val) {
+	return val
+}
+
+exports.identity = identity
+
+var stopKey = 'stopOnFalse'
+
+function each(arr, fn, custom) {
+	if (!is.fn(fn)) fn = identity
+	var fixed = arr
+	if (!is.arraylike(arr)) fixed = []
+
+	var len = fixed.length
+	var opt = extend({}, custom)
+	
+	if (custom) {
+		var ints = ['from', 'end', 'step']
+		for (var i = 0; i < ints.length; i++) {
+			var val = +opt[ints[i]]
+			if (!is.int(val)) val = undefined
+			opt[ints[i]] = val
+		}
+	}
+
+	var from = opt.from || 0
+	var end = opt.end || len
+	var step = opt.step || 1
+
+	if (custom) {
+		if (from < 0) from = 0
+		if (end > len) end = len
+		if (from + step * Infinity <= end) return arr // cannot finish
+	}
+
+	if (opt.reverse) {
+		step = -step
+		var tmp = from
+		from = end
+		end = tmp
+	}
+
+	for (var i = from; i < end; i += step) {
+		var ret
+		if (opt.context) {
+			ret = fn.call(opt.context, arr[i], i, arr)
+		} else {
+			ret = fn(arr[i], i, arr)
+		}
+		if (opt[stopKey] && false === ret) break
+	}
+	return arr
+}
+
+exports.each = each
+
+exports.map = function(arr, fn) {
+	var ret = []
+	each(arr, function(item, i, arr) {
+		ret[i] = fn(item, i, arr)
+	})
+	return ret
+}
+
+exports.filter = function(arr, fn) {
+	var ret = []
+	each(arr, function(item, i, arr) {
+		var val = fn(item, i, arr)
+		if (val) ret.push(item)
+	})
+	return ret
+}
+
+exports.some = function(arr, fn) {
+	var ret = false
+	each(arr, function(item, i, arr) {
+		if (fn(item, i, arr)) {
+			ret = true
+			return false
+		}
+	})
+	return ret
+}
+
+exports.every = function(arr, fn) {
+	var ret = true
+	each(arr, function(item, i, arr) {
+		if (!fn(item, i, arr)) {
+			ret = false
+			return false
+		}
+	})
+	return ret
+}
+
+function slice(arr, from, end) {
+	var ret = []
+	each(arr, function(item) {
+		ret.push(item)
+	}, {
+		  from: from
+		, end: end
+	})
+	return ret
+}
+
+exports.slice = slice
+
+function indexOf(val, sub) {
+	if (is.str(val)) return val.indexOf(sub)
+	var ret = -1
+	each(val, function(item, i) {
+		if (item == sub) {
+			ret = i
+			return false
+		}
+	})
+	return ret
+}
+
+exports.indexOf = indexOf
+
+function has(val, sub) {
+	return -1 != indexOf(val, sub)
+}
+
+exports.has = has
+
+exports.uniq = function(arr) {
+	var ret = []
+	each(arr, function(item) {
+		if (!has(ret, item)) ret.push(item)
+	})
+	return ret
+}
+
+function reduce(arr, fn, prev) {
+	each(arr, function(item, i) {
+		prev = fn(prev, item, i, arr)
+	})
+	return prev
+}
+
+exports.reduce = reduce
+
+exports.only = function(obj, keys) {
+	obj = obj || {}
+	if (is.str(keys)) keys = keys.split(/ +/)
+	return reduce(keys, function(ret, key) {
+		if (null != obj[key]) ret[key] = obj[key]
+		return ret
+	}, {})
+}
+
+var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
+
+exports.trim = function(str) {
+	if (null == str) return ''
+	return ('' + str).replace(rtrim, '')
+}
+
+exports.flatten = function(arrs) {
+	var ret = []
+	each(arrs, function(arr) {
+		if (is.arraylike(arr)) {
+			each(arr, function(item) {
+				ret.push(item)
+			})
+		} else ret.push(arr)
+	})
+	return ret
+}
+
+exports.union = function() {
+	return exports.uniq(flatten(arguments))
+}
+
+exports.bind = function(fn, ctx) {
+	var args = slice(arguments, 2)
+	ctx = ctx || this
+	return function() {
+		return fn.apply(ctx, exports.flatten([args, arguments]))
+	}
+}
+
+// TODO inherit
