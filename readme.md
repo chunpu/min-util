@@ -24,7 +24,7 @@ var _ = require('min-util')
 
 #### Type Check
 
-`_.is` equal [min-is](https://github.com/chunpu/min-is)
+`_.is` equals [min-is](https://github.com/chunpu/min-is)
 
 ```js
 assert(_.is.arraylike({0: 'foo', length: 1}))
@@ -46,28 +46,26 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.flatten`
 - `_.union`
 
-
 #### String
 
 - `_.trim`
 
-
-#### Util
+#### Object
 
 - `_.extend`
 - `_.keys`
-- `_.inherit` TODO
+- `_.create`
+- `_.inherit`
 
 #### Function
 
 - `_.bind`
 
-
 Support
 ---
 
-
-even `IE6+`
+- all browsers even `IE6+`
+- node.js
 
 License
 ---
