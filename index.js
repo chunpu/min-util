@@ -221,4 +221,25 @@ exports.bind = function(fn, ctx) {
 	}
 }
 
-// TODO inherit
+exports.create = (function() {
+	function Ctor() {}
+	return function(proto, property) {
+		// not same as Object.create, Object.create(proto, propertyDescription)
+		if (property) {
+			proto = _.extend({}, proto, property)
+		}
+		if ('object' != typeof proto) {
+			// null is ok
+			proto = null
+		}
+		Ctor.prototype = proto
+		return new Ctor
+	}
+})()
+
+exports.inherits = function(ctor, superCtor) {
+	ctor.super_ = superCtor
+	ctor.prototype = _.create(superCtor.prototype, {
+		constructor: ctor
+	})
+}
