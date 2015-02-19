@@ -6,3 +6,4 @@ env:
   global:
   - SAUCE_USERNAME: chunpu
   - secure: By1VF8XeHXsgUCWUMrExlvLZvEPdYdLDzvLK3CizJprG/04EmlOuqZVcdtaKJPoQZDPEEmUX5eXBvbmkEML7zAsOdc5RiPcSNbxBuJTSqYXu910B88XIeKt6Q0T/q+Q43YfLLYPoe7pEteKaowmPgIH7Gkl8o7ZmFw70scXHjw4=
+after_script: "npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls"
