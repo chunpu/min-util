@@ -2,9 +2,18 @@ min-util
 ===
 
 [![Build status][travis-image]][travis-url]
-[![Test coverage][coveralls-image]][coveralls-url]
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][downloads-url]
+[![Dependency Status][david-image]][david-url]
+[npm-image]: https://img.shields.io/npm/v/min-util.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/min-util
+[downloads-image]: http://img.shields.io/npm/dm/min-util.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/min-util
+[david-image]: http://img.shields.io/david/chunpu/min-util.svg?style=flat-square
+[david-url]: https://david-dm.org/chunpu/min-util
+
+[![Test coverage][coveralls-image]][coveralls-url]
+[![Gittip][gittip-image]][gittip-url]
 
 Javascript Util Lib
 
@@ -12,7 +21,7 @@ Installation
 ---
 
 ```sh
-npm install min-util
+npm i min-util
 ```
 
 Usage
@@ -70,13 +79,13 @@ Support
 License
 ---
 
-ISC
+[![License][license-image]][license-url]
 
-[npm-image]: https://img.shields.io/npm/v/min-util.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/min-util
 [travis-image]: https://img.shields.io/travis/chunpu/min-util.svg?style=flat-square
 [travis-url]: https://travis-ci.org/chunpu/min-util
-[coveralls-image]: https://img.shields.io/coveralls/chunpu/min-util.svg?style=flat-square
+[coveralls-image]: https://img.shields.io/coveralls/chunpu/min-util/gh-pages.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/chunpu/min-util
-[downloads-image]: http://img.shields.io/npm/dm/min-util.svg?style=flat-square
-[downloads-url]: https://npmjs.org/package/min-util
+[gittip-image]: https://img.shields.io/gittip/chunpu.svg?style=flat-square
+[gittip-url]: https://www.gittip.com/chunpu/
+[license-image]: http://img.shields.io/npm/l/min-util.svg?style=flat-square
+[license-url]: #

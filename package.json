@@ -7,7 +7,7 @@
     "test": "npm run poor && npm run cov",
     "poor": "browserify *test*.js | poor -b ie:6..8,chrome -R dot",
     "cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test",
-    "readme": "pretty-readme coveralls > readme.md"
+    "readme": "pretty-readme coveralls gittip > readme.md"
   },
   "author": "chunpu",
   "license": "ISC",
