@@ -64,7 +64,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.extend`
 - `_.keys`
 - `_.create`
-- `_.inherit`
+- `_.inherits`
 
 #### Function
 
