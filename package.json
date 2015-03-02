@@ -1,12 +1,14 @@
 {
   "name": "min-util",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Javascript Util Lib",
   "main": "index.js",
   "scripts": {
-    "test": "npm run poor && npm run cov",
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test",
+    "test-travis": "npm run poor && npm test",
     "poor": "browserify *test*.js | poor -b ie:6..8,chrome -R dot",
-    "cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test",
+    "browser": "browserify . -s util > browser/browser.js",
+    "pregit": "npm run browser && npm run readme",
     "readme": "pretty-readme coveralls gittip > readme.md"
   },
   "author": "chunpu",

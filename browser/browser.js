@@ -1,3 +1,164 @@
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.util=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function (global){
+var is = exports
+
+var obj = Object.prototype
+
+is.browser = (function() {
+	return global.window == global
+})()
+
+// simple modern browser detect
+is.h5 = (function() {
+	if (is.browser && navigator.geolocation) {
+		return true
+	}
+	return false
+})()
+
+function _class(val) {
+	var name = obj.toString.call(val)
+	// [object Class]
+	return name.substring(8, name.length - 1).toLowerCase()
+}
+
+function _type(val) {
+	// undefined object boolean number string symbol function
+	return typeof val
+}
+
+function owns(owner, key) {
+	return obj.hasOwnProperty.call(owner, key)
+}
+
+is._class = _class
+
+is._type = _type
+
+is.owns = owns
+
+// not a number
+is.nan = function(val) {
+	return !is.num(val)
+}
+
+is.infinite = function(val) {
+	return val == Infinity || val == -Infinity
+}
+
+is.num = is.number = function(num) {
+	return !isNaN(num) && 'number' == _class(num)
+}
+
+// int or decimal
+is.iod = function(val) {
+	if (is.num(val) && !is.infinite(val)) {
+		return true
+	}
+	return false
+}
+
+is.decimal = function(val) {
+	if (is.iod(val)) {
+		return 0 != val % 1
+	}
+	return false
+}
+
+is.int = function(val) {
+	if (is.iod(val)) {
+		return 0 == val % 1
+	}
+	return false
+}
+
+// object or function
+is.oof = function(val) {
+	if (val) {
+		var tp = _type(val)
+		return 'object' == tp || 'function' == tp
+	}
+	return false
+}
+
+// regexp should return object
+is.obj = is.object = function(obj) {
+	return is.oof(obj) && 'function' != _class(obj)
+}
+
+is.hash = is.plainObject = function(hash) {
+	if (hash) {
+		if ('object' == _class(hash)) {
+			// old window is object
+			if (hash.nodeType || hash.setInterval) {
+				return false
+			}
+			return true
+		}
+	}
+	return false
+}
+
+is.undef = function(val) {
+	return 'undefined' == _type(val)
+}
+
+// host function should return function, e.g. alert
+is.fn = function(fn) {
+	return 'function' == _class(fn)
+}
+
+is.str = is.string = function(str) {
+	return 'string' == _class(str)
+}
+
+// number or string
+is.nos = function(val) {
+	return is.iod(val) || is.str(val)
+}
+
+is.array = function(arr) {
+	return 'array' == _class(arr)
+}
+
+is.arraylike = function(arr) {
+	if (is.obj(arr)) {
+		if (owns(arr, 'length')) {
+			var len = arr.length
+			if (is.int(len) && len >= 0) {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+is.empty = function(val) {
+	if (is.str(val) || is.arraylike(val)) {
+		return 0 === val.length
+	}
+	if (is.hash(val)) {
+		for (var key in val) {
+			if (owns(val, key)) {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+is.element = function(elem) {
+	if (is.obj(elem) && 1 === elem.nodeType) {
+		if (is.h5) {
+			return /element/.test(_class(elem))
+		}
+		return true
+	}
+	return false
+}
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],2:[function(require,module,exports){
 var is = require('min-is')
 
 var _ = exports
@@ -243,3 +404,6 @@ _.inherits = function(ctor, superCtor) {
 		constructor: ctor
 	})
 }
+
+},{"min-is":1}]},{},[2])(2)
+});

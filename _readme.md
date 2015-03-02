@@ -49,3 +49,8 @@ Support
 
 - all browsers even `IE6+`
 - node.js
+
+Try
+---
+
+Try in [console](http://chunpu.github.io/min-util/browser), exports as `util`

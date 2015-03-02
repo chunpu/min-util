@@ -6,4 +6,5 @@ env:
   global:
   - SAUCE_USERNAME: chunpu2
   - secure: ZTzsMmSlx1B4B6GGViNiqiFwk+m+n58J28tE7C6i0UMuXjYSa08tYz0P5oldAALebxhPj68dTBvgl2SKcikz0iHkxVD/3pI7Og2AZ724JLsW/d8N62elIH7aKWW+k1zJK+T6uBkqyo1IyV26Kd4jKam7Tlh6MfEQA7Y+lZNeO30=
+script: npm run test-travis
 after_script: npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls
