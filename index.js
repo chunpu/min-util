@@ -87,7 +87,8 @@ function each(arr, fn, custom) {
 		} else {
 			ret = fn(arr[i], i, arr)
 		}
-		if (opt[stopKey] && false === ret) break
+		// default is stop on false
+		if (false !== opt[stopKey] && false === ret) break
 	}
 	return arr
 }
@@ -127,6 +128,17 @@ _.every = function(arr, fn) {
 	each(arr, function(item, i, arr) {
 		if (!fn(item, i, arr)) {
 			ret = false
+			return false
+		}
+	})
+	return ret
+}
+
+_.find = function(arr, fn) {
+	var ret
+	each(arr, function(item, i, arr) {
+		if (fn(item, i, arr)) {
+			ret = item
 			return false
 		}
 	})

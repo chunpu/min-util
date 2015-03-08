@@ -58,6 +58,19 @@ describe('some', function() {
 	})
 })
 
+describe('find', function() {
+	it('should find first matched item', function() {
+		assert.equal(3, _.find([1, 2, 3, 4, 5], function(x) {
+			return x >= 3
+		}))
+	})
+	it('should find nothing', function() {
+		assert.equal(undefined, _.find([1, 2, 3, 4, 5], function(x) {
+			return x >= 10
+		}))
+	})
+})
+
 describe('every', function() {
 	it('should return true', function() {
 		assert(true === _.every([1, 2, 3, 4, 5], function(x) {

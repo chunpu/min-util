@@ -15,7 +15,7 @@ min-util
 [![Test coverage][coveralls-image]][coveralls-url]
 [![Gittip][gittip-image]][gittip-url]
 
-Javascript Util Lib
+Mini Javascript Util Lib
 
 Installation
 ---
