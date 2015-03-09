@@ -172,9 +172,11 @@ function extend(dst) {
 			var hash = arguments[i]
 			if (hash) {
 				for (var key in hash) {
-					var val = hash[key]
-					if (is.undef(val) || val === dst[key] || val == dst) continue
-					dst[key] = val
+					if (is.owns(hash, key)) {
+						var val = hash[key]
+						if (is.undef(val) || val === dst[key] || val == dst) continue
+						dst[key] = val
+					}
 				}
 			}
 		}
@@ -186,7 +188,9 @@ _.keys = function(hash) {
 	var ret = []
 	if (hash) {
 		for (var key in hash) {
-			ret.push(key)
+			if (is.owns(hash, key)) {
+				ret.push(key)
+			}
 		}
 	}
 	return ret
@@ -248,7 +252,8 @@ function each(arr, fn, custom) {
 		} else {
 			ret = fn(arr[i], i, arr)
 		}
-		if (opt[stopKey] && false === ret) break
+		// default is stop on false
+		if (false !== opt[stopKey] && false === ret) break
 	}
 	return arr
 }
@@ -288,6 +293,17 @@ _.every = function(arr, fn) {
 	each(arr, function(item, i, arr) {
 		if (!fn(item, i, arr)) {
 			ret = false
+			return false
+		}
+	})
+	return ret
+}
+
+_.find = function(arr, fn) {
+	var ret
+	each(arr, function(item, i, arr) {
+		if (fn(item, i, arr)) {
+			ret = item
 			return false
 		}
 	})

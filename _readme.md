@@ -18,6 +18,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.each`
 - `_.map`
 - `_.filter`
+- `_.find`
 - `_.some`
 - `_.every`
 - `_.slice`

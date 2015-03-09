@@ -11,9 +11,11 @@ function extend(dst) {
 			var hash = arguments[i]
 			if (hash) {
 				for (var key in hash) {
-					var val = hash[key]
-					if (is.undef(val) || val === dst[key] || val == dst) continue
-					dst[key] = val
+					if (is.owns(hash, key)) {
+						var val = hash[key]
+						if (is.undef(val) || val === dst[key] || val == dst) continue
+						dst[key] = val
+					}
 				}
 			}
 		}
@@ -25,7 +27,9 @@ _.keys = function(hash) {
 	var ret = []
 	if (hash) {
 		for (var key in hash) {
-			ret.push(key)
+			if (is.owns(hash, key)) {
+				ret.push(key)
+			}
 		}
 	}
 	return ret

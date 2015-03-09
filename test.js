@@ -156,6 +156,16 @@ describe('bind', function() {
 	})
 })
 
+describe('keys', function() {
+	it('should return key in hash, and hash owns key', function() {
+		function Ctor() {}
+		Ctor.prototype.foo = 'bar'
+		var hash = new Ctor
+		hash.key = 'val'
+		assert.deepEqual(_.keys(hash), ['key'])
+	})
+})
+
 describe('only', function() {
 	it('should support string', function() {
 		assert.deepEqual(_.only({
