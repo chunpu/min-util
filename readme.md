@@ -59,6 +59,8 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 #### String
 
 - `_.trim`
+- `_.indexOf`
+- `_.has`
 
 #### Object
 
@@ -70,6 +72,11 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 #### Function
 
 - `_.bind`
+
+#### Other
+
+- `_.noop`
+_ `_.identity` return arguments[0]
 
 Support
 ---

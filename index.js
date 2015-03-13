@@ -23,6 +23,8 @@ function extend(dst) {
 	return dst
 }
 
+_.noop = function() {}
+
 _.keys = function(hash) {
 	var ret = []
 	if (hash) {
