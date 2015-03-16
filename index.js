@@ -39,11 +39,6 @@ _.keys = function(hash) {
 
 _.extend = extend
 
-function fix(arr) {
-	if (!is.arraylike(arr)) arr = []
-	return arr
-}
-
 function identity(val) {
 	return val
 }
@@ -230,7 +225,7 @@ _.flatten = function(arrs) {
 }
 
 _.union = function() {
-	return _.uniq(flatten(arguments))
+	return _.uniq(_.flatten(arguments))
 }
 
 _.bind = function(fn, ctx) {

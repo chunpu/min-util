@@ -44,6 +44,19 @@ describe('each', function() {
 		})
 		assert.deepEqual(ret, arr)
 	})
+	it('cannot crash when fn is shit', function() {
+		_.each([1, 2, 3])
+		assert(true)
+	})
+})
+
+describe('map', function() {
+	it('should map array', function() {
+		var arr = _.map([1, 2, 3], function(x) {
+			return 2 * x
+		})
+		assert.deepEqual([2, 4, 6], arr)
+	})
 })
 
 describe('filter', function() {
@@ -150,6 +163,12 @@ describe('flatten', function() {
 	})
 })
 
+describe('union', function() {
+	it('should create a uniq array including all value in array', function() {
+		assert.deepEqual([1, 2, 4], _.union([1, 2], [4, 2], [2, 1]))
+	})
+})
+
 describe('bind', function() {
 	it('should support args', function(done) {
 		var fn = _.bind(function(a, b, c, d) {
@@ -187,5 +206,16 @@ describe('only', function() {
 			, c: 3
 			, d: 4
 		})
+	})
+})
+
+describe('inherits', function() {
+	it('should be instance', function() {
+		function SonCtor() {}
+		function ParentCtor() {}
+		_.inherits(SonCtor, ParentCtor)
+		var instance = new SonCtor
+		assert(instance instanceof SonCtor)
+		assert(instance instanceof ParentCtor)
 	})
 })
