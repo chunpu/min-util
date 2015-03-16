@@ -106,6 +106,20 @@ describe('every', function() {
 	})
 })
 
+describe('difference', function() {
+	it('should return new array without other', function() {
+		var arr = _.difference([1, 2, 3, 1, 2, 3], [1, 2])
+		assert.deepEqual([3, 3], arr)
+	})
+})
+
+describe('without', function() {
+	it('should return new array without args', function() {
+		var arr = _.without([1, 2, 3, 1, 2], 1)
+		assert.deepEqual([2, 3, 2], arr)
+	})
+})
+
 describe('slice', function() {
 	it('should create a new array', function() {
 		var arr = [1, 2, 3, 4]

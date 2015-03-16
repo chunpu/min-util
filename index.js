@@ -146,6 +146,21 @@ _.find = function(arr, fn) {
 	return ret
 }
 
+_.without = function(arr) {
+	var other = _.slice(arguments, 1)
+	return _.difference(arr, other)
+}
+
+_.difference = function(arr, other) {
+	var ret = []
+	_.each(arr, function(val) {
+		if (!_.has(other, val)) {
+			ret.push(val)
+		}
+	})
+	return ret
+}	
+
 function slice(arr, from, end) {
 	var ret = []
 	each(arr, function(item) {
