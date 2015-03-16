@@ -14,6 +14,15 @@ describe('extend', function() {
 			assert.deepEqual(_.extend(arr[i]), arr[i])
 		}
 	})
+	it('should work on this', function() {
+		var obj = {
+			add: function(val) {
+				_.extend(this, val)
+			}
+		}
+		obj.add({foo: true})
+		assert(true == obj.foo)
+	})
 })
 
 describe('each', function() {

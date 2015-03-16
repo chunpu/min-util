@@ -174,7 +174,7 @@ function extend(dst) {
 				for (var key in hash) {
 					if (is.owns(hash, key)) {
 						var val = hash[key]
-						if (is.undef(val) || val === dst[key] || val == dst) continue
+						if (is.undef(val) || val === dst[key] || val === dst) continue
 						dst[key] = val
 					}
 				}
