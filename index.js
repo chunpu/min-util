@@ -91,6 +91,7 @@ function each(arr, fn, custom) {
 		// default is stop on false
 		if (false !== opt[stopKey] && false === ret) break
 	}
+
 	return arr
 }
 
