@@ -31,6 +31,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.union`
 - `_.difference`
 - `_.without`
+- `_.asyncMap`
 
 #### String
 

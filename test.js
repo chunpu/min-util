@@ -120,6 +120,42 @@ describe('without', function() {
 	})
 })
 
+describe('async map', function() {
+	function delay(time, cb) {
+		var ok = true
+		if ('number' != typeof time) {
+			time = 10
+			ok = false
+		}
+		setTimeout(function() {
+			if (ok) return cb(null, time)
+			cb(new Error('time should be number: ' + time))
+		}, time)
+	}
+	it('should work all ok tasks', function(done) {
+		var start = +new Date
+		var hasDone = false
+		_.asyncMap([20, 10, 30], delay, function(err, rets) {
+			if (hasDone) assert(false, 'has done')
+			hasDone = true
+			assert(!err)
+			assert.deepEqual([20, 10, 30], rets)
+			var duration = +new Date - start
+			assert(duration < 35 && duration > 25)
+			done()
+		})
+	})
+	it('should cb error when one task os error', function(done) {
+		var hasDone = false
+		_.asyncMap([20, '30', 10], delay, function(err, rets) {
+			if (hasDone) assert(false, 'has done')
+			hasDone = true
+			assert(err)
+			done()
+		})
+	})
+})
+
 describe('slice', function() {
 	it('should create a new array', function() {
 		var arr = [1, 2, 3, 4]
@@ -168,6 +204,20 @@ describe('trim', function() {
 	it('should return empty when meet null', function() {
 		assert(_.trim() === '')
 		assert(_.trim(null) === '')
+	})
+})
+
+describe('capitalize', function() {
+	it('should ok', function() {
+		assert(_.capitalize('foo') == 'Foo')
+		assert(_.capitalize('bAr') == 'BAr')
+	})
+	it('should work with shit', function() {
+		assert(_.capitalize() == '')
+		assert(_.capitalize('') == '')
+		assert(_.capitalize(NaN) == '')
+		assert(_.capitalize(0) == '0')
+		assert(_.capitalize(_.capitalize).length > 10)
 	})
 })
 

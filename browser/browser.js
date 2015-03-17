@@ -252,6 +252,7 @@ function each(arr, fn, custom) {
 		// default is stop on false
 		if (false !== opt[stopKey] && false === ret) break
 	}
+
 	return arr
 }
 
@@ -322,6 +323,27 @@ _.difference = function(arr, other) {
 	return ret
 }	
 
+_.asyncMap = function(arr, fn, cb) {
+	var ret = []
+	var count = 0
+	var hasDone = false
+	each(arr, function(arg, i) {
+		fn(arg, function(err, val) {
+			if (hasDone) return
+			count++
+			if (err) {
+				hasDone = true
+				return cb(err)
+			}
+			ret[i] = val
+			if (count == arr.length) {
+				hasDone = true
+				cb(null, ret)
+			}
+		})
+	})
+}
+
 function slice(arr, from, end) {
 	var ret = []
 	each(arr, function(item) {
@@ -386,6 +408,14 @@ var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
 _.trim = function(str) {
 	if (null == str) return ''
 	return ('' + str).replace(rtrim, '')
+}
+
+_.capitalize = function(str) {
+	if (str || 0 == str) {
+		str += ''
+		return str.charAt(0).toUpperCase() + str.substr(1)
+	}
+	return ''
 }
 
 _.flatten = function(arrs) {
