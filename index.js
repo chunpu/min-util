@@ -169,8 +169,10 @@ _.difference = function(arr, other) {
 _.asyncMap = function(arr, fn, cb) {
 	var ret = []
 	var count = 0
-	var hasDone = false
+	var hasDone, hasStart
+
 	each(arr, function(arg, i) {
+		hasStart = true
 		fn(arg, function(err, val) {
 			if (hasDone) return
 			count++
@@ -185,6 +187,8 @@ _.asyncMap = function(arr, fn, cb) {
 			}
 		})
 	})
+
+	if (!hasStart) cb(null) // empty
 }
 
 function slice(arr, from, end) {

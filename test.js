@@ -164,6 +164,12 @@ describe('async map', function() {
 			done()
 		})
 	})
+	it('should work on empty', function(done) {
+		_.asyncMap(null, delay, function(err) {
+			assert(!err)
+			done()
+		})
+	})
 })
 
 describe('slice', function() {
