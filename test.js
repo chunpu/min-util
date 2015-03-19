@@ -231,6 +231,29 @@ describe('capitalize', function() {
 	})
 })
 
+describe('decapitalize', function() {
+	it('should ok', function() {
+		assert(_.decapitalize('Foo') == 'foo')
+		assert(_.decapitalize('BAr') == 'bAr')
+	})
+	it('should work with shit', function() {
+		assert(_.decapitalize() == '')
+		assert(_.decapitalize('') == '')
+		assert(_.decapitalize(NaN) == '')
+		assert(_.decapitalize(0) == '0')
+		assert(_.decapitalize(_.decapitalize).length > 10)
+	})
+})
+
+describe('camelCase', function() {
+	it('should ok', function() {
+		var str = _.camelCase('__foo_bar__ foo2 bar2* ')
+		assert.equal('fooBarFoo2Bar2', str)
+		var str = _.camelCase(' Foo BAR')
+		assert.equal('fooBAR', str)
+	})
+})
+
 describe('flatten', function() {
 	it('should flatten nested array', function() {
 		assert.deepEqual([1, 2, 3, [[4]]], _.flatten([1, [2], [3, [[4]]]]))

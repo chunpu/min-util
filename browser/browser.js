@@ -414,12 +414,30 @@ _.trim = function(str) {
 	return ('' + str).replace(rtrim, '')
 }
 
-_.capitalize = function(str) {
-	if (str || 0 == str) {
-		str += ''
-		return str.charAt(0).toUpperCase() + str.substr(1)
-	}
+_.tostr = tostr
+
+function tostr(str) {
+	if (str || 0 == str) return str + ''
 	return ''
+}
+
+_.capitalize = function(str) {
+	str = tostr(str)
+	return str.charAt(0).toUpperCase() + str.substr(1)
+}
+
+_.decapitalize = function(str) {
+	str = tostr(str)
+	return str.charAt(0).toLowerCase() + str.substr(1)
+}
+
+_.camelCase = function(str) {
+	str = tostr(str)
+	var arr = str.split(/[^\w]|_+/)
+	arr = _.map(arr, function(val) {
+		return _.capitalize(val)
+	})
+	return _.decapitalize(arr.join(''))
 }
 
 _.flatten = function(arrs) {

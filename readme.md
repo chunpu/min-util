@@ -63,7 +63,12 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 
 - `_.trim`
 - `_.indexOf`
+- `_.tostr`
+- `_.camelCase`
+- `_.capitalize`
+- `_.decapitalize`
 - `_.has`
+- `_.capitalize`
 
 #### Object
 
