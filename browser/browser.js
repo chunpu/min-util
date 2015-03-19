@@ -186,6 +186,10 @@ function extend(dst) {
 
 _.noop = function() {}
 
+_.now = function() {
+	return +new Date
+}
+
 _.keys = function(hash) {
 	var ret = []
 	if (hash) {
@@ -435,6 +439,11 @@ _.union = function() {
 }
 
 _.bind = function(fn, ctx) {
+	if (is.str(ctx)) {
+		var obj = fn
+		fn = obj[ctx]
+		ctx = obj
+	}
 	if (!is.fn(fn)) return fn
 	var args = slice(arguments, 2)
 	ctx = ctx || this

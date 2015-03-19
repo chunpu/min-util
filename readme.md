@@ -57,7 +57,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.union`
 - `_.difference`
 - `_.without`
-- `_.asyncMap`
+- `_.asyncMap` just like async.map
 
 #### String
 
@@ -79,6 +79,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 #### Other
 
 - `_.noop`
+- `_.now`
 - `_.identity` return arguments[0]
 
 Support

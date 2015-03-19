@@ -1,6 +1,16 @@
 var _ = require('./')
 var assert = require('assert')
 
+describe('basic', function() {
+	it('noop should do nothing', function() {
+		assert(undefined === _.noop())
+	})
+
+	it('now should return a date in ms', function() {
+		assert(_.now() > 1000)
+	})
+})
+
 describe('extend', function() {
 	it('should basic extend', function() {
 		var a = {a: 1, b: 2}
@@ -245,6 +255,17 @@ describe('bind', function() {
 		}, {a: 1}, 2, 3)
 
 		fn(4)
+	})
+
+	it('work like jQuery', function() {
+		var obj = {
+			sum: function(x) {
+				return this.val + x
+			},
+			val: 10
+		}
+		var fn = _.bind(obj, 'sum', 5)
+		assert(fn() == 15)
 	})
 })
 

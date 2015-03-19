@@ -1,6 +1,6 @@
 {
   "name": "min-util",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "Mini Javascript Util Lib",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "test-travis": "npm run poor && npm test",
     "poor": "browserify *test*.js | poor -b ie:6..8,chrome -R dot",
     "browser": "browserify . -s _ > browser/browser.js",
-    "pregit": "npm run browser && npm run readme && npm run poor",
+    "pregit": "npm run browser && npm run readme",
     "readme": "pretty-readme coveralls gittip > readme.md"
   },
   "author": "chunpu",
