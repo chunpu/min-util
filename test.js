@@ -58,6 +58,16 @@ describe('each', function() {
 		_.each([1, 2, 3])
 		assert(true)
 	})
+	it('run belong 0 ~ arr.length', function() {
+		var arr = []
+		_.each([1, 2, 3], function(val) {
+			arr.push(val)
+		}, {
+			start: -100,
+			end: 100
+		})
+		assert.deepEqual([1, 2, 3], arr)
+	})
 })
 
 describe('map', function() {

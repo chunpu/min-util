@@ -53,12 +53,11 @@ var stopKey = 'stopOnFalse'
 
 function each(arr, fn, custom) {
 	if (!is.fn(fn)) fn = identity
-	var fixed = arr
-	if (!is.arraylike(arr)) fixed = []
+	if (!is.arraylike(arr)) arr = []
 
-	var len = fixed.length
+	var len = arr.length
 	var opt = extend({}, custom)
-	
+
 	if (custom) {
 		var ints = ['from', 'end', 'step']
 		for (var i = 0; i < ints.length; i++) {
@@ -76,13 +75,6 @@ function each(arr, fn, custom) {
 		if (from < 0) from = 0
 		if (end > len) end = len
 		if (from + step * Infinity <= end) return arr // cannot finish
-	}
-
-	if (opt.reverse) {
-		step = -step
-		var tmp = from
-		from = end
-		end = tmp
 	}
 
 	for (var i = from; i < end; i += step) {
