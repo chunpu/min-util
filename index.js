@@ -6,7 +6,7 @@ _.is = is
 
 function extend(dst) {
 	var len = arguments.length
-	if (len > 1) {
+	if (dst && len > 1) {
 		for (var i = 1; i < len; i++) {
 			var hash = arguments[i]
 			if (hash) {

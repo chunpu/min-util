@@ -24,6 +24,10 @@ describe('extend', function() {
 			assert.deepEqual(_.extend(arr[i]), arr[i])
 		}
 	})
+	it('not crash when get shit', function() {
+		var ret = _.extend(null, {foo: true})
+		assert.deepEqual(ret, null)
+	})
 	it('should work on this', function() {
 		var obj = {
 			add: function(val) {
@@ -330,6 +334,13 @@ describe('only', function() {
 			, c: 3
 			, d: 4
 		})
+	})
+})
+
+describe('create', function() {
+	it('not crash when meet null', function() {
+		var ret = _.create(null)
+		assert.deepEqual([], _.keys(ret))
 	})
 })
 
