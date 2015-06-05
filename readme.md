@@ -31,6 +31,8 @@ Usage
 var _ = require('min-util')
 ```
 
+Inspired by [lodash](https://github.com/lodash/lodash) and [underscore](https://github.com/jashkenas/underscore)
+
 #### Type Check
 
 `_.is` equals [min-is](https://github.com/chunpu/min-is)
@@ -74,6 +76,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 
 - `_.extend`
 - `_.keys`
+- `_.mapObject`
 - `_.create`
 - `_.inherits`
 

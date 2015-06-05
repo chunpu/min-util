@@ -1,6 +1,7 @@
 var _ = require('./')
 var assert = require('assert')
 
+// Util
 describe('basic', function() {
 	it('noop should do nothing', function() {
 		assert(undefined === _.noop())
@@ -10,6 +11,19 @@ describe('basic', function() {
 		assert(_.now() > 1000)
 	})
 })
+
+describe('constant', function() {
+	it('return function return same val', function() {
+		var obj = {
+			foo: 'bar'
+		}
+		var getter = _.constant(obj)
+		assert(obj === getter())
+	})
+})
+
+
+// Object
 
 describe('extend', function() {
 	it('should basic extend', function() {
@@ -38,6 +52,9 @@ describe('extend', function() {
 		assert(true == obj.foo)
 	})
 })
+
+
+// Iteration
 
 describe('each', function() {
 	it('never run empty', function() {
@@ -91,6 +108,14 @@ describe('filter', function() {
 	})
 })
 
+describe('reject', function() {
+	it('should be opposite of filter', function() {
+		assert.deepEqual([1, 3], _.reject([1, 2, 3, 4], function(val) {
+			return 0 == val % 2
+		}))
+	})
+})
+
 describe('some', function() {
 	it('should return true', function() {
 		assert(true === _.some([1, 2, 3, 4, 5], function(x) {
@@ -141,6 +166,21 @@ describe('without', function() {
 	it('should return new array without args', function() {
 		var arr = _.without([1, 2, 3, 1, 2], 1)
 		assert.deepEqual([2, 3, 2], arr)
+	})
+})
+
+describe('pluck', function() {
+	it('should pluck value of each item', function() {
+		var users = [{
+			foo: 1,
+			bar: 2
+		}, {
+			foo: 3,
+			bar: 4
+		}]
+		assert.deepEqual([2, 4], _.pluck(users, 'bar'))
+
+		assert.deepEqual([undefined, undefined, undefined], _.pluck([null, 0, undefined], 'foo'))
 	})
 })
 
@@ -223,6 +263,9 @@ describe('uniq', function() {
 	})
 })
 
+
+// String
+
 describe('trim', function() {
 	it('should ok', function() {
 		assert(_.trim('  qq  ') == 'qq')
@@ -300,7 +343,7 @@ describe('bind', function() {
 		fn(4)
 	})
 
-	it('work like jQuery', function() {
+	it('work like jQuery proxy', function() {
 		var obj = {
 			sum: function(x) {
 				return this.val + x
@@ -319,6 +362,44 @@ describe('keys', function() {
 		var hash = new Ctor
 		hash.key = 'val'
 		assert.deepEqual(_.keys(hash), ['key'])
+	})
+})
+
+describe('values', function() {
+	it('should return value in hash', function() {
+		assert.deepEqual([1, 2], _.values({
+			a: 1,
+			b: 2
+		}))
+	})
+})
+
+describe('mapObject', function() {
+	it('should return a new object map by raw', function() {
+		var raw = {a: 1, b: 2}
+		var ret = _.mapObject(raw, function(val, key, obj) {
+			assert(raw === obj)
+			assert(val === obj[key])
+			return val * 2
+		})
+		assert.deepEqual({
+			a: 2,
+			b: 4
+		}, ret)
+
+		assert.deepEqual({}, _.mapObject(null, function(val) {
+			return val * 2
+		}))
+	})
+})
+
+describe('get', function() {
+	it('should get value at path array', function() {
+		var obj = {a: [{b: {c: 3}}]}
+		assert.equal(3, _.get(obj, ['a', 0, 'b', 'c']))
+		assert.equal(undefined, _.get(obj, ['a', 0, 'b', 'c', 'x']))
+		assert.equal(undefined, _.get(obj, ['x']))
+		assert.equal(undefined, _.get(obj, null))
 	})
 })
 

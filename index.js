@@ -4,6 +4,8 @@ var _ = exports
 
 _.is = is
 
+// Object
+
 function extend(dst) {
 	var len = arguments.length
 	if (dst && len > 1) {
@@ -41,13 +43,52 @@ _.keys = function(hash) {
 	return ret
 }
 
+_.values = function(hash) {
+	return _.map(_.keys(hash), function(key) {
+		return hash[key]
+	})
+}
+
+_.mapObject = function(obj, fn) {
+	var ret = {}
+	each(_.keys(obj), function(key) {
+		ret[key] = fn(obj[key], key, obj)
+	})
+	return ret
+}
+
+_.get = function(obj, arr) {
+	var hasStart = false
+	var flag = _.every(arr, function(key) {
+		hasStart = true
+		if (null != obj && key in Object(obj)) {
+			obj = obj[key]
+			return true
+		}
+	})
+	if (hasStart && flag) return obj
+}
+
 _.extend = extend
+
+
+// Util
+
+_.constant = function(val) {
+	return function() {
+		return val
+	}
+}
 
 function identity(val) {
 	return val
 }
 
 _.identity = identity
+
+
+
+// Iteration
 
 var stopKey = 'stopOnFalse'
 
@@ -110,6 +151,12 @@ _.filter = function(arr, fn) {
 	return ret
 }
 
+_.reject = function(arr, fn) {
+	return _.filter(arr, function(val, i, arr) {
+		return !fn(val, i, arr)
+	})
+}
+
 _.some = function(arr, fn) {
 	var ret = false
 	each(arr, function(item, i, arr) {
@@ -156,7 +203,13 @@ _.difference = function(arr, other) {
 		}
 	})
 	return ret
-}	
+}
+
+_.pluck = function(arr, key) {
+	return _.map(arr, function(item) {
+		if (item) return item[key]
+	})
+}
 
 _.asyncMap = function(arr, fn, cb) {
 	var ret = []
@@ -241,6 +294,9 @@ _.only = function(obj, keys) {
 		return ret
 	}, {})
 }
+
+
+// String
 
 var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
 

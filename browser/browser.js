@@ -148,13 +148,14 @@ is.empty = function(val) {
 }
 
 is.element = function(elem) {
-	if (is.obj(elem) && 1 === elem.nodeType) {
-		if (is.h5) {
-			return /element/.test(_class(elem))
-		}
+	if (elem && 1 === elem.nodeType) {
 		return true
 	}
 	return false
+}
+
+is.regexp = function(val) {
+	return 'regexp' == _class(val)
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
@@ -165,9 +166,11 @@ var _ = exports
 
 _.is = is
 
+// Object
+
 function extend(dst) {
 	var len = arguments.length
-	if (len > 1) {
+	if (dst && len > 1) {
 		for (var i = 1; i < len; i++) {
 			var hash = arguments[i]
 			if (hash) {
@@ -202,7 +205,42 @@ _.keys = function(hash) {
 	return ret
 }
 
+_.values = function(hash) {
+	return _.map(_.keys(hash), function(key) {
+		return hash[key]
+	})
+}
+
+_.mapObject = function(obj, fn) {
+	var ret = {}
+	each(_.keys(obj), function(key) {
+		ret[key] = fn(obj[key], key, obj)
+	})
+	return ret
+}
+
+_.get = function(obj, arr) {
+	var hasStart = false
+	var flag = _.every(arr, function(key) {
+		hasStart = true
+		if (null != obj && key in Object(obj)) {
+			obj = obj[key]
+			return true
+		}
+	})
+	if (hasStart && flag) return obj
+}
+
 _.extend = extend
+
+
+// Util
+
+_.constant = function(val) {
+	return function() {
+		return val
+	}
+}
 
 function identity(val) {
 	return val
@@ -210,16 +248,19 @@ function identity(val) {
 
 _.identity = identity
 
+
+
+// Iteration
+
 var stopKey = 'stopOnFalse'
 
 function each(arr, fn, custom) {
 	if (!is.fn(fn)) fn = identity
-	var fixed = arr
-	if (!is.arraylike(arr)) fixed = []
+	if (!is.arraylike(arr)) arr = []
 
-	var len = fixed.length
+	var len = arr.length
 	var opt = extend({}, custom)
-	
+
 	if (custom) {
 		var ints = ['from', 'end', 'step']
 		for (var i = 0; i < ints.length; i++) {
@@ -237,13 +278,6 @@ function each(arr, fn, custom) {
 		if (from < 0) from = 0
 		if (end > len) end = len
 		if (from + step * Infinity <= end) return arr // cannot finish
-	}
-
-	if (opt.reverse) {
-		step = -step
-		var tmp = from
-		from = end
-		end = tmp
 	}
 
 	for (var i = from; i < end; i += step) {
@@ -277,6 +311,12 @@ _.filter = function(arr, fn) {
 		if (val) ret.push(item)
 	})
 	return ret
+}
+
+_.reject = function(arr, fn) {
+	return _.filter(arr, function(val, i, arr) {
+		return !fn(val, i, arr)
+	})
 }
 
 _.some = function(arr, fn) {
@@ -325,7 +365,13 @@ _.difference = function(arr, other) {
 		}
 	})
 	return ret
-}	
+}
+
+_.pluck = function(arr, key) {
+	return _.map(arr, function(item) {
+		if (item) return item[key]
+	})
+}
 
 _.asyncMap = function(arr, fn, cb) {
 	var ret = []
@@ -410,6 +456,9 @@ _.only = function(obj, keys) {
 		return ret
 	}, {})
 }
+
+
+// String
 
 var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
 
