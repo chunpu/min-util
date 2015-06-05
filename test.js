@@ -1,6 +1,13 @@
 var _ = require('./')
 var assert = require('assert')
 
+// Test
+describe('test', function() {
+	it('should support browser feature', function() {
+
+	})
+})
+
 // Util
 describe('basic', function() {
 	it('noop should do nothing', function() {
@@ -180,7 +187,7 @@ describe('pluck', function() {
 		}]
 		assert.deepEqual([2, 4], _.pluck(users, 'bar'))
 
-		assert.deepEqual([undefined, undefined, undefined], _.pluck([null, 0, undefined], 'foo'))
+		assert.deepEqual([], _.without(_.pluck([null, 0, undefined], 'foo'), undefined))
 	})
 })
 
