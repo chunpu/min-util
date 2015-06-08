@@ -1,91 +1,7 @@
 var is = require('min-is')
 
 var _ = exports
-
 _.is = is
-
-// Object
-
-function extend(dst) {
-	var len = arguments.length
-	if (dst && len > 1) {
-		for (var i = 1; i < len; i++) {
-			var hash = arguments[i]
-			if (hash) {
-				for (var key in hash) {
-					if (is.owns(hash, key)) {
-						var val = hash[key]
-						if (is.undef(val) || val === dst[key] || val === dst) continue
-						dst[key] = val
-					}
-				}
-			}
-		}
-	}
-	return dst
-}
-
-_.noop = function() {}
-
-_.now = function() {
-	return +new Date
-}
-
-_.keys = function(hash) {
-	var ret = []
-	if (hash) {
-		for (var key in hash) {
-			if (is.owns(hash, key)) {
-				ret.push(key)
-			}
-		}
-	}
-	return ret
-}
-
-_.values = function(hash) {
-	return _.map(_.keys(hash), function(key) {
-		return hash[key]
-	})
-}
-
-_.mapObject = function(obj, fn) {
-	var ret = {}
-	each(_.keys(obj), function(key) {
-		ret[key] = fn(obj[key], key, obj)
-	})
-	return ret
-}
-
-_.get = function(obj, arr) {
-	var hasStart = false
-	var flag = _.every(arr, function(key) {
-		hasStart = true
-		if (null != obj && key in Object(obj)) {
-			obj = obj[key]
-			return true
-		}
-	})
-	if (hasStart && flag) return obj
-}
-
-_.extend = extend
-
-
-// Util
-
-_.constant = function(val) {
-	return function() {
-		return val
-	}
-}
-
-function identity(val) {
-	return val
-}
-
-_.identity = identity
-
 
 
 // Iteration
@@ -303,6 +219,86 @@ _.only = function(obj, keys) {
 }
 
 
+// Object
+
+function extend(dst) {
+	var len = arguments.length
+	if (dst && len > 1) {
+		for (var i = 1; i < len; i++) {
+			var hash = arguments[i]
+			if (hash) {
+				for (var key in hash) {
+					if (is.owns(hash, key)) {
+						var val = hash[key]
+						if (is.undef(val) || val === dst[key] || val === dst) continue
+						dst[key] = val
+					}
+				}
+			}
+		}
+	}
+	return dst
+}
+
+
+_.keys = function(hash) {
+	var ret = []
+	if (hash) {
+		for (var key in hash) {
+			if (is.owns(hash, key)) {
+				ret.push(key)
+			}
+		}
+	}
+	return ret
+}
+
+_.values = function(hash) {
+	return _.map(_.keys(hash), function(key) {
+		return hash[key]
+	})
+}
+
+_.mapObject = function(obj, fn) {
+	var ret = {}
+	each(_.keys(obj), function(key) {
+		ret[key] = fn(obj[key], key, obj)
+	})
+	return ret
+}
+
+_.get = function(obj, arr) {
+	var hasStart = false
+	var flag = _.every(arr, function(key) {
+		hasStart = true
+		if (null != obj && key in Object(obj)) {
+			obj = obj[key]
+			return true
+		}
+	})
+	if (hasStart && flag) return obj
+}
+
+_.extend = extend
+
+
+// Function
+
+_.bind = function(fn, ctx) {
+	if (is.str(ctx)) {
+		var obj = fn
+		fn = obj[ctx]
+		ctx = obj
+	}
+	if (!is.fn(fn)) return fn
+	var args = slice(arguments, 2)
+	ctx = ctx || this
+	return function() {
+		return fn.apply(ctx, _.flatten([args, arguments]))
+	}
+}
+
+
 // String
 
 var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
@@ -354,20 +350,6 @@ _.union = function() {
 	return _.uniq(_.flatten(arguments))
 }
 
-_.bind = function(fn, ctx) {
-	if (is.str(ctx)) {
-		var obj = fn
-		fn = obj[ctx]
-		ctx = obj
-	}
-	if (!is.fn(fn)) return fn
-	var args = slice(arguments, 2)
-	ctx = ctx || this
-	return function() {
-		return fn.apply(ctx, _.flatten([args, arguments]))
-	}
-}
-
 _.create = (function() {
 	function Object() {} // so it seems like Object.create
 	return function(proto, property) {
@@ -387,3 +369,24 @@ _.inherits = function(ctor, superCtor) {
 		constructor: ctor
 	})
 }
+
+
+// Util
+
+_.noop = function() {}
+
+_.now = function() {
+	return +new Date
+}
+
+_.constant = function(val) {
+	return function() {
+		return val
+	}
+}
+
+function identity(val) {
+	return val
+}
+
+_.identity = identity

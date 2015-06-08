@@ -46,21 +46,65 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.each`
 - `_.map`
 - `_.filter`
-- `_.findIndex`
-- `_.find`
 - `_.some`
 - `_.every`
+- `_.reduce`
+- `_.reject`
+- `_.invoke` TODO
+- `_.findIndex`
+- `_.find`
 - `_.slice`
 - `_.indexOf`
 - `_.has`
 - `_.uniq`
-- `_.reduce`
-- `_.only`
 - `_.flatten`
 - `_.union`
 - `_.difference`
 - `_.without`
 - `_.asyncMap` just like async.map
+- `_.rest` TODO
+- `_.compact` TODO
+- `_.size` TODO
+- `_.partition` TODO
+
+
+#### Object
+
+- `_.extend`
+- `_.keys`
+- `_.only`
+- `_.mapObject`
+- `_.create`
+- `_.get`
+- `_.set` TODO
+- `_.pick` TODO
+- `_.defaults` TODO
+- `_.has` TODO
+- `_.isMatch` TODO
+- `_.toPlainObject` TODO
+- `_.size` TODO
+
+
+#### Function
+
+- `_.bind`
+- `_.once` TODO
+- `_.memoize` TODO
+- `_.throttle` TODO
+- `_.debounce` TODO
+- `_.flow` TODO
+- `_.flowRight` `_.compose` TODO
+- `_.delay` TODO
+- `_.defer` TODO
+- `_.after` TODO
+- `_.before` TODO
+- `_.spread` TODO
+- `_.ary` TODO
+- `_.curry` TODO
+- `_.curryRight` TODO
+- `_.wrap` TODO
+- `_.negate` TODO
+
 
 #### String
 
@@ -72,24 +116,19 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.decapitalize`
 - `_.has`
 - `_.capitalize`
+- `_.size` TODO
 
-#### Object
 
-- `_.extend`
-- `_.keys`
-- `_.mapObject`
-- `_.create`
-- `_.inherits`
-
-#### Function
-
-- `_.bind`
-
-#### Other
+#### Utility
 
 - `_.noop`
 - `_.now`
+- `_.inherits`
 - `_.identity` return arguments[0]
+- `_.random` TODO
+- `_.uniqueId` TODO
+
+TODO
 
 Support
 ---
