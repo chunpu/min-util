@@ -136,6 +136,19 @@ describe('some', function() {
 	})
 })
 
+describe('findIndex', function() {
+	it('should find first matched item', function() {
+		assert.equal(2, _.findIndex([1, 2, 3, 4, 5], function(x) {
+			return x >= 3
+		}))
+	})
+	it('should find nothing', function() {
+		assert.equal(-1, _.findIndex([1, 2, 3, 4, 5], function(x) {
+			return x >= 10
+		}))
+	})
+})
+
 describe('find', function() {
 	it('should find first matched item', function() {
 		assert.equal(3, _.find([1, 2, 3, 4, 5], function(x) {

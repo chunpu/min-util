@@ -179,15 +179,22 @@ _.every = function(arr, fn) {
 	return ret
 }
 
-_.find = function(arr, fn) {
-	var ret
+_.findIndex = function(arr, fn) {
+	var ret = -1
 	each(arr, function(item, i, arr) {
 		if (fn(item, i, arr)) {
-			ret = item
+			ret = i
 			return false
 		}
 	})
 	return ret
+}
+
+_.find = function(arr, fn) {
+	var index = _.findIndex(arr, fn)
+	if (-1 != index) {
+		return arr[index]
+	}
 }
 
 _.without = function(arr) {
