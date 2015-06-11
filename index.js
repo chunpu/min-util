@@ -1,116 +1,18 @@
-var is = require('min-is')
+//var is = require('min-is')
+var cou = require('cou')
 
-var _ = exports
-_.is = is
+var _ = cou.extend(exports, cou)
+var is = _.is
 
-
-// Iteration
-
-var stopKey = 'stopOnFalse'
-
-function each(arr, fn, custom) {
-	if (!is.fn(fn)) fn = identity
-	if (!is.arraylike(arr)) arr = []
-
-	var len = arr.length
-	var opt = extend({}, custom)
-
-	if (custom) {
-		var ints = ['from', 'end', 'step']
-		for (var i = 0; i < ints.length; i++) {
-			var val = +opt[ints[i]]
-			if (!is.int(val)) val = undefined
-			opt[ints[i]] = val
-		}
-	}
-
-	var from = opt.from || 0
-	var end = opt.end || len
-	var step = opt.step || 1
-
-	if (custom) {
-		if (from < 0) from = 0
-		if (end > len) end = len
-		if (from + step * Infinity <= end) return arr // cannot finish
-	}
-
-	for (var i = from; i < end; i += step) {
-		var ret
-		if (opt.context) {
-			ret = fn.call(opt.context, arr[i], i, arr)
-		} else {
-			ret = fn(arr[i], i, arr)
-		}
-		// default is stop on false
-		if (false !== opt[stopKey] && false === ret) break
-	}
-
-	return arr
-}
-
-_.each = each
-
-_.map = function(arr, fn) {
-	var ret = []
-	each(arr, function(item, i, arr) {
-		ret[i] = fn(item, i, arr)
-	})
-	return ret
-}
-
-_.filter = function(arr, fn) {
-	var ret = []
-	each(arr, function(item, i, arr) {
-		var val = fn(item, i, arr)
-		if (val) ret.push(item)
-	})
-	return ret
-}
+var each = _.each
+var slice = _.slice
+var has = _.has
+var extend = _.extend
 
 _.reject = function(arr, fn) {
 	return _.filter(arr, function(val, i, arr) {
 		return !fn(val, i, arr)
 	})
-}
-
-_.some = function(arr, fn) {
-	var ret = false
-	each(arr, function(item, i, arr) {
-		if (fn(item, i, arr)) {
-			ret = true
-			return false
-		}
-	})
-	return ret
-}
-
-_.every = function(arr, fn) {
-	var ret = true
-	each(arr, function(item, i, arr) {
-		if (!fn(item, i, arr)) {
-			ret = false
-			return false
-		}
-	})
-	return ret
-}
-
-_.findIndex = function(arr, fn) {
-	var ret = -1
-	each(arr, function(item, i, arr) {
-		if (fn(item, i, arr)) {
-			ret = i
-			return false
-		}
-	})
-	return ret
-}
-
-_.find = function(arr, fn) {
-	var index = _.findIndex(arr, fn)
-	if (-1 != index) {
-		return arr[index]
-	}
 }
 
 _.without = function(arr) {
@@ -159,39 +61,6 @@ _.asyncMap = function(arr, fn, cb) {
 	if (!hasStart) cb(null) // empty
 }
 
-function slice(arr, from, end) {
-	var ret = []
-	each(arr, function(item) {
-		ret.push(item)
-	}, {
-		  from: from
-		, end: end
-	})
-	return ret
-}
-
-_.slice = slice
-
-function indexOf(val, sub) {
-	if (is.str(val)) return val.indexOf(sub)
-	var ret = -1
-	each(val, function(item, i) {
-		if (item == sub) {
-			ret = i
-			return false
-		}
-	})
-	return ret
-}
-
-_.indexOf = indexOf
-
-function has(val, sub) {
-	return -1 != indexOf(val, sub)
-}
-
-_.has = has
-
 _.uniq = function(arr) {
 	var ret = []
 	each(arr, function(item) {
@@ -200,57 +69,13 @@ _.uniq = function(arr) {
 	return ret
 }
 
-function reduce(arr, fn, prev) {
-	each(arr, function(item, i) {
-		prev = fn(prev, item, i, arr)
-	})
-	return prev
-}
-
-_.reduce = reduce
-
 _.only = function(obj, keys) {
 	obj = obj || {}
 	if (is.str(keys)) keys = keys.split(/ +/)
-	return reduce(keys, function(ret, key) {
+	return _.reduce(keys, function(ret, key) {
 		if (null != obj[key]) ret[key] = obj[key]
 		return ret
 	}, {})
-}
-
-
-// Object
-
-function extend(dst) {
-	var len = arguments.length
-	if (dst && len > 1) {
-		for (var i = 1; i < len; i++) {
-			var hash = arguments[i]
-			if (hash) {
-				for (var key in hash) {
-					if (is.owns(hash, key)) {
-						var val = hash[key]
-						if (is.undef(val) || val === dst[key] || val === dst) continue
-						dst[key] = val
-					}
-				}
-			}
-		}
-	}
-	return dst
-}
-
-
-_.keys = function(hash) {
-	var ret = []
-	if (hash) {
-		for (var key in hash) {
-			if (is.owns(hash, key)) {
-				ret.push(key)
-			}
-		}
-	}
-	return ret
 }
 
 _.values = function(hash) {
@@ -279,9 +104,6 @@ _.get = function(obj, arr) {
 	if (hasStart && flag) return obj
 }
 
-_.extend = extend
-
-
 // Function
 
 _.bind = function(fn, ctx) {
@@ -296,16 +118,6 @@ _.bind = function(fn, ctx) {
 	return function() {
 		return fn.apply(ctx, _.flatten([args, arguments]))
 	}
-}
-
-
-// String
-
-var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
-
-_.trim = function(str) {
-	if (null == str) return ''
-	return ('' + str).replace(rtrim, '')
 }
 
 _.tostr = tostr
@@ -372,9 +184,9 @@ _.inherits = function(ctor, superCtor) {
 
 
 // Util
-
+/*
 _.noop = function() {}
-
+*/
 _.now = function() {
 	return +new Date
 }

@@ -198,7 +198,7 @@ describe('slice', function() {
 		assert.deepEqual(_.slice([1, 2, 3], 3, 2), [])
 	})
 	it('should auto adjust when out of range', function() {
-		assert.deepEqual(_.slice([1, 2, 3], -1, 100), [1, 2, 3])
+		assert.deepEqual(_.slice([1, 2, 3], -1, 100), [3])
 	})
 })
 
