@@ -1,14 +1,14 @@
 {
   "name": "min-util",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Mini Javascript Util Lib",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test",
     "test-travis": "npm run poor && npm test",
     "poor": "browserify test/* | poor -b ie:6..8,chrome -R dot",
     "browser": "browserify . -s _ > browser/browser.js",
-    "pregit": "sed -i 's/\\s*$//' *.js src/* test/* && npm run browser && npm run readme",
+    "pregit": "sed -i 's/\\s*$//' src/* test/* && npm run browser && npm run readme",
     "readme": "pretty-readme coveralls gittip > readme.md"
   },
   "author": "chunpu",

@@ -415,7 +415,7 @@ _.union = function() {
 }
 
 
-},{"./":5}],4:[function(require,module,exports){
+},{"./":undefined}],4:[function(require,module,exports){
 var _ = module.exports = require('./')
 
 var is = _.is
@@ -443,19 +443,7 @@ _.inherits = function(ctor, superCtor) {
 }
 
 
-},{"./":5}],5:[function(require,module,exports){
-var cou = require('cou')
-
-var _ = cou.extend(exports, cou)
-
-require('./array')
-require('./object')
-require('./function')
-require('./util')
-require('./string')
-
-
-},{"./array":3,"./function":4,"./object":6,"./string":7,"./util":8,"cou":1}],6:[function(require,module,exports){
+},{"./":undefined}],5:[function(require,module,exports){
 var _ = module.exports = require('./')
 
 var is = _.is
@@ -510,7 +498,7 @@ _.create = (function() {
 })()
 
 
-},{"./":5}],7:[function(require,module,exports){
+},{"./":undefined}],6:[function(require,module,exports){
 var _ = module.exports = require('./')
 
 _.tostr = tostr
@@ -539,7 +527,7 @@ function tostr(str) {
 	return ''
 }
 
-},{"./":5}],8:[function(require,module,exports){
+},{"./":undefined}],7:[function(require,module,exports){
 var _ = module.exports = require('./')
 
 _.now = function() {
@@ -556,8 +544,17 @@ _.identity = function(val) {
 	return val
 }
 
-},{"./":5}],9:[function(require,module,exports){
-module.exports = require('./src')
+},{"./":undefined}],8:[function(require,module,exports){
+var cou = require('cou')
 
-},{"./src":5}]},{},[9])(9)
+var _ = cou.extend(exports, cou)
+
+require('./array')
+require('./object')
+require('./function')
+require('./util')
+require('./string')
+
+
+},{"./array":3,"./function":4,"./object":5,"./string":6,"./util":7,"cou":1}]},{},[8])(8)
 });
