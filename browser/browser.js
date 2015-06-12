@@ -332,16 +332,11 @@ is.regexp = function(val) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(require,module,exports){
-//var is = require('min-is')
-var cou = require('cou')
-
-var _ = cou.extend(exports, cou)
-var is = _.is
+var _ = module.exports = require('./')
 
 var each = _.each
-var slice = _.slice
 var has = _.has
-var extend = _.extend
+var is = _.is
 
 _.reject = function(arr, fn) {
 	return _.filter(arr, function(val, i, arr) {
@@ -403,6 +398,69 @@ _.uniq = function(arr) {
 	return ret
 }
 
+_.flatten = function(arrs) {
+	var ret = []
+	each(arrs, function(arr) {
+		if (is.arraylike(arr)) {
+			each(arr, function(item) {
+				ret.push(item)
+			})
+		} else ret.push(arr)
+	})
+	return ret
+}
+
+_.union = function() {
+	return _.uniq(_.flatten(arguments))
+}
+
+
+},{"./":5}],4:[function(require,module,exports){
+var _ = module.exports = require('./')
+
+var is = _.is
+var slice = _.slice
+
+_.bind = function(fn, ctx) {
+	if (is.str(ctx)) {
+		var obj = fn
+		fn = obj[ctx]
+		ctx = obj
+	}
+	if (!is.fn(fn)) return fn
+	var args = slice(arguments, 2)
+	ctx = ctx || this
+	return function() {
+		return fn.apply(ctx, _.flatten([args, arguments]))
+	}
+}
+
+_.inherits = function(ctor, superCtor) {
+	ctor.super_ = superCtor
+	ctor.prototype = _.create(superCtor.prototype, {
+		constructor: ctor
+	})
+}
+
+
+},{"./":5}],5:[function(require,module,exports){
+var cou = require('cou')
+
+var _ = cou.extend(exports, cou)
+
+require('./array')
+require('./object')
+require('./function')
+require('./util')
+require('./string')
+
+
+},{"./array":3,"./function":4,"./object":6,"./string":7,"./util":8,"cou":1}],6:[function(require,module,exports){
+var _ = module.exports = require('./')
+
+var is = _.is
+var each = _.each
+
 _.only = function(obj, keys) {
 	obj = obj || {}
 	if (is.str(keys)) keys = keys.split(/ +/)
@@ -438,28 +496,24 @@ _.get = function(obj, arr) {
 	if (hasStart && flag) return obj
 }
 
-// Function
+_.create = (function() {
+	function Object() {} // so it seems like Object.create
+	return function(proto, property) {
+		// not same as Object.create, Object.create(proto, propertyDescription)
+		if ('object' != typeof proto) {
+			// null is ok
+			proto = null
+		}
+		Object.prototype = proto
+		return _.extend(new Object, property)
+	}
+})()
 
-_.bind = function(fn, ctx) {
-	if (is.str(ctx)) {
-		var obj = fn
-		fn = obj[ctx]
-		ctx = obj
-	}
-	if (!is.fn(fn)) return fn
-	var args = slice(arguments, 2)
-	ctx = ctx || this
-	return function() {
-		return fn.apply(ctx, _.flatten([args, arguments]))
-	}
-}
+
+},{"./":5}],7:[function(require,module,exports){
+var _ = module.exports = require('./')
 
 _.tostr = tostr
-
-function tostr(str) {
-	if (str || 0 == str) return str + ''
-	return ''
-}
 
 _.capitalize = function(str) {
 	str = tostr(str)
@@ -480,47 +534,14 @@ _.camelCase = function(str) {
 	return _.decapitalize(arr.join(''))
 }
 
-_.flatten = function(arrs) {
-	var ret = []
-	each(arrs, function(arr) {
-		if (is.arraylike(arr)) {
-			each(arr, function(item) {
-				ret.push(item)
-			})
-		} else ret.push(arr)
-	})
-	return ret
+function tostr(str) {
+	if (str || 0 == str) return str + ''
+	return ''
 }
 
-_.union = function() {
-	return _.uniq(_.flatten(arguments))
-}
+},{"./":5}],8:[function(require,module,exports){
+var _ = module.exports = require('./')
 
-_.create = (function() {
-	function Object() {} // so it seems like Object.create
-	return function(proto, property) {
-		// not same as Object.create, Object.create(proto, propertyDescription)
-		if ('object' != typeof proto) {
-			// null is ok
-			proto = null
-		}
-		Object.prototype = proto
-		return _.extend(new Object, property)
-	}
-})()
-
-_.inherits = function(ctor, superCtor) {
-	ctor.super_ = superCtor
-	ctor.prototype = _.create(superCtor.prototype, {
-		constructor: ctor
-	})
-}
-
-
-// Util
-/*
-_.noop = function() {}
-*/
 _.now = function() {
 	return +new Date
 }
@@ -531,11 +552,12 @@ _.constant = function(val) {
 	}
 }
 
-function identity(val) {
+_.identity = function(val) {
 	return val
 }
 
-_.identity = identity
+},{"./":5}],9:[function(require,module,exports){
+module.exports = require('./src')
 
-},{"cou":1}]},{},[3])(3)
+},{"./src":5}]},{},[9])(9)
 });
