@@ -100,3 +100,14 @@ describe('values', function() {
 		}))
 	})
 })
+
+describe('functions', function() {
+	it('should return all keys map to function', function() {
+		var obj = {
+			a: 1,
+			b: _.noop,
+			c: _.noop
+		}
+		assert.deepEqual(['b', 'c'], _.functions(obj))
+	})
+})

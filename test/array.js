@@ -234,3 +234,30 @@ describe('union', function() {
 		assert.deepEqual([1, 2, 4], _.union([1, 2], [4, 2], [2, 1]))
 	})
 })
+
+describe('sample', function() {
+	it('should return n random elements from array', function() {
+		var ret = _.sample([1, 2, 3, 4])
+		assert(-1 != _.indexOf([1, 2, 3, 4], ret))
+
+		var arr = _.sample([1, 2, 3, 4], 2)
+		assert(2 == arr.length)
+		assert(2 == _.difference([1, 2, 3, 4], arr).length)
+
+		assert(4 == _.sample([1, 2, 3, 4], 1000).length)
+	})
+})
+
+describe('shuffle', function() {
+	it('return shuffle array', function() {
+		var raw = [1, 2, 3, 4]
+		var hash = {}
+		for (var i = 0; i < 10; i++) {
+			var ret = _.shuffle(raw)
+			assert(ret.length == raw.length)
+			hash[ret] = true
+		}
+		var len = _.keys(hash).length
+		assert(len > 1)
+	})
+})

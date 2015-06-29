@@ -152,7 +152,8 @@ function indexOf(val, sub) {
 	if (is.str(val)) return val.indexOf(sub)
 
 	return findIndex(val, function(item) {
-		return sub == item
+		// important!
+		return sub === item
 	})
 }
 
@@ -414,8 +415,28 @@ _.union = function() {
 	return _.uniq(_.flatten(arguments))
 }
 
+_.sample = function(arr, n) {
+	var ret = _.toArray(arr)
+	var len = ret.length
+	var need = Math.min(n || 1, len)
+	for (var i = 0; i < len; i++) {
+		var rand = _.random(i, len - 1)
+		var tmp = ret[rand]
+		ret[rand] = ret[i]
+		ret[i] = tmp
+	}
+	ret.length = need
+	if (null == n) {
+		return ret[0]
+	}
+	return ret
+}
 
-},{"./":undefined}],4:[function(require,module,exports){
+_.shuffle = function(arr) {
+	return _.sample(arr, Infinity)
+}
+
+},{"./":5}],4:[function(require,module,exports){
 var _ = module.exports = require('./')
 
 var is = _.is
@@ -443,7 +464,27 @@ _.inherits = function(ctor, superCtor) {
 }
 
 
-},{"./":undefined}],5:[function(require,module,exports){
+},{"./":5}],5:[function(require,module,exports){
+var cou = require('cou')
+
+module.exports = cou.extend(_, cou)
+
+require('./array')
+require('./object')
+require('./function')
+require('./util')
+require('./string')
+
+_.mixin(_, _)
+
+function _(val) {
+	if (!(this instanceof _)) return new _(val)
+	this.__value = val
+	this.__chain = false
+}
+
+
+},{"./array":3,"./function":4,"./object":6,"./string":7,"./util":8,"cou":1}],6:[function(require,module,exports){
 var _ = module.exports = require('./')
 
 var is = _.is
@@ -458,9 +499,15 @@ _.only = function(obj, keys) {
 	}, {})
 }
 
-_.values = function(hash) {
-	return _.map(_.keys(hash), function(key) {
-		return hash[key]
+_.values = function(obj) {
+	return _.map(_.keys(obj), function(key) {
+		return obj[key]
+	})
+}
+
+_.functions = function(obj) {
+	return _.filter(_.keys(obj), function(key) {
+		return is.fn(obj[key])
 	})
 }
 
@@ -498,7 +545,7 @@ _.create = (function() {
 })()
 
 
-},{"./":undefined}],6:[function(require,module,exports){
+},{"./":5}],7:[function(require,module,exports){
 var _ = module.exports = require('./')
 
 _.tostr = tostr
@@ -527,8 +574,9 @@ function tostr(str) {
 	return ''
 }
 
-},{"./":undefined}],7:[function(require,module,exports){
+},{"./":5}],8:[function(require,module,exports){
 var _ = module.exports = require('./')
+var is = _.is
 
 _.now = function() {
 	return +new Date
@@ -544,17 +592,54 @@ _.identity = function(val) {
 	return val
 }
 
-},{"./":undefined}],8:[function(require,module,exports){
-var cou = require('cou')
+_.random = function(min, max) {
+	return min + Math.floor(Math.random() * (max - min + 1))
+}
 
-var _ = cou.extend(exports, cou)
+_.mixin = function(dst, src, opt) {
+	var keys = _.functions(src)
+	if (dst) {
+		if (is.fn(dst)) {
+			opt = opt || {}
+			var isChain = !!opt.chain
+			// add to prototype
+			var proto = dst.prototype
+			_.each(keys, function(key) {
+				var fn = src[key]
+				proto[key] = function() {
+					var me = this
+					var args = [me.__value]
+					args.push.apply(args, arguments)
+					var ret = fn.apply(me, args)
+					if (me.__chain) {
+						me.__value = ret
+						return me
+					}
+					return ret
+				}
+			})
+		} else {
+			_.each(keys, function(key) {
+				dst[key] = src[key]
+			})
+		}
+	}
+	return dst
+}
 
-require('./array')
-require('./object')
-require('./function')
-require('./util')
-require('./string')
+_.chain = function(val) {
+	var ret = _(val)
+	ret.__chain = true
+	return ret
+}
 
+_.value = function() {
+	this.__chain = false
+	return this.__value
+}
 
-},{"./array":3,"./function":4,"./object":5,"./string":6,"./util":7,"cou":1}]},{},[8])(8)
+},{"./":5}],9:[function(require,module,exports){
+module.exports = require('./src')
+
+},{"./src":5}]},{},[9])(9)
 });

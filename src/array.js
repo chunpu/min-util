@@ -80,3 +80,23 @@ _.union = function() {
 	return _.uniq(_.flatten(arguments))
 }
 
+_.sample = function(arr, n) {
+	var ret = _.toArray(arr)
+	var len = ret.length
+	var need = Math.min(n || 1, len)
+	for (var i = 0; i < len; i++) {
+		var rand = _.random(i, len - 1)
+		var tmp = ret[rand]
+		ret[rand] = ret[i]
+		ret[i] = tmp
+	}
+	ret.length = need
+	if (null == n) {
+		return ret[0]
+	}
+	return ret
+}
+
+_.shuffle = function(arr) {
+	return _.sample(arr, Infinity)
+}

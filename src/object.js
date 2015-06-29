@@ -12,9 +12,15 @@ _.only = function(obj, keys) {
 	}, {})
 }
 
-_.values = function(hash) {
-	return _.map(_.keys(hash), function(key) {
-		return hash[key]
+_.values = function(obj) {
+	return _.map(_.keys(obj), function(key) {
+		return obj[key]
+	})
+}
+
+_.functions = function(obj) {
+	return _.filter(_.keys(obj), function(key) {
+		return is.fn(obj[key])
 	})
 }
 

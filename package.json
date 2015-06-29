@@ -1,8 +1,8 @@
 {
   "name": "min-util",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "Mini Javascript Util Lib",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test",
     "test-travis": "npm run poor && npm test",
