@@ -100,7 +100,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.flowRight` `_.compose` TODO
 - `_.delay` TODO
 - `_.defer` TODO
-- `_.after` TODO
+- `_.after`
 - `_.before`
 - `_.spread` TODO
 - `_.ary` TODO
