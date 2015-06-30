@@ -59,9 +59,11 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.uniq`
 - `_.flatten`
 - `_.union`
+- `_.sample`
+- `_.shuffle`
 - `_.difference`
 - `_.without`
-- `_.asyncMap` just like async.map
+- `_.asyncMap` just like `async.map`, deprecated
 - `_.rest` TODO
 - `_.compact` TODO
 - `_.size` TODO
@@ -72,6 +74,8 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 
 - `_.extend`
 - `_.keys`
+- `_.values`
+- `_.functions`
 - `_.only`
 - `_.mapObject`
 - `_.create`
@@ -88,7 +92,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 #### Function
 
 - `_.bind`
-- `_.once` TODO
+- `_.once`
 - `_.memoize` TODO
 - `_.throttle` TODO
 - `_.debounce` TODO
@@ -97,7 +101,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.delay` TODO
 - `_.defer` TODO
 - `_.after` TODO
-- `_.before` TODO
+- `_.before`
 - `_.spread` TODO
 - `_.ary` TODO
 - `_.curry` TODO
@@ -123,9 +127,13 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 
 - `_.noop`
 - `_.now`
-- `_.inherits`
+- `_.chain`
+- `_.value`
+- `_.constant`
 - `_.identity` return arguments[0]
-- `_.random` TODO
+- `_.mixin`
+- `_.inherits`
+- `_.random`
 - `_.uniqueId` TODO
 
 TODO

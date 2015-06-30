@@ -22,17 +22,6 @@ describe('constant', function() {
 	})
 })
 
-describe('inherits', function() {
-	it('should be instance', function() {
-		function SonCtor() {}
-		function ParentCtor() {}
-		_.inherits(SonCtor, ParentCtor)
-		var instance = new SonCtor
-		assert(instance instanceof SonCtor)
-		assert(instance instanceof ParentCtor)
-	})
-})
-
 describe('chain', function() {
 	it('can run as chain', function() {
 		var ret = _.chain([1, 0, 2, 4])

@@ -456,6 +456,8 @@ _.bind = function(fn, ctx) {
 	}
 }
 
+// from lang.js `Function.prototype.inherits`
+// so belong to function
 _.inherits = function(ctor, superCtor) {
 	ctor.super_ = superCtor
 	ctor.prototype = _.create(superCtor.prototype, {
@@ -463,6 +465,28 @@ _.inherits = function(ctor, superCtor) {
 	})
 }
 
+_.before = function(n, fn) {
+	return function() {
+		if (n > 1) {
+			n--
+			return fn.apply(this, arguments)
+		}
+	}
+}
+
+_.once = function(fn) {
+	return _.before(2, fn)
+}
+
+_.after = function(n, fn) {
+	return function() {
+		if (n > 1) {
+			n--
+		} else {
+			return fn.apply(this, arguments)
+		}
+	}
+}
 
 },{"./":5}],5:[function(require,module,exports){
 var cou = require('cou')
