@@ -94,10 +94,10 @@ describe('delay', function() {
 			if (3 == arr.length) {
 				assert.deepEqual([1, 2, 3], arr)
 				clearInterval(timer2)
-				assert(duration > 100 && duration < 200)
+				assert(duration > 100 && duration < 200, 'duration: ' + duration)
 				done()
 			} else if (0 == arr.length) {
-				assert(duration < 100)
+				assert(duration < 100, 'duration: ' + duration)
 			}
 		}, 30)
 	})
