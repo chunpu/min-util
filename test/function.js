@@ -81,4 +81,89 @@ describe('after', function() {
 	})
 })
 
+describe('delay', function() {
+	it('should act like setTimeout', function(done) {
+		var arr = []
+		var timer = _.delay(function() {
+			arr = _.slice(arguments)
+		}, 100, 1, 2, 3)
+		assert(timer)
+		var start = _.now()
+		var timer2 = setInterval(function() {
+			var duration = _.now() - start
+			if (3 == arr.length) {
+				assert.deepEqual([1, 2, 3], arr)
+				clearInterval(timer2)
+				assert(duration > 100 && duration < 200)
+				done()
+			} else if (0 == arr.length) {
+				assert(duration < 100)
+			}
+		}, 30)
+	})
+})
 
+describe('debounce', function() {
+	it('can debounce frequent call', function(done) {
+		var sum = 0
+		var start = _.now()
+		var debounced = _.debounce(function() {
+			sum += 1
+		}, 100)
+		var timer = setInterval(debounced, 20)
+		var wait = 230
+		var check1 = _.once(function(duration, timer) {
+			setTimeout(function() {
+				clearInterval(timer)
+			}, 20)
+			assert(duration > 200 && duration < 300)
+		})
+		var timer2 = setInterval(function() {
+			var duration = _.now() - start
+			if (duration > 400) {
+				assert(false)
+			} else {
+				if (3 == sum) {
+					assert(duration > 300 && duration < 400)
+					clearInterval(timer2)
+					done()
+				} else if (2 == sum) {
+					check1(duration, timer)
+				}
+			}
+		}, 30)
+	})
+})
+
+describe('throttle', function() {
+	it('can throttle frequent call', function(done) {
+		var sum = 0
+		var start = _.now()
+		var throttled = _.throttle(function() {
+			sum += 1
+		}, 100)
+		var interval = 20
+		var timer = setInterval(throttled, interval)
+		var wait = 230
+		var check1 = _.once(function(duration, timer) {
+			setTimeout(function() {
+				clearInterval(timer)
+			}, 20)
+			assert(duration > 200 + interval && duration < 300 + interval)
+		})
+		var timer2 = setInterval(function() {
+			var duration = _.now() - start
+			if (duration > 400 + interval) {
+				assert(false)
+			} else {
+				if (4 == sum) {
+					assert(duration > 300 + interval && duration < 400 + interval)
+					clearInterval(timer2)
+					done()
+				} else if (3 == sum) {
+					check1(duration, timer)
+				}
+			}
+		}, 30)
+	})
+})

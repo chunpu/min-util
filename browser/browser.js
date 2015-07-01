@@ -465,6 +465,13 @@ _.inherits = function(ctor, superCtor) {
 	})
 }
 
+_.delay = function(fn, wait) {
+	var args = _.slice(arguments, 2)
+	return setTimeout(function() {
+		fn.apply(undefined, args)
+	}, wait)
+}
+
 _.before = function(n, fn) {
 	return function() {
 		if (n > 1) {
@@ -486,6 +493,75 @@ _.after = function(n, fn) {
 			return fn.apply(this, arguments)
 		}
 	}
+}
+
+_.throttle = function(fn, wait, opt) {
+	wait = wait || 0
+	opt = _.extend({
+		leading: true,
+		trailing: true,
+		maxWait: wait
+	}, opt)
+	return _.debounce(fn, wait, opt)
+}
+
+_.debounce = function(fn, wait, opt) {
+	wait = wait || 0
+	opt = _.extend({
+		leading: false,
+		trailing: true
+	}, opt)
+	var maxWait = opt.maxWait
+	var lastExec = 0 // wait
+	var lastCall = 0 // just for maxWait
+	var now = _.now()
+	var timer
+
+	if (!opt.leading) {
+		lastExec = now
+	}
+
+	function ifIsCD() {
+		if (now - lastExec > wait) return false
+		if (maxWait && now - lastCall > maxWait) return false
+		return true
+	}
+
+	function exec(fn, ctx, args) {
+		lastExec = _.now() // update last exec
+		return fn.apply(ctx, args)
+	}
+
+	function cancel() {
+		if (timer) {
+			clearTimeout(timer)
+			timer = null
+		}
+	}
+
+	function debounced() {
+		now = _.now() // update now
+		var isCD = ifIsCD()
+		lastCall = now // update last call
+		var me = this
+		var args = arguments
+
+		cancel()
+
+		if (!isCD) {
+			exec(fn, me, args)
+		} else {
+			if (opt.trailing) {
+				timer = _.delay(function() {
+					exec(fn, me, args)
+				}, wait)
+			}
+		}
+	}
+
+	debounced.cancel = cancel
+
+	return debounced
 }
 
 },{"./":5}],5:[function(require,module,exports){
