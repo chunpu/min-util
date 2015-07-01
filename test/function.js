@@ -169,3 +169,29 @@ describe('throttle', function() {
 	})
 })
 
+describe('memoize', function() {
+	it('can memoize result by arguments[0]', function(done) {
+		var memoized = _.memoize(function(val) {
+			return {val: val, now: _.now()}
+		})
+		var ret1 = memoized()
+		var ret2 = memoized('foo')
+		setTimeout(function() {
+			var ret3 = memoized(1024)
+			var ret4 = memoized()
+			assert(ret1 === ret4)
+			assert(ret1 != ret2)
+			done()
+		})
+	})
+})
+
+describe('wrap', function() {
+	it('return a function that provide value as first argument to wrapper function', function() {
+		var wrapped = _.wrap(1, function() {
+			return _.slice(arguments)
+		})
+		var arr = wrapped(2, 3)
+		assert.deepEqual([1, 2, 3], arr)
+	})
+})

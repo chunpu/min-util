@@ -100,3 +100,11 @@ _.sample = function(arr, n) {
 _.shuffle = function(arr) {
 	return _.sample(arr, Infinity)
 }
+
+_.compact = function(arr) {
+	return _.filter(arr, _.identity)
+}
+
+_.rest = function(arr) {
+	return _.slice(arr, 1)
+}

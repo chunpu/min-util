@@ -436,7 +436,43 @@ _.shuffle = function(arr) {
 	return _.sample(arr, Infinity)
 }
 
-},{"./":5}],4:[function(require,module,exports){
+_.compact = function(arr) {
+	return _.filter(arr, _.identity)
+}
+
+_.rest = function(arr) {
+	return _.slice(arr, 1)
+}
+
+},{"./":6}],4:[function(require,module,exports){
+var _ = require('./')
+var is = _.is
+
+module.exports = Cache
+
+function Cache() {
+	this.data = {}
+}
+
+var proto = Cache.prototype
+
+proto.has = function(key) {
+	return is.owns(this.data, key)
+}
+
+proto.get = function(key) {
+	return this.data[key]
+}
+
+proto.set = function(key, val) {
+	this.data[key] = val
+}
+
+proto['delete'] = function(key) {
+	delete this.data[key]
+}
+
+},{"./":6}],5:[function(require,module,exports){
 var _ = module.exports = require('./')
 
 var is = _.is
@@ -564,7 +600,34 @@ _.debounce = function(fn, wait, opt) {
 	return debounced
 }
 
-},{"./":5}],5:[function(require,module,exports){
+function memoize(fn) {
+	var cache = new memoize.Cache
+	function memoized() {
+		var args = arguments
+		var key = args[0]
+		if (!cache.has(key)) {
+			var ret = fn.apply(this, args)
+			cache.set(key, ret)
+		}
+		return cache.get(key)
+	}
+	memoized.cache = cache
+	return memoized
+}
+
+memoize.Cache = require('./cache')
+
+_.memoize = memoize
+
+_.wrap = function(val, fn) {
+	return function() {
+		var args = [val]
+		args.push.apply(args, arguments)
+		return fn.apply(this, args)
+	}
+}
+
+},{"./":6,"./cache":4}],6:[function(require,module,exports){
 var cou = require('cou')
 
 module.exports = cou.extend(_, cou)
@@ -584,7 +647,7 @@ function _(val) {
 }
 
 
-},{"./array":3,"./function":4,"./object":6,"./string":7,"./util":8,"cou":1}],6:[function(require,module,exports){
+},{"./array":3,"./function":5,"./object":7,"./string":8,"./util":9,"cou":1}],7:[function(require,module,exports){
 var _ = module.exports = require('./')
 
 var is = _.is
@@ -645,7 +708,7 @@ _.create = (function() {
 })()
 
 
-},{"./":5}],7:[function(require,module,exports){
+},{"./":6}],8:[function(require,module,exports){
 var _ = module.exports = require('./')
 
 _.tostr = tostr
@@ -674,7 +737,7 @@ function tostr(str) {
 	return ''
 }
 
-},{"./":5}],8:[function(require,module,exports){
+},{"./":6}],9:[function(require,module,exports){
 var _ = module.exports = require('./')
 var is = _.is
 
@@ -738,8 +801,8 @@ _.value = function() {
 	return this.__value
 }
 
-},{"./":5}],9:[function(require,module,exports){
+},{"./":6}],10:[function(require,module,exports){
 module.exports = require('./src')
 
-},{"./src":5}]},{},[9])(9)
+},{"./src":6}]},{},[10])(10)
 });

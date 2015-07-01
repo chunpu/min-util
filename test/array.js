@@ -261,3 +261,17 @@ describe('shuffle', function() {
 		assert(len > 1)
 	})
 })
+
+describe('compact', function() {
+	it('can filter falsy value', function() {
+		var ret = _.compact([0, 1, false, 2, '', 3])
+		assert.deepEqual([1, 2, 3], ret)
+	})
+})
+
+describe('rest', function() {
+	it('can return all but first element', function() {
+		var ret = _.rest([1, 2, 3])
+		assert.deepEqual([2, 3], ret)
+	})
+})

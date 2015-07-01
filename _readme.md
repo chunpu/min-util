@@ -38,8 +38,8 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.difference`
 - `_.without`
 - `_.asyncMap` just like `async.map`, deprecated
-- `_.rest` TODO
-- `_.compact` TODO
+- `_.rest`
+- `_.compact`
 - `_.size` TODO
 - `_.partition` TODO
 
@@ -67,12 +67,12 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 
 - `_.bind`
 - `_.once`
-- `_.memoize` TODO
+- `_.memoize`
 - `_.throttle`
 - `_.debounce`
 - `_.flow` TODO
 - `_.flowRight` `_.compose` TODO
-- `_.delay` TODO
+- `_.delay`
 - `_.defer` TODO
 - `_.after`
 - `_.before`
@@ -80,8 +80,8 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.ary` TODO
 - `_.curry` TODO
 - `_.curryRight` TODO
-- `_.wrap` TODO
-- `_.negate` TODO
+- `_.wrap`
+- `_.negate`
 
 
 #### String

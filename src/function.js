@@ -124,3 +124,30 @@ _.debounce = function(fn, wait, opt) {
 
 	return debounced
 }
+
+function memoize(fn) {
+	var cache = new memoize.Cache
+	function memoized() {
+		var args = arguments
+		var key = args[0]
+		if (!cache.has(key)) {
+			var ret = fn.apply(this, args)
+			cache.set(key, ret)
+		}
+		return cache.get(key)
+	}
+	memoized.cache = cache
+	return memoized
+}
+
+memoize.Cache = require('./cache')
+
+_.memoize = memoize
+
+_.wrap = function(val, fn) {
+	return function() {
+		var args = [val]
+		args.push.apply(args, arguments)
+		return fn.apply(this, args)
+	}
+}
