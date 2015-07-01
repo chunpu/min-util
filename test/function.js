@@ -110,21 +110,22 @@ describe('debounce', function() {
 		var debounced = _.debounce(function() {
 			sum += 1
 		}, 100)
-		var timer = setInterval(debounced, 20)
+		var interval = 20
+		var timer = setInterval(debounced, interval)
 		var wait = 230
 		var check1 = _.once(function(duration, timer) {
 			setTimeout(function() {
 				clearInterval(timer)
-			}, 20)
+			}, interval + 1)
 			assert(duration > 200 && duration < 300)
 		})
 		var timer2 = setInterval(function() {
 			var duration = _.now() - start
-			if (duration > 400) {
+			if (duration > 400 + interval) {
 				assert(false)
 			} else {
 				if (3 == sum) {
-					assert(duration > 300 && duration < 400)
+					assert(duration > 300 + interval && duration < 400 + interval)
 					clearInterval(timer2)
 					done()
 				} else if (2 == sum) {
@@ -153,11 +154,11 @@ describe('throttle', function() {
 		})
 		var timer2 = setInterval(function() {
 			var duration = _.now() - start
-			if (duration > 400 + interval) {
+			if (duration > 400 + interval * 2) {
 				assert(false)
 			} else {
 				if (4 == sum) {
-					assert(duration > 300 + interval && duration < 400 + interval)
+					assert(duration > 300 + interval * 2 && duration < 400 + interval * 2)
 					clearInterval(timer2)
 					done()
 				} else if (3 == sum) {
@@ -167,3 +168,4 @@ describe('throttle', function() {
 		}, 30)
 	})
 })
+
