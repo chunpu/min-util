@@ -87,7 +87,7 @@ describe('delay', function() {
 		var timer = _.delay(function() {
 			arr = _.slice(arguments)
 		}, 100, 1, 2, 3)
-		assert(timer)
+		assert(timer, 'timer is int or Timer')
 		var start = _.now()
 		var timer2 = setInterval(function() {
 			var duration = _.now() - start

@@ -468,7 +468,7 @@ _.inherits = function(ctor, superCtor) {
 _.delay = function(fn, wait) {
 	var args = _.slice(arguments, 2)
 	return setTimeout(function() {
-		fn.apply(undefined, args)
+		fn.apply(this, args)
 	}, wait)
 }
 

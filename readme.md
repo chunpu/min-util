@@ -94,8 +94,8 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.bind`
 - `_.once`
 - `_.memoize` TODO
-- `_.throttle` TODO
-- `_.debounce` TODO
+- `_.throttle`
+- `_.debounce`
 - `_.flow` TODO
 - `_.flowRight` `_.compose` TODO
 - `_.delay` TODO
