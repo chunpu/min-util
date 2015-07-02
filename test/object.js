@@ -111,3 +111,70 @@ describe('functions', function() {
 		assert.deepEqual(['b', 'c'], _.functions(obj))
 	})
 })
+
+describe('defaults', function() {
+	it('should assign value to undefined target value', function() {
+		var target = {
+			foo: 'bar',
+			foo1: undefined,
+			foo2: null
+		}
+		var ret = _.defaults(target, {
+			foo: 'bar2',
+			foo1: 'foo1',
+		}, {
+			foo3: 'foo3',
+			foo2: 'foo2'
+		})
+
+		assert(target === ret)
+		assert.deepEqual(ret, {
+			foo: 'bar',
+			foo1: 'foo1',
+			foo2: null,
+			foo3: 'foo3'
+		})
+	})
+})
+
+describe('isMatch', function() {
+	it('should return if target contains source', function() {
+		assert(true === _.isMatch({a: 1}, {a: 1}))
+		assert(true === _.isMatch({a: 1, b: 2}, {a: 1}))
+		assert(true === _.isMatch())
+		assert(true === _.isMatch(null))
+		assert(true === _.isMatch(null, {}))
+		assert(false === _.isMatch(null, {a: 1}))
+		assert(false === _.isMatch({a: 1}, {a: 2}))
+	})
+})
+
+describe('toPlainObject', function() {
+	it('should return pure object', function() {
+		function Ctor() {
+			this.foo = 1
+		}
+		Ctor.prototype.bar = '2'
+		var ret = _.toPlainObject(new Ctor)
+		assert.deepEqual({foo: 1}, ret)
+	})
+})
+
+describe('pick', function() {
+	it('should act like filter for object', function() {
+		var obj = {
+			foo: 'bar',
+			foo2: 2
+		}
+		var ret = _.pick(obj, _.is.str)
+		assert.deepEqual({foo: 'bar'}, ret)
+	})
+	it('should direct pick key', function() {
+		var obj = {
+			foo: 'bar',
+			foo2: 2
+		}
+		var ret = _.pick(obj, 'foo')
+		assert.deepEqual({foo: 'bar'}, ret)
+	})
+})

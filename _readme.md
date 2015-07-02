@@ -42,25 +42,27 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.compact`
 - `_.size`
 - `_.groupBy`
-- `_.partition` TODO
+- `_.partition`
 
 
 #### Object
 
-- `_.extend`
 - `_.keys`
+- `_.forIn`
+- `_.extend`
+- `_.defaults`
 - `_.values`
+- `_.pick`
 - `_.functions`
 - `_.only`
 - `_.mapObject`
 - `_.create`
 - `_.get`
 - `_.set` TODO
-- `_.pick` TODO
-- `_.defaults` TODO
 - `_.has` TODO
-- `_.isMatch` TODO
-- `_.toPlainObject` TODO
+- `_.pick` TODO
+- `_.isMatch`
+- `_.toPlainObject`
 - `_.size`
 
 
