@@ -50,7 +50,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.every`
 - `_.reduce`
 - `_.reject`
-- `_.invoke` TODO
+- `_.invoke`
 - `_.findIndex`
 - `_.find`
 - `_.slice`
@@ -66,7 +66,8 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.asyncMap` just like `async.map`, deprecated
 - `_.rest`
 - `_.compact`
-- `_.size` TODO
+- `_.size`
+- `_.groupBy`
 - `_.partition` TODO
 
 
@@ -86,7 +87,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.has` TODO
 - `_.isMatch` TODO
 - `_.toPlainObject` TODO
-- `_.size` TODO
+- `_.size`
 
 
 #### Function
@@ -120,7 +121,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.decapitalize`
 - `_.has`
 - `_.capitalize`
-- `_.size` TODO
+- `_.size`
 
 
 #### Utility

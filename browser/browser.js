@@ -84,6 +84,14 @@ _.keys = function(hash) {
 	return ret
 }
 
+_.size = function(arr) {
+	var len = getLength(arr)
+	if (null == len) {
+		len = _.keys(arr).length
+	}
+	return len
+}
+
 var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
 
 _.trim = function(str) {
@@ -442,6 +450,45 @@ _.compact = function(arr) {
 
 _.rest = function(arr) {
 	return _.slice(arr, 1)
+}
+
+_.invoke = function() {
+	var args = arguments
+	var arr = args[0]
+	var fn = args[1]
+	var isFunc = is.fn(fn)
+	args = _.slice(args, 2)
+
+	return _.map(arr, function(item) {
+		if (isFunc) {
+			return fn.apply(item, args)
+		}
+		if (null != item) {
+			var method = item[fn]
+			if (is.fn(method)) {
+				return method.apply(item, args)
+			}
+		}
+	})
+}
+
+_.partition = function(arr, fn) {
+	var hash = _.groupBy(arr, function(val, i, arr) {
+		var ret = fn(val, i, arr)
+		if (ret) return 1
+		return 2
+	})
+	return [hash[1], hash[2]]
+}
+
+_.groupBy = function(arr, fn) {
+	var hash = {}
+	_.each(arr, function(val, i, arr) {
+		var ret = fn(val, i, arr)
+		hash[ret] = hash[ret] || []
+		hash[ret].push(val)
+	})
+	return hash
 }
 
 },{"./":6}],4:[function(require,module,exports){

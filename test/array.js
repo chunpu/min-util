@@ -270,8 +270,44 @@ describe('compact', function() {
 })
 
 describe('rest', function() {
-	it('can return all but first element', function() {
+	it('should return all but first element', function() {
 		var ret = _.rest([1, 2, 3])
 		assert.deepEqual([2, 3], ret)
+	})
+})
+
+describe('invoke', function() {
+	it('should return invoke method value of each element', function() {
+		var ret = _.invoke([[5, 1, 7], [3, 2, 1]], 'sort')
+		assert.deepEqual([[1, 5, 7], [1, 2, 3]], ret)
+	})
+	it('should return invoke simple function', function() {
+		var ret = _.invoke([1, 2, 3], function(x, y) {
+			assert(2 == arguments.length)
+			return this + x + y
+		}, 2, 3)
+		assert.deepEqual([6, 7, 8], ret)
+	})
+	it('should support function and args and ctx', function() {
+		var ret = _.invoke([123, 456], String.prototype.split, '')
+		assert.deepEqual([['1', '2', '3'], ['4', '5', '6']], ret)
+	})
+})
+
+describe('groupBy', function() {
+	it('should return a map group elements by ret value', function() {
+		var ret = _.groupBy([4.2, 6.1, 6.4], function(n) {
+			return Math.floor(n)
+		})
+		assert.deepEqual({'4': [4.2], '6': [6.1, 6.4]}, ret)
+	})
+})
+
+describe('partition', function() {
+	it('return an array with eleements group two groups', function() {
+		var ret = _.partition([1, 2, 3], function(n) {
+			return n % 2
+		})
+		assert.deepEqual(ret, [[1, 3], [2]])
 	})
 })
