@@ -96,7 +96,6 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.capitalize`
 - `_.decapitalize`
 - `_.has`
-- `_.capitalize`
 - `_.size`
 
 
