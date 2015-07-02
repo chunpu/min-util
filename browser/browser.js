@@ -72,22 +72,14 @@ _.slice = function(arr, start, end) {
 
 _.negate = negate
 
-_.keys = function(hash) {
-	var ret = []
-	if (hash) {
-		for (var key in hash) {
-			if (is.owns(hash, key)) {
-				ret.push(key)
-			}
-		}
-	}
-	return ret
-}
+_.forIn = forIn
+
+_.keys = keys
 
 _.size = function(arr) {
 	var len = getLength(arr)
 	if (null == len) {
-		len = _.keys(arr).length
+		len = keys(arr).length
 	}
 	return len
 }
@@ -139,8 +131,7 @@ function extend(target) {
 	var sources = slice.call(arguments, 1)
 	if (target) {
 		each(sources, function(src) {
-			each(_.keys(src), function(key) {
-				var val = src[key]
+			forIn(src, function(val, key) {
 				if (!is.undef(val)) {
 					target[key] = val
 				}
@@ -170,6 +161,25 @@ function reduce(arr, fn, prev) {
 		prev = fn(prev, item, i, arr)
 	})
 	return prev
+}
+
+function forIn(hash, fn) {
+	each(keys(hash), function(key) {
+		return fn(hash[key], key, hash)
+	})
+	return hash
+}
+
+function keys(hash) {
+	var ret = []
+	if (hash) {
+		for (var key in hash) {
+			if (is.owns(hash, key)) {
+				ret.push(key)
+			}
+		}
+	}
+	return ret
 }
 
 
@@ -699,6 +709,7 @@ var _ = module.exports = require('./')
 
 var is = _.is
 var each = _.each
+var forIn = _.forIn
 
 _.only = function(obj, keys) {
 	obj = obj || {}
@@ -715,16 +726,31 @@ _.values = function(obj) {
 	})
 }
 
-_.functions = function(obj) {
-	return _.filter(_.keys(obj), function(key) {
-		return is.fn(obj[key])
+_.pick = function(obj, fn) {
+	if (!is.fn(fn)) {
+		return _.pick(obj, function(val, key) {
+			return key == fn
+		})
+	}
+	var ret = {}
+	forIn(obj, function(val, key, obj) {
+		if (fn(val, key, obj)) {
+			ret[key] = val
+		}
 	})
+	return ret
 }
 
-_.mapObject = function(obj, fn) {
+_.functions = function(obj) {
+	return _.keys(_.pick(obj, function(val) {
+		return is.fn(val)
+	}))
+}
+
+_.mapObject = _.mapValues = function(obj, fn) {
 	var ret = {}
-	each(_.keys(obj), function(key) {
-		ret[key] = fn(obj[key], key, obj)
+	forIn(obj, function(val, key, obj) {
+		ret[key] = fn(val, key, obj)
 	})
 	return ret
 }
@@ -754,6 +780,41 @@ _.create = (function() {
 	}
 })()
 
+_.defaults = function() {
+	var args = arguments
+	var target = args[0]
+	var sources = _.slice(args, 1)
+	if (target) {
+		_.each(sources, function(src) {
+			_.mapObject(src, function(val, key) {
+				if (is.undef(target[key])) {
+					target[key] = val
+				}
+			})
+		})
+	}
+	return target
+}
+
+_.isMatch = function(obj, src) {
+	var ret = true
+	obj = obj || {}
+	forIn(src, function(val, key) {
+		if (val !== obj[key]) {
+			ret = false
+			return false
+		}
+	})
+	return ret
+}
+
+_.toPlainObject = function(val) {
+	var ret = {}
+	forIn(val, function(val, key) {
+		ret[key] = val
+	})
+	return ret
+}
 
 },{"./":6}],8:[function(require,module,exports){
 var _ = module.exports = require('./')
