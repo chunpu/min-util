@@ -7,7 +7,7 @@ var _ = exports
 
 _.is = is
 
-_.extend = extend
+_.extend = _.assign = extend
 
 _.each = each
 
@@ -49,7 +49,7 @@ _.find = function(arr, fn) {
 
 _.indexOf = indexOf
 
-_.has = function(val, sub) {
+_.includes = function(val, sub) {
 	return -1 != indexOf(val, sub)
 }
 
@@ -128,8 +128,8 @@ function toArray(arr) {
 
 
 function extend(target) {
-	var sources = slice.call(arguments, 1)
 	if (target) {
+		var sources = slice.call(arguments, 1)
 		each(sources, function(src) {
 			forIn(src, function(val, key) {
 				if (!is.undef(val)) {
@@ -354,7 +354,7 @@ is.regexp = function(val) {
 var _ = module.exports = require('./')
 
 var each = _.each
-var has = _.has
+var includes = _.includes
 var is = _.is
 
 _.reject = function(arr, fn) {
@@ -371,7 +371,7 @@ _.without = function(arr) {
 _.difference = function(arr, other) {
 	var ret = []
 	_.each(arr, function(val) {
-		if (!_.has(other, val)) {
+		if (!includes(other, val)) {
 			ret.push(val)
 		}
 	})
@@ -412,7 +412,7 @@ _.asyncMap = function(arr, fn, cb) {
 _.uniq = function(arr) {
 	var ret = []
 	each(arr, function(item) {
-		if (!has(ret, item)) ret.push(item)
+		if (!includes(ret, item)) ret.push(item)
 	})
 	return ret
 }
@@ -765,6 +765,12 @@ _.get = function(obj, arr) {
 		}
 	})
 	if (hasStart && flag) return obj
+}
+
+_.has = is.owns // TODO
+
+_.set = function(obj, arr, val) {
+	// TODO
 }
 
 _.create = (function() {

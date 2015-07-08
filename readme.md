@@ -55,7 +55,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.find`
 - `_.slice`
 - `_.indexOf`
-- `_.has`
+- `_.includes`
 - `_.uniq`
 - `_.flatten`
 - `_.union`
@@ -83,9 +83,10 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.only`
 - `_.mapObject`
 - `_.create`
+- `_.includes`
+- `_.has`
 - `_.get`
 - `_.set` TODO
-- `_.has` TODO
 - `_.pick` TODO
 - `_.isMatch`
 - `_.toPlainObject`
@@ -121,7 +122,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.camelCase`
 - `_.capitalize`
 - `_.decapitalize`
-- `_.has`
+- `_.includes`
 - `_.size`
 
 

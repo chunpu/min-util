@@ -1,7 +1,7 @@
 var _ = module.exports = require('./')
 
 var each = _.each
-var has = _.has
+var includes = _.includes
 var is = _.is
 
 _.reject = function(arr, fn) {
@@ -18,7 +18,7 @@ _.without = function(arr) {
 _.difference = function(arr, other) {
 	var ret = []
 	_.each(arr, function(val) {
-		if (!_.has(other, val)) {
+		if (!includes(other, val)) {
 			ret.push(val)
 		}
 	})
@@ -59,7 +59,7 @@ _.asyncMap = function(arr, fn, cb) {
 _.uniq = function(arr) {
 	var ret = []
 	each(arr, function(item) {
-		if (!has(ret, item)) ret.push(item)
+		if (!includes(ret, item)) ret.push(item)
 	})
 	return ret
 }

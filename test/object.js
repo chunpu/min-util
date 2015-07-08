@@ -60,6 +60,12 @@ describe('get', function() {
 	})
 })
 
+describe('has', function() {
+	it('is short for hasOwnProperty', function() {
+		assert(_.has({a: 1}, 'a'))
+	})
+})
+
 describe('only', function() {
 	it('should support string', function() {
 		assert.deepEqual(_.only({

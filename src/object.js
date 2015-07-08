@@ -60,6 +60,12 @@ _.get = function(obj, arr) {
 	if (hasStart && flag) return obj
 }
 
+_.has = is.owns // TODO
+
+_.set = function(obj, arr, val) {
+	// TODO
+}
+
 _.create = (function() {
 	function Object() {} // so it seems like Object.create
 	return function(proto, property) {
