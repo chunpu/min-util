@@ -57,7 +57,6 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.only`
 - `_.mapObject`
 - `_.create`
-- `_.includes`
 - `_.has`
 - `_.get`
 - `_.set` TODO
