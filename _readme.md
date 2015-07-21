@@ -41,6 +41,8 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.rest`
 - `_.compact`
 - `_.size`
+- `_.first`
+- `_.last`
 - `_.groupBy`
 - `_.partition`
 

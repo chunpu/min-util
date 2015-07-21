@@ -31,6 +31,25 @@ _.pluck = function(arr, key) {
 	})
 }
 
+_.size = function(arr) {
+	var len = _.len(arr)
+	if (null == len) {
+		len = _.keys(arr).length
+	}
+	return len
+}
+
+_.first = function(arr) {
+	if (arr) return arr[0]
+}
+
+_.last = function(arr) {
+	var len = _.len(arr)
+	if (len) {
+		return arr[len - 1]
+	}
+}
+
 _.asyncMap = function(arr, fn, cb) {
 	var ret = []
 	var count = 0

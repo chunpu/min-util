@@ -144,6 +144,59 @@ describe('pluck', function() {
 	})
 })
 
+describe('size', function() {
+	it('should return size of array', function() {
+		var size = _.size([1, 2, 3])
+		assert(3 == size)
+	})
+	it('should return length of array like', function(done) {
+		var size = _.size({length: 1024})
+		assert(1024 == size)
+
+		var fn = function() {
+			assert(3 == _.size(arguments))
+			done()
+		}
+		fn(1, 2, 3)
+	})
+	it('should return size of object', function() {
+		var size = _.size({a: 1, b: 2})
+		assert(2 == size)
+	})
+	it('should return size of string', function() {
+		var size = _.size('foo')
+		assert(3 == size)
+	})
+	it('should return 0 of shit', function() {
+		var arr = [null, NaN, 0, '', 1024, false, true, undefined]
+		_.each(arr, function(val) {
+			assert(0 == _.size(val))
+		})
+	})
+})
+
+describe('first', function() {
+	it('return first of iteraton', function() {
+		assert(undefined === _.first())
+		assert(undefined === _.first(null))
+		assert(undefined === _.first(''))
+		assert('f' === _.first('foo'))
+		assert(undefined === _.first([]))
+		assert(1 === _.first([1, 2, 3]))
+	})
+})
+
+describe('last', function() {
+	it('return last of iteraton', function() {
+		assert(undefined === _.last())
+		assert(undefined === _.last(null))
+		assert(undefined === _.last(''))
+		assert('o' === _.last('foo'))
+		assert(undefined === _.last([]))
+		assert(3 === _.last([1, 2, 3]))
+	})
+})
+
 describe('async map', function() {
 	function delay(time, cb) {
 		var ok = true
