@@ -76,14 +76,6 @@ _.forIn = forIn
 
 _.keys = keys
 
-_.size = function(arr) {
-	var len = getLength(arr)
-	if (null == len) {
-		len = keys(arr).length
-	}
-	return len
-}
-
 var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
 
 _.trim = function(str) {
@@ -92,6 +84,8 @@ _.trim = function(str) {
 }
 
 _.noop = function() {}
+
+_.len = getLength
 
 function getLength(arr) {
 	if (null != arr) return arr.length
@@ -164,21 +158,21 @@ function reduce(arr, fn, prev) {
 }
 
 function forIn(hash, fn) {
-	each(keys(hash), function(key) {
-		return fn(hash[key], key, hash)
-	})
+	if (hash) {
+		for (var key in hash) {
+			if (is.owns(hash, key)) {
+				if (false === fn(hash[key], key, hash)) break
+			}
+		}
+	}
 	return hash
 }
 
 function keys(hash) {
 	var ret = []
-	if (hash) {
-		for (var key in hash) {
-			if (is.owns(hash, key)) {
-				ret.push(key)
-			}
-		}
-	}
+	forIn(hash, function(val, key) {
+		ret.push(key)
+	})
 	return ret
 }
 
@@ -382,6 +376,25 @@ _.pluck = function(arr, key) {
 	return _.map(arr, function(item) {
 		if (item) return item[key]
 	})
+}
+
+_.size = function(arr) {
+	var len = _.len(arr)
+	if (null == len) {
+		len = _.keys(arr).length
+	}
+	return len
+}
+
+_.first = function(arr) {
+	if (arr) return arr[0]
+}
+
+_.last = function(arr) {
+	var len = _.len(arr)
+	if (len) {
+		return arr[len - 1]
+	}
 }
 
 _.asyncMap = function(arr, fn, cb) {
