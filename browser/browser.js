@@ -501,7 +501,7 @@ _.partition = function(arr, fn) {
 		if (ret) return 1
 		return 2
 	})
-	return [hash[1], hash[2]]
+	return [hash[1] || [], hash[2] || []]
 }
 
 _.groupBy = function(arr, fn) {

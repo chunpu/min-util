@@ -362,5 +362,10 @@ describe('partition', function() {
 			return n % 2
 		})
 		assert.deepEqual(ret, [[1, 3], [2]])
+
+		var ret = _.partition([1, 2, 3], function(n) {
+			return n < 0
+		})
+		assert.deepEqual(ret, [[], [1, 2, 3]])
 	})
 })
