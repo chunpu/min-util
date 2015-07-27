@@ -768,22 +768,55 @@ _.mapObject = _.mapValues = function(obj, fn) {
 	return ret
 }
 
-_.get = function(obj, arr) {
-	var hasStart = false
-	var flag = _.every(arr, function(key) {
-		hasStart = true
-		if (null != obj && key in Object(obj)) {
-			obj = obj[key]
-			return true
-		}
-	})
-	if (hasStart && flag) return obj
+_.get = function(obj, path) {
+	path = toPath(path)
+	if (path.length) {
+		var flag = _.every(path, function(key) {
+			if (null != obj && key in Object(obj)) {
+				obj = obj[key]
+				return true
+			}
+		})
+		if (flag) return obj
+	}
 }
 
-_.has = is.owns // TODO
+_.has = function(obj, path) {
+	path = toPath(path)
+	if (path.length) {
+		var flag = _.every(path, function(key) {
+			if (null != obj && is.owns(obj, key)) {
+				obj = obj[key]
+				return true
+			}
+		})
+		if (flag) return true
+	}
+	return false
+}
 
-_.set = function(obj, arr, val) {
-	// TODO
+_.set = function(obj, path, val) {
+	path = toPath(path)
+	var cur = obj
+	_.every(path, function(key, i) {
+		if (is.oof(cur)) {
+			if (i + 1 == path.length) {
+				cur[key] = val
+			} else {
+				var item = cur[key]
+				if (null == item) {
+					// fill value with {} or []
+					var item = {}
+					if (~~key == key) {
+						item = []
+					}
+				}
+				cur = cur[key] = item
+				return true
+			}
+		}
+	})
+	return obj
 }
 
 _.create = (function() {
@@ -831,6 +864,24 @@ _.toPlainObject = function(val) {
 	var ret = {}
 	forIn(val, function(val, key) {
 		ret[key] = val
+	})
+	return ret
+}
+
+// topath, copy from lodash
+
+var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\n\\]|\\.)*?)\2)\]/g
+var reEscapeChar = /\\(\\)?/g;
+
+function toPath(val) {
+	if (is.array(val)) return val
+	var ret = []
+	_.tostr(val).replace(rePropName, function(match, number, quote, string) {
+		var item = number || match
+		if (quote) {
+			item = string.replace(reEscapeChar, '$1')
+		}
+		ret.push(item)
 	})
 	return ret
 }

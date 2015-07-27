@@ -54,15 +54,45 @@ describe('get', function() {
 	it('should get value at path array', function() {
 		var obj = {a: [{b: {c: 3}}]}
 		assert.equal(3, _.get(obj, ['a', 0, 'b', 'c']))
+		assert.equal(3, _.get(obj, 'a.0.b.c'))
+		assert.equal(3, _.get(obj, 'a[0]b.c'))
+		assert.equal(3, _.get(obj, 'a.0.["b"].[\'c\']'))
 		assert.equal(undefined, _.get(obj, ['a', 0, 'b', 'c', 'x']))
 		assert.equal(undefined, _.get(obj, ['x']))
 		assert.equal(undefined, _.get(obj, null))
+		assert.equal(undefined, _.get(null, [1, 2, 3]))
 	})
 })
 
 describe('has', function() {
-	it('is short for hasOwnProperty', function() {
+	it('is short for hasOwnProperty and support path', function() {
 		assert(_.has({a: 1}, 'a'))
+		var obj = {a: [{b: {c: 3}}]}
+		assert(_.has(obj, 'a.0.b.c'))
+
+		assert(!_.has({}, []))
+		assert(!_.has(null, []))
+		assert(!_.has(0, []))
+		assert(!_.has(0, 'toString'))
+
+		function A() {}
+		A.prototype.foo = 'bar'
+		assert(!_.has(new A, 'foo'))
+	})
+})
+
+describe('set', function() {
+	it('can set value to target by path', function() {
+		var obj = {a: [{b: {c: 3}}]}
+		assert(obj === _.set(obj, 'a.0.b.c', 4))
+		assert(4 == obj.a[0].b.c)
+
+		assert(null === _.set(null, 'a.b.c', 1))
+		assert(undefined === _.set(undefined, 'a.b.c', 1))
+		assert(123 === _.set(123, 'a.b.c', 1))
+		var obj = {a: 1}
+		assert(obj === _.set(obj, 'a.b.c', 3))
+		assert(1 === obj.a)
 	})
 })
 

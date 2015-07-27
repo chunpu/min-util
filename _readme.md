@@ -61,8 +61,8 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.create`
 - `_.has`
 - `_.get`
-- `_.set` TODO
-- `_.pick` TODO
+- `_.set`
+- `_.pick`
 - `_.isMatch`
 - `_.toPlainObject`
 - `_.size`
