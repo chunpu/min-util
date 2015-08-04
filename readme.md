@@ -119,12 +119,15 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 
 - `_.trim`
 - `_.indexOf`
+- `_.slice`
 - `_.tostr`
 - `_.camelCase`
 - `_.capitalize`
 - `_.decapitalize`
 - `_.includes`
 - `_.size`
+- `_.startsWith`
+- `_.endsWith`
 
 
 #### Utility

@@ -53,3 +53,35 @@ describe('camelCase', function() {
 		assert.equal('fooBAR', str)
 	})
 })
+
+describe('startsWith', function() {
+	it('should true', function() {
+		assert(true === _.startsWith('1234', 12))
+		assert(true === _.startsWith('1234', '12'))
+		assert(true === _.startsWith('1234', ''))
+		assert(true === _.startsWith('', ''))
+		assert(true === _.startsWith('null1234', null))
+	})
+	it('should false', function() {
+		assert(false === _.startsWith(null, null))
+		assert(false === _.startsWith('', null))
+		assert(false === _.startsWith('123', 13))
+		assert(false === _.startsWith('123', '2'))
+	})
+})
+
+describe('endsWith', function() {
+	it('should true', function() {
+		assert(true === _.endsWith('1234', 34))
+		assert(true === _.endsWith('1234', '34'))
+		assert(true === _.endsWith('1234', ''))
+		assert(true === _.endsWith('', ''))
+		assert(true === _.endsWith('1234null', null))
+	})
+	it('should false', function() {
+		assert(false === _.endsWith(null, null))
+		assert(false === _.endsWith('', null))
+		assert(false === _.endsWith('123', 13))
+		assert(false === _.endsWith('123', '2'))
+	})
+})
