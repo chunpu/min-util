@@ -45,6 +45,8 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.last`
 - `_.groupBy`
 - `_.partition`
+- `_.range`
+- `_.fill` TODO
 
 
 #### Object

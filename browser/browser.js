@@ -515,6 +515,34 @@ _.groupBy = function(arr, fn) {
 	return hash
 }
 
+_.range = function() {
+	var args = arguments
+	if (args.length < 2) {
+		return _.range(args[1], args[0])
+	}
+	var start = args[0] || 0
+	var last = args[1] || 0
+	var step = args[2]
+	if (!is.num(step)) {
+		step = 1
+	}
+	var count = last - start
+	if (0 != step) {
+		count = count / step
+	}
+	var ret = []
+	var val = start
+	for (var i = 0; i < count; i++) {
+		ret.push(val)
+		val += step
+	}
+	return ret
+}
+
+_.fill = function(val, start, end) {
+	// TODO
+}
+
 },{"./":6}],4:[function(require,module,exports){
 var _ = require('./')
 var is = _.is

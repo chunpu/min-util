@@ -369,3 +369,15 @@ describe('partition', function() {
 		assert.deepEqual(ret, [[], [1, 2, 3]])
 	})
 })
+
+describe('range', function() {
+	it('return an array with numbers', function() {
+		assert.deepEqual(_.range(4), [0, 1, 2, 3])
+		assert.deepEqual(_.range(), [])
+		assert.deepEqual(_.range(0), [])
+		assert.deepEqual(_.range(1), [0])
+		assert.deepEqual(_.range(1, 5), [1, 2, 3, 4])
+		assert.deepEqual(_.range(0, -4, -1), [0, -1, -2, -3])
+		assert.deepEqual(_.range(1, 4, 0), [1, 1, 1])
+	})
+})
