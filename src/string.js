@@ -32,6 +32,14 @@ _.endsWith = function(str, val) {
 	return val == _.slice(str, _.len(str) - _.len(val))
 }
 
+_.lower = function(str) {
+	return tostr(str).toLowerCase()
+}
+
+_.upper = function(str) {
+	return tostr(str).toUpperCase()
+}
+
 function tostr(str) {
 	if (str || 0 == str) return str + ''
 	return ''

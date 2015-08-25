@@ -85,3 +85,21 @@ describe('endsWith', function() {
 		assert(false === _.endsWith('123', '2'))
 	})
 })
+
+describe('upper', function() {
+	it('should return uppercase', function() {
+		assert('FOO' === _.upper('fOo'))
+		assert('' === _.upper(null))
+		assert('' === _.upper(undefined))
+		assert('0' === _.upper(0))
+	})
+})
+
+describe('lower', function() {
+	it('should return uppercase', function() {
+		assert('foo' === _.lower('fOo'))
+		assert('' === _.lower(null))
+		assert('' === _.lower(undefined))
+		assert('0' === _.lower(0))
+	})
+})
