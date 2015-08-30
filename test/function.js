@@ -195,3 +195,17 @@ describe('wrap', function() {
 		assert.deepEqual([1, 2, 3], arr)
 	})
 })
+
+describe('curry', function() {
+	it('should support basic curry', function() {
+		var fn = function(a, b, c) {
+			return [a, b, c]
+		}
+		var curried = _.curry(fn)
+		assert.deepEqual(curried(1)(2)(3), [1, 2, 3])
+		assert.deepEqual(curried(1, 2)(3), [1, 2, 3])
+		assert.deepEqual(curried(1)(2, 3), [1, 2, 3])
+		assert.deepEqual(curried(1, 2, 3), [1, 2, 3])
+		assert.deepEqual(curried(1)(2, 3, 4), [1, 2, 3])
+	})
+})

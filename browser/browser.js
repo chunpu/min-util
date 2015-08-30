@@ -726,6 +726,22 @@ _.wrap = function(val, fn) {
 	}
 }
 
+_.curry = function(fn) {
+	var len = fn.length
+	return setter([])
+
+	function setter(args) {
+		return function() {
+			var arr = args.concat(_.slice(arguments))
+			if (arr.length >= len) {
+				arr.length = len
+				return fn.apply(this, arr)
+			}
+			return setter(arr)
+		}
+	}
+}
+
 },{"./":6,"./cache":4}],6:[function(require,module,exports){
 var cou = require('cou')
 
