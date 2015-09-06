@@ -40,6 +40,32 @@ _.upper = function(str) {
 	return tostr(str).toUpperCase()
 }
 
+_.repeat = function(str, count) {
+	return _.map(_.range(count), function() {
+		return str
+	}).join('')
+}
+
+_.padLeft = function(str, len, chars) {
+	str = _.tostr(str)
+	len = len || 0
+	var delta = len - str.length
+	return getPadStr(chars, delta) + str
+}
+
+_.padRight = function(str, len, chars) {
+	str = _.tostr(str)
+	len = len || 0
+	var delta = len - str.length
+	return str + getPadStr(chars, delta)
+}
+
+function getPadStr(chars, len) {
+	chars = _.tostr(chars || ' ')
+	var count = Math.floor(len / chars.length) + 1
+	return _.repeat(chars, count).slice(0, len)
+}
+
 function tostr(str) {
 	if (str || 0 == str) return str + ''
 	return ''

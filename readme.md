@@ -130,6 +130,9 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.size`
 - `_.startsWith`
 - `_.endsWith`
+- `_.repeat`
+- `_.padLeft`
+- `_.padRight`
 
 
 #### Utility

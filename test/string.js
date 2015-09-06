@@ -103,3 +103,19 @@ describe('lower', function() {
 		assert('0' === _.lower(0))
 	})
 })
+
+describe('padLeft', function() {
+	it('should pad left', function() {
+		assert(_.padLeft('abc', 6) == '   abc')
+		assert(_.padLeft('abc', 6, '_-') == '_-_abc')
+		assert(_.padLeft('abc', 3) == 'abc')
+	})
+})
+
+describe('padRight', function() {
+	it('should pad right', function() {
+		assert(_.padRight('abc', 6) == 'abc   ')
+		assert(_.padRight('abc', 6, '_-') == 'abc_-_')
+		assert(_.padRight('abc', 3) == 'abc')
+	})
+})
