@@ -214,3 +214,11 @@ describe('pick', function() {
 		assert.deepEqual({foo: 'bar'}, ret)
 	})
 })
+
+describe('invert', function() {
+	it('should invert key and value', function() {
+		var arr = [10, 20, 30]
+		var expect = {10: '0', 20: '1', 30: '2'}
+		assert.deepEqual(_.invert(arr), expect)
+	})
+})

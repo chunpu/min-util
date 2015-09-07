@@ -148,6 +148,14 @@ _.toPlainObject = function(val) {
 	return ret
 }
 
+_.invert = function(obj) {
+	var ret = {}
+	forIn(obj, function(val, key) {
+		ret[val] = key
+	})
+	return ret
+}
+
 // topath, copy from lodash
 
 var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\n\\]|\\.)*?)\2)\]/g

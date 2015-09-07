@@ -68,6 +68,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.isMatch`
 - `_.toPlainObject`
 - `_.size`
+- `_.invert`
 
 
 #### Function
