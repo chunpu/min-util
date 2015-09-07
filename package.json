@@ -1,6 +1,6 @@
 {
   "name": "min-util",
-  "version": "1.7.5",
+  "version": "1.7.6",
   "description": "Mini Javascript Util Lib",
   "main": "index.js",
   "scripts": {

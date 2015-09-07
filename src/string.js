@@ -61,7 +61,7 @@ _.padRight = function(str, len, chars) {
 }
 
 function getPadStr(chars, len) {
-	chars = _.tostr(chars || ' ')
+	chars = _.tostr(chars) || ' ' // '' will never end
 	var count = Math.floor(len / chars.length) + 1
 	return _.repeat(chars, count).slice(0, len)
 }

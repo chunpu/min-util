@@ -107,6 +107,8 @@ describe('lower', function() {
 describe('padLeft', function() {
 	it('should pad left', function() {
 		assert(_.padLeft('abc', 6) == '   abc')
+		assert(_.padLeft('abc', 6, '') == '   abc')
+		assert(_.padLeft('abc', 6, 0) == '000abc')
 		assert(_.padLeft('abc', 6, '_-') == '_-_abc')
 		assert(_.padLeft('abc', 3) == 'abc')
 	})
@@ -115,6 +117,8 @@ describe('padLeft', function() {
 describe('padRight', function() {
 	it('should pad right', function() {
 		assert(_.padRight('abc', 6) == 'abc   ')
+		assert(_.padRight('abc', 6, '') == 'abc   ')
+		assert(_.padRight('abc', 6, 0) == 'abc000')
 		assert(_.padRight('abc', 6, '_-') == 'abc_-_')
 		assert(_.padRight('abc', 3) == 'abc')
 	})
