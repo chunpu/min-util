@@ -351,6 +351,7 @@ var _ = module.exports = require('./')
 var each = _.each
 var includes = _.includes
 var is = _.is
+var proto = Array.prototype
 
 _.reject = function(arr, fn) {
 	return _.filter(arr, function(val, i, arr) {
@@ -399,6 +400,7 @@ _.last = function(arr) {
 }
 
 _.asyncMap = function(arr, fn, cb) {
+	// desperate
 	var ret = []
 	var count = 0
 	var hasDone, hasStart
@@ -537,6 +539,40 @@ _.range = function() {
 		val += step
 	}
 	return ret
+}
+
+_.pullAt = function(arr) {
+	// `_.at` but mutate
+	indexes = _.slice(arguments, 1)
+	return mutateDifference(arr, indexes)
+}
+
+function mutateDifference(arr, indexes) {
+	var ret = []
+	var len = _.len(indexes)
+	if (len) {
+		indexes = indexes.sort(function(a, b) {
+			return a - b
+		})
+		while (len--) {
+			var index = indexes[len]
+			ret.push(proto.splice.call(arr, index, 1)[0])
+		}
+	}
+	ret.reverse()
+	return ret
+}
+
+_.remove = function(arr, fn) {
+	// `_.filter` but mutate
+	var len = _.len(arr) || 0
+	var indexes = []
+	while (len--) {
+		if (fn(arr[len], len, arr)) {
+			indexes.push(len)
+		}
+	}
+	return mutateDifference(arr, indexes)
 }
 
 _.fill = function(val, start, end) {

@@ -381,3 +381,31 @@ describe('range', function() {
 		assert.deepEqual(_.range(1, 4, 0), [1, 1, 1])
 	})
 })
+
+describe('pullAt', function() {
+	it('should act like `_.at` but mutate', function() {
+		var arr = [5, 10, 15, 20]
+		var evens = _.pullAt(arr, 1, 3)
+		assert.deepEqual(arr, [5, 15])
+		assert.deepEqual(evens, [10, 20])
+	})
+
+	it('support unordered indexes', function() {
+		var arr = [5, 10, 15, 20]
+		var evens = _.pullAt(arr, 3, 1)
+		assert.deepEqual(arr, [5, 15])
+		assert.deepEqual(evens, [10, 20])
+
+	})
+})
+
+describe('remove', function() {
+	it('should act like `_.filter` but mutate', function() {
+		var arr = [1, 2, 3, 4]
+		var evens = _.remove(arr, function(n) {
+			return n % 2 == 0
+		})
+		assert.deepEqual(arr, [1, 3])
+		assert.deepEqual(evens, [2, 4])
+	})
+})
