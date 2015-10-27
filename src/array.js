@@ -195,7 +195,7 @@ _.range = function() {
 
 _.pullAt = function(arr) {
 	// `_.at` but mutate
-	indexes = _.slice(arguments, 1)
+	var indexes = _.slice(arguments, 1)
 	return mutateDifference(arr, indexes)
 }
 
