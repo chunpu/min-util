@@ -1114,7 +1114,13 @@ _.value = function() {
 }
 
 },{"./":6}],10:[function(require,module,exports){
+(function (global){
 module.exports = require('./src')
 
+if (DEBUG && global.console) {
+	console.debug('debug mode')
+}
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./src":6}]},{},[10])(10)
 });

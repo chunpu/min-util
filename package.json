@@ -1,6 +1,6 @@
 {
   "name": "min-util",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "Mini Javascript Util Lib",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,9 @@
     "poor": "browserify test/* | poor -b ie:6..8,chrome -R dot",
     "browser": "browserify . -s _ > browser/browser.js",
     "pregit": "sed -i 's/\\s*$//' src/* test/* && npm run browser && npm run readme",
-    "readme": "pretty-readme coveralls gittip > readme.md"
+    "readme": "pretty-readme coveralls gittip > readme.md",
+	"debug": "NODE_ENV=development webpack-dev-server",
+	"build": "webpack"
   },
   "author": "chunpu",
   "license": "ISC",
@@ -20,7 +22,8 @@
     "browserify": "latest",
     "istanbul": "^0.3.6",
     "mocha": "^2.1.0",
-    "poor": "latest"
+    "poor": "latest",
+    "webpack": "^1.12.9"
   },
   "repository": {
     "type": "git",
