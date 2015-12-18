@@ -7,6 +7,15 @@ var _ = require('min-util')
 
 Inspired by [lodash](https://github.com/lodash/lodash) and [underscore](https://github.com/jashkenas/underscore)
 
+
+Try
+---
+
+Try in [console](http://chunpu.github.io/min-util/browser), exports as `_`
+
+Check [Unit Tests](http://chunpu.github.io/min-util/test/public)
+
+
 #### Type Check
 
 `_.is` equals [min-is](https://github.com/chunpu/min-is)
@@ -133,7 +142,3 @@ Support
 - all browsers even `IE6+`
 - node.js
 
-Try
----
-
-Try in [console](http://chunpu.github.io/min-util/browser), exports as `util`

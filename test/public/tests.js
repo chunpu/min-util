@@ -1,4 +1,4 @@
-/*! min-util@1.8.5 by chunpu */
+/*! min-util@1.8.6 by chunpu */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -3347,6 +3347,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Util
 	describe('basic', function() {
 		it('noop should do nothing', function() {
+			// throw 111
 			assert(undefined === _.noop())
 		})
 	

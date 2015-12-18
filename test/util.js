@@ -4,6 +4,7 @@ var assert = require('assert')
 // Util
 describe('basic', function() {
 	it('noop should do nothing', function() {
+		// throw 111
 		assert(undefined === _.noop())
 	})
 
