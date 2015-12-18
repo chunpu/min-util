@@ -1,17 +1,22 @@
 {
   "name": "min-util",
-  "version": "1.8.2",
+  "version": "1.8.4",
   "description": "Mini Javascript Util Lib",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test",
-    "test-travis": "npm run poor && npm test",
-    "poor": "browserify test/* | poor -b ie:6..8,chrome -R dot",
-    "browser": "browserify . -s _ > browser/browser.js",
-    "pregit": "sed -i 's/\\s*$//' src/* test/* && npm run browser && npm run readme",
-    "readme": "pretty-readme coveralls gittip > readme.md",
-	"debug": "NODE_ENV=development webpack-dev-server",
-	"build": "webpack"
+    "test-cover": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test",
+    "test-sauce": "karma start karma.sauce.config.js",
+    "test-node": "mocha test/index",
+    "test-all": "npm run node && npm run sauce && npm run cover",
+    "test": "npm run test-node",
+    "build-release": "webpack",
+    "build-test": "NODE_ENV=test webpack",
+    "build-all": "npm run build-release && npm run build-test",
+    "dev": "NODE_ENV=development webpack-dev-server",
+    "dev-test": "NODE_ENV=test webpack-dev-server",
+    "pregit": "npm run test-node && npm run format && npm run build-all && npm run readme",
+    "format": "sed -i 's/\\s*$//' src/*.js test/*.js",
+    "readme": "pretty-readme coveralls gittip > readme.md"
   },
   "author": "chunpu",
   "license": "ISC",
@@ -19,10 +24,12 @@
     "cou": "latest"
   },
   "devDependencies": {
-    "browserify": "latest",
     "istanbul": "^0.3.6",
+    "karma": "^0.13.15",
+    "karma-mocha": "^0.2.1",
+    "karma-sauce-launcher": "^0.3.0",
+    "karma-webpack": "^1.7.0",
     "mocha": "^2.1.0",
-    "poor": "latest",
     "webpack": "^1.12.9"
   },
   "repository": {
@@ -36,5 +43,5 @@
   "bugs": {
     "url": "https://github.com/chunpu/min-util/issues"
   },
-  "homepage": "https://github.com/chunpu/min-util"
+  "homepage": "https://github.com/chunpu/min-util#readme"
 }

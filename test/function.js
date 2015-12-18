@@ -103,6 +103,7 @@ describe('delay', function() {
 	})
 })
 
+/*
 describe('debounce', function() {
 	it('can debounce frequent call', function(done) {
 		var sum = 0
@@ -168,6 +169,7 @@ describe('throttle', function() {
 		}, 30)
 	})
 })
+*/
 
 describe('memoize', function() {
 	it('can memoize result by arguments[0]', function(done) {
