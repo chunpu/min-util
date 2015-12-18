@@ -7,7 +7,7 @@
     "test-cover": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test",
     "test-sauce": "karma start karma.sauce.config.js",
     "test-node": "mocha test/index",
-    "test-all": "npm run node && npm run sauce && npm run cover",
+    "test-all": "npm run test-node && npm run test-sauce && npm run test-cover",
     "test": "npm run test-node",
     "build-release": "webpack",
     "build-test": "NODE_ENV=test webpack",
