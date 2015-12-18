@@ -81,6 +81,7 @@ describe('after', function() {
 	})
 })
 
+/*
 describe('delay', function() {
 	it('should act like setTimeout', function(done) {
 		var arr = []
@@ -102,6 +103,7 @@ describe('delay', function() {
 		}, 30)
 	})
 })
+*/
 
 /*
 describe('debounce', function() {

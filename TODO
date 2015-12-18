@@ -1,1 +1,6 @@
-- unit test debounce throttle asyncmap failed
+unit test failed
+
+- debounce
+- throttle
+- asyncmap
+- delay

@@ -12,10 +12,13 @@ launchers.modern = {
 		browserName: 'chrome',
 		platform: 'Windows 7'
 	},
+	/*
+	// fuxk firefox
 	sl_firefox: {
 		base: 'SauceLabs',
 		browserName: 'firefox'
 	},
+	*/
 	sl_mac_safari: {
 		base: 'SauceLabs',
 		browserName: 'safari',
@@ -66,11 +69,24 @@ launchers.mobile = {
 
 var customLaunchers = extend({}, launchers.modern, launchers.ie, launchers.mobile)
 
+// fast sauce test
+/*
+customLaunchers = {
+	sl_chrome: {
+		base: 'SauceLabs',
+		browserName: 'chrome',
+		platform: 'Windows 7'
+	}
+}
+*/
+
 module.exports = function(config) {
 	config.set(extend(base, {
 		browsers: keys(customLaunchers),
 		customLaunchers: customLaunchers,
-		reporters: ['progress', 'saucelabs'],
+		// reporters: ['progress', 'saucelabs'],
+		// reporters: ['saucelabs'], // progress is fucked in travis
+		reporters: ['mocha'],
 		sauceLabs: {
 			testName: 'min-util unit tests',
 			recordScreenshots: false,

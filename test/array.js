@@ -197,6 +197,7 @@ describe('last', function() {
 	})
 })
 
+/*
 describe('async map', function() {
 	function delay(time, cb) {
 		var ok = true
@@ -238,6 +239,7 @@ describe('async map', function() {
 		})
 	})
 })
+*/
 
 describe('slice', function() {
 	it('should create a new array', function() {

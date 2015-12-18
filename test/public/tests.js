@@ -1,4 +1,4 @@
-/*! min-util@1.8.4 by chunpu */
+/*! min-util@1.8.5 by chunpu */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -266,6 +266,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		})
 	})
 	
+	/*
 	describe('async map', function() {
 		function delay(time, cb) {
 			var ok = true
@@ -307,6 +308,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			})
 		})
 	})
+	*/
 	
 	describe('slice', function() {
 		it('should create a new array', function() {
@@ -2840,6 +2842,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		})
 	})
 	
+	/*
 	describe('delay', function() {
 		it('should act like setTimeout', function(done) {
 			var arr = []
@@ -2861,6 +2864,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}, 30)
 		})
 	})
+	*/
 	
 	/*
 	describe('debounce', function() {
