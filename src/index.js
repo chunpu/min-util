@@ -7,6 +7,7 @@ require('./object')
 require('./function')
 require('./util')
 require('./string')
+require('./math')
 
 _.mixin(_, _)
 
