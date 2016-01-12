@@ -1,4 +1,4 @@
-/*! min-util@1.8.6 by chunpu */
+/*! min-util@1.9.1 by chunpu */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -56,11 +56,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1)
-	__webpack_require__(17)
 	__webpack_require__(18)
 	__webpack_require__(19)
 	__webpack_require__(20)
 	__webpack_require__(21)
+	__webpack_require__(22)
+	__webpack_require__(23)
 
 
 /***/ },
@@ -68,7 +69,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(2)
-	var assert = __webpack_require__(12)
+	var assert = __webpack_require__(13)
 	
 	// Iteration
 	
@@ -508,6 +509,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__webpack_require__(8)
 	__webpack_require__(10)
 	__webpack_require__(11)
+	__webpack_require__(12)
 	
 	_.mixin(_, _)
 	
@@ -1157,6 +1159,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		}))
 	}
 	
+	_.mapKeys = function(obj, fn) {
+		var ret = {}
+		forIn(obj, function(val, key, obj) {
+			var newKey = fn(val, key, obj)
+			ret[newKey] = val
+		})
+		return ret
+	}
+	
 	_.mapObject = _.mapValues = function(obj, fn) {
 		var ret = {}
 		forIn(obj, function(val, key, obj) {
@@ -1649,6 +1660,53 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var _ = module.exports = __webpack_require__(3)
+	
+	_.sum = function(arr) {
+		return _.reduce(arr, function(sum, val) {
+			return sum + val
+		}, 0)
+	}
+	
+	_.max = function(arr, fn) {
+		var index = -1
+		var data = -Infinity
+		fn = fn || _.identity
+		_.each(arr, function(val, i) {
+			val = fn(val)
+			if (val > data) {
+				data = val
+				index = i
+			}
+		})
+		if (index > -1) {
+			return arr[index]
+		}
+		return data
+	}
+	
+	_.min = function(arr, fn) {
+		var index = -1
+		var data = Infinity
+		fn = fn || _.identity
+		_.each(arr, function(val, i) {
+			val = fn(val)
+			if (val < data) {
+				data = val
+				index = i
+			}
+		})
+		if (index > -1) {
+			return arr[index]
+		}
+		return data
+	}
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// http://wiki.commonjs.org/wiki/Unit_Testing/1.0
 	//
 	// THIS IS NOT TESTED NOR LIKELY TO WORK OUTSIDE V8!
@@ -1676,7 +1734,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// when used in node, this will actually load the util module we depend on
 	// versus loading the builtin util module as happens otherwise
 	// this is a bug in node module loading as far as I am concerned
-	var util = __webpack_require__(13);
+	var util = __webpack_require__(14);
 	
 	var pSlice = Array.prototype.slice;
 	var hasOwn = Object.prototype.hasOwnProperty;
@@ -2011,7 +2069,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -2539,7 +2597,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	exports.isPrimitive = isPrimitive;
 	
-	exports.isBuffer = __webpack_require__(15);
+	exports.isBuffer = __webpack_require__(16);
 	
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -2583,7 +2641,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *     prototype.
 	 * @param {function} superCtor Constructor function to inherit prototype from.
 	 */
-	exports.inherits = __webpack_require__(16);
+	exports.inherits = __webpack_require__(17);
 	
 	exports._extend = function(origin, add) {
 	  // Don't do anything if add isn't an object
@@ -2601,10 +2659,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return Object.prototype.hasOwnProperty.call(obj, prop);
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(14)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(15)))
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -2701,7 +2759,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports) {
 
 	module.exports = function isBuffer(arg) {
@@ -2712,7 +2770,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -2741,11 +2799,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(2)
-	var assert = __webpack_require__(12)
+	var assert = __webpack_require__(13)
 	
 	// Basic
 	describe('test', function() {
@@ -2756,11 +2814,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(2)
-	var assert = __webpack_require__(12)
+	var assert = __webpack_require__(13)
 	
 	describe('bind', function() {
 		it('should support args', function(done) {
@@ -2977,11 +3035,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(2)
-	var assert = __webpack_require__(12)
+	var assert = __webpack_require__(13)
 	
 	// Object
 	
@@ -3010,6 +3068,40 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 			obj.add({foo: true})
 			assert(true == obj.foo)
+		})
+	})
+	
+	describe('mapKeys', function() {
+		it('should return a new object map by raw', function() {
+			var raw = {a: 1, b: 2}
+			var ret = _.mapKeys(raw, function(val, key, obj) {
+				assert(raw === obj)
+				assert(val === obj[key])
+				return key + val
+			})
+			assert(raw != ret)
+			assert.deepEqual({
+				a1: 1,
+				b2: 2
+			}, ret)
+			/*
+			assert.deepEqual({}, _.mapObject(null, function(val) {
+				return val * 2
+			}))
+			*/
+		})
+	
+		it('should support any return, even undefined', function() {
+			var raw = {a: null, b: undefined, c: false, d: 1024}
+			var ret = _.mapKeys(raw, function(val, key) {
+				return val
+			})
+			assert.deepEqual(ret, {
+				'null': null,
+				'undefined': undefined,
+				'false': false,
+				'1024': 1024
+			})
 		})
 	})
 	
@@ -3207,11 +3299,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(2)
-	var assert = __webpack_require__(12)
+	var assert = __webpack_require__(13)
 	
 	// String
 	
@@ -3338,11 +3430,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(2)
-	var assert = __webpack_require__(12)
+	var assert = __webpack_require__(13)
 	
 	// Util
 	describe('basic', function() {
@@ -3394,6 +3486,46 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		})
 	})
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(2)
+	var assert = __webpack_require__(13)
+	
+	// math
+	
+	describe('sum', function() {
+		it('should ok', function() {
+			assert.equal(_.sum([1, 2, 3, 4]), 10)
+			assert.equal(_.sum([]), 0)
+		})
+	})
+	
+	describe('max', function() {
+		it('should ok', function() {
+			assert.equal(_.max(), -Infinity)
+			assert.equal(_.max([1, 2, 3]), 3)
+			assert.equal(_.max([1, 5, 2]), 5)
+			assert.deepEqual(_.max([{a: 2}, {a: 1}], function(item) {
+				return item.a
+			}), {a: 2})
+		})
+	})
+	
+	describe('max', function() {
+		it('should ok', function() {
+			assert.equal(_.min(), Infinity)
+			assert.equal(_.min([1, 2, 3]), 1)
+			assert.equal(_.min([1, -5, 2]), -5)
+			assert.deepEqual(_.min([{a: 2}, {a: 1}], function(item) {
+				return item.a
+			}), {a: 1})
+		})
+	})
+	
 
 
 /***/ }

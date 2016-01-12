@@ -1,4 +1,4 @@
-/*! min-util@1.8.6 by chunpu */
+/*! min-util@1.9.1 by chunpu */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -77,6 +77,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__webpack_require__(6)
 	__webpack_require__(8)
 	__webpack_require__(9)
+	__webpack_require__(10)
 
 	_.mixin(_, _)
 
@@ -726,6 +727,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		}))
 	}
 
+	_.mapKeys = function(obj, fn) {
+		var ret = {}
+		forIn(obj, function(val, key, obj) {
+			var newKey = fn(val, key, obj)
+			ret[newKey] = val
+		})
+		return ret
+	}
+
 	_.mapObject = _.mapValues = function(obj, fn) {
 		var ret = {}
 		forIn(obj, function(val, key, obj) {
@@ -1211,6 +1221,53 @@ return /******/ (function(modules) { // webpackBootstrap
 	function tostr(str) {
 		if (str || 0 == str) return str + ''
 		return ''
+	}
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = module.exports = __webpack_require__(1)
+
+	_.sum = function(arr) {
+		return _.reduce(arr, function(sum, val) {
+			return sum + val
+		}, 0)
+	}
+
+	_.max = function(arr, fn) {
+		var index = -1
+		var data = -Infinity
+		fn = fn || _.identity
+		_.each(arr, function(val, i) {
+			val = fn(val)
+			if (val > data) {
+				data = val
+				index = i
+			}
+		})
+		if (index > -1) {
+			return arr[index]
+		}
+		return data
+	}
+
+	_.min = function(arr, fn) {
+		var index = -1
+		var data = Infinity
+		fn = fn || _.identity
+		_.each(arr, function(val, i) {
+			val = fn(val)
+			if (val < data) {
+				data = val
+				index = i
+			}
+		})
+		if (index > -1) {
+			return arr[index]
+		}
+		return data
 	}
 
 

@@ -40,6 +40,15 @@ _.functions = function(obj) {
 	}))
 }
 
+_.mapKeys = function(obj, fn) {
+	var ret = {}
+	forIn(obj, function(val, key, obj) {
+		var newKey = fn(val, key, obj)
+		ret[newKey] = val
+	})
+	return ret
+}
+
 _.mapObject = _.mapValues = function(obj, fn) {
 	var ret = {}
 	forIn(obj, function(val, key, obj) {

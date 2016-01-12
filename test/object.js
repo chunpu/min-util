@@ -31,6 +31,40 @@ describe('extend', function() {
 	})
 })
 
+describe('mapKeys', function() {
+	it('should return a new object map by raw', function() {
+		var raw = {a: 1, b: 2}
+		var ret = _.mapKeys(raw, function(val, key, obj) {
+			assert(raw === obj)
+			assert(val === obj[key])
+			return key + val
+		})
+		assert(raw != ret)
+		assert.deepEqual({
+			a1: 1,
+			b2: 2
+		}, ret)
+		/*
+		assert.deepEqual({}, _.mapObject(null, function(val) {
+			return val * 2
+		}))
+		*/
+	})
+
+	it('should support any return, even undefined', function() {
+		var raw = {a: null, b: undefined, c: false, d: 1024}
+		var ret = _.mapKeys(raw, function(val, key) {
+			return val
+		})
+		assert.deepEqual(ret, {
+			'null': null,
+			'undefined': undefined,
+			'false': false,
+			'1024': 1024
+		})
+	})
+})
+
 describe('mapObject', function() {
 	it('should return a new object map by raw', function() {
 		var raw = {a: 1, b: 2}

@@ -70,6 +70,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.pick`
 - `_.functions`
 - `_.only`
+- `_.mapKeys`
 - `_.mapObject`
 - `_.create`
 - `_.has`
