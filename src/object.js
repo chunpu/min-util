@@ -57,11 +57,12 @@ _.mapObject = _.mapValues = function(obj, fn) {
 	return ret
 }
 
+// return value when walk through path, otherwise return empty
 _.get = function(obj, path) {
 	path = toPath(path)
 	if (path.length) {
 		var flag = _.every(path, function(key) {
-			if (null != obj && key in Object(obj)) {
+			if (null != obj) { // obj can be indexed
 				obj = obj[key]
 				return true
 			}
