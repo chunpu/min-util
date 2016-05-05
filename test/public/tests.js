@@ -1,4 +1,4 @@
-/*! min-util@1.9.1 by chunpu */
+/*! min-util@2.0.0 by chunpu */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -1176,11 +1176,12 @@ return /******/ (function(modules) { // webpackBootstrap
 		return ret
 	}
 	
+	// return value when walk through path, otherwise return empty
 	_.get = function(obj, path) {
 		path = toPath(path)
 		if (path.length) {
 			var flag = _.every(path, function(key) {
-				if (null != obj && key in Object(obj)) {
+				if (null != obj) { // obj can be indexed
 					obj = obj[key]
 					return true
 				}
@@ -1630,14 +1631,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		}).join('')
 	}
 	
-	_.padLeft = function(str, len, chars) {
+	_.padStart = function(str, len, chars) {
 		str = _.tostr(str)
 		len = len || 0
 		var delta = len - str.length
 		return getPadStr(chars, delta) + str
 	}
 	
-	_.padRight = function(str, len, chars) {
+	_.padEnd = function(str, len, chars) {
 		str = _.tostr(str)
 		len = len || 0
 		var delta = len - str.length
@@ -3408,23 +3409,23 @@ return /******/ (function(modules) { // webpackBootstrap
 		})
 	})
 	
-	describe('padLeft', function() {
-		it('should pad left', function() {
-			assert(_.padLeft('abc', 6) == '   abc')
-			assert(_.padLeft('abc', 6, '') == '   abc')
-			assert(_.padLeft('abc', 6, 0) == '000abc')
-			assert(_.padLeft('abc', 6, '_-') == '_-_abc')
-			assert(_.padLeft('abc', 3) == 'abc')
+	describe('padStart', function() {
+		it('should pad start', function() {
+			assert(_.padStart('abc', 6) == '   abc')
+			assert(_.padStart('abc', 6, '') == '   abc')
+			assert(_.padStart('abc', 6, 0) == '000abc')
+			assert(_.padStart('abc', 6, '_-') == '_-_abc')
+			assert(_.padStart('abc', 3) == 'abc')
 		})
 	})
 	
-	describe('padRight', function() {
-		it('should pad right', function() {
-			assert(_.padRight('abc', 6) == 'abc   ')
-			assert(_.padRight('abc', 6, '') == 'abc   ')
-			assert(_.padRight('abc', 6, 0) == 'abc000')
-			assert(_.padRight('abc', 6, '_-') == 'abc_-_')
-			assert(_.padRight('abc', 3) == 'abc')
+	describe('padEnd', function() {
+		it('should pad end', function() {
+			assert(_.padEnd('abc', 6) == 'abc   ')
+			assert(_.padEnd('abc', 6, '') == 'abc   ')
+			assert(_.padEnd('abc', 6, 0) == 'abc000')
+			assert(_.padEnd('abc', 6, '_-') == 'abc_-_')
+			assert(_.padEnd('abc', 3) == 'abc')
 		})
 	})
 

@@ -104,22 +104,22 @@ describe('lower', function() {
 	})
 })
 
-describe('padLeft', function() {
-	it('should pad left', function() {
-		assert(_.padLeft('abc', 6) == '   abc')
-		assert(_.padLeft('abc', 6, '') == '   abc')
-		assert(_.padLeft('abc', 6, 0) == '000abc')
-		assert(_.padLeft('abc', 6, '_-') == '_-_abc')
-		assert(_.padLeft('abc', 3) == 'abc')
+describe('padStart', function() {
+	it('should pad start', function() {
+		assert(_.padStart('abc', 6) == '   abc')
+		assert(_.padStart('abc', 6, '') == '   abc')
+		assert(_.padStart('abc', 6, 0) == '000abc')
+		assert(_.padStart('abc', 6, '_-') == '_-_abc')
+		assert(_.padStart('abc', 3) == 'abc')
 	})
 })
 
-describe('padRight', function() {
-	it('should pad right', function() {
-		assert(_.padRight('abc', 6) == 'abc   ')
-		assert(_.padRight('abc', 6, '') == 'abc   ')
-		assert(_.padRight('abc', 6, 0) == 'abc000')
-		assert(_.padRight('abc', 6, '_-') == 'abc_-_')
-		assert(_.padRight('abc', 3) == 'abc')
+describe('padEnd', function() {
+	it('should pad end', function() {
+		assert(_.padEnd('abc', 6) == 'abc   ')
+		assert(_.padEnd('abc', 6, '') == 'abc   ')
+		assert(_.padEnd('abc', 6, 0) == 'abc000')
+		assert(_.padEnd('abc', 6, '_-') == 'abc_-_')
+		assert(_.padEnd('abc', 3) == 'abc')
 	})
 })

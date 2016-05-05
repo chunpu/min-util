@@ -1,4 +1,4 @@
-/*! min-util@1.9.1 by chunpu */
+/*! min-util@2.0.0 by chunpu */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -744,11 +744,12 @@ return /******/ (function(modules) { // webpackBootstrap
 		return ret
 	}
 
+	// return value when walk through path, otherwise return empty
 	_.get = function(obj, path) {
 		path = toPath(path)
 		if (path.length) {
 			var flag = _.every(path, function(key) {
-				if (null != obj && key in Object(obj)) {
+				if (null != obj) { // obj can be indexed
 					obj = obj[key]
 					return true
 				}
@@ -1198,14 +1199,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		}).join('')
 	}
 
-	_.padLeft = function(str, len, chars) {
+	_.padStart = function(str, len, chars) {
 		str = _.tostr(str)
 		len = len || 0
 		var delta = len - str.length
 		return getPadStr(chars, delta) + str
 	}
 
-	_.padRight = function(str, len, chars) {
+	_.padEnd = function(str, len, chars) {
 		str = _.tostr(str)
 		len = len || 0
 		var delta = len - str.length

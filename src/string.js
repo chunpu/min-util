@@ -46,14 +46,14 @@ _.repeat = function(str, count) {
 	}).join('')
 }
 
-_.padLeft = function(str, len, chars) {
+_.padStart = function(str, len, chars) {
 	str = _.tostr(str)
 	len = len || 0
 	var delta = len - str.length
 	return getPadStr(chars, delta) + str
 }
 
-_.padRight = function(str, len, chars) {
+_.padEnd = function(str, len, chars) {
 	str = _.tostr(str)
 	len = len || 0
 	var delta = len - str.length
