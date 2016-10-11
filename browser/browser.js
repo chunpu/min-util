@@ -1,4 +1,4 @@
-/*! min-util@2.0.0 by chunpu */
+/*! min-util@2.1.0 by chunpu */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -1153,9 +1153,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = module.exports = __webpack_require__(1)
 
-	_.tostr = tostr
+	_.tostr = tostr // lodash toString
 
 	var indexOf = _.indexOf
+
+	_.split = function(str, separator, limit) {
+		str = tostr(str)
+		return str.split(separator, limit)
+	}
 
 	_.capitalize = function(str) {
 		str = tostr(str)
@@ -1186,10 +1191,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	_.lower = function(str) {
+		// lodash toLower
 		return tostr(str).toLowerCase()
 	}
 
 	_.upper = function(str) {
+		// lodash toUpper
 		return tostr(str).toUpperCase()
 	}
 

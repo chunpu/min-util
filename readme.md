@@ -133,6 +133,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 #### String
 
 - `_.trim`
+- `_.split`
 - `_.indexOf`
 - `_.slice`
 - `_.tostr`

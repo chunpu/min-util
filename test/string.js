@@ -17,6 +17,15 @@ describe('trim', function() {
 	})
 })
 
+describe('split', function() {
+	it('should ok', function() {
+		assert.deepEqual(_.split('a-b-c', '-'), ['a', 'b', 'c'])
+		assert.deepEqual(_.split('a-b-c', '-', 2), ['a', 'b'])
+		assert.deepEqual(_.split(null), ['']) // use to string
+		assert.deepEqual(_.split('abc'), ['abc']) // use to string
+	})
+})
+
 describe('capitalize', function() {
 	it('should ok', function() {
 		assert(_.capitalize('foo') == 'Foo')

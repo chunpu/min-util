@@ -1,8 +1,13 @@
 var _ = module.exports = require('./')
 
-_.tostr = tostr
+_.tostr = tostr // lodash toString
 
 var indexOf = _.indexOf
+
+_.split = function(str, separator, limit) {
+	str = tostr(str)
+	return str.split(separator, limit)
+}
 
 _.capitalize = function(str) {
 	str = tostr(str)
@@ -33,10 +38,12 @@ _.endsWith = function(str, val) {
 }
 
 _.lower = function(str) {
+	// lodash toLower
 	return tostr(str).toLowerCase()
 }
 
 _.upper = function(str) {
+	// lodash toUpper
 	return tostr(str).toUpperCase()
 }
 
