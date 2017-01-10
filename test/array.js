@@ -278,6 +278,13 @@ describe('uniq', function() {
 	})
 })
 
+describe('uniqBy', function() {
+	it('basic uniqBy', function() {
+		assert.deepEqual(_.uniqBy([2.1, 1.2, 2.3], Math.floor), [2.1, 1.2])
+		assert.deepEqual(_.uniqBy([1, 2, 4, 2, 4, 3], null), [1, 2, 4, 3])
+	})
+})
+
 describe('flatten', function() {
 	it('should flatten nested array', function() {
 		assert.deepEqual([1, 2, 3, [[4]]], _.flatten([1, [2], [3, [[4]]]]))

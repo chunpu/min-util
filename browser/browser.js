@@ -1,4 +1,4 @@
-/*! min-util@2.1.0 by chunpu */
+/*! min-util@2.2.0 by chunpu */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -281,6 +281,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var obj = Object.prototype
 
+	var navigator = global.navigator
+
+	// reserved words in es3
+	// instanceof null undefined arguments boolean false true function int
+
 	is.browser = (function() {
 		return global.window == global
 	})()
@@ -288,6 +293,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	// simple modern browser detect
 	is.h5 = (function() {
 		if (is.browser && navigator.geolocation) {
+			return true
+		}
+		return false
+	})()
+
+	is.mobile = (function() {
+		if (is.browser && /mobile/i.test(navigator.userAgent)) {
 			return true
 		}
 		return false
@@ -316,7 +328,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// not a number
 	is.nan = function(val) {
-		return !is.num(val)
+		return val !== val
+	}
+
+	is.bool = function(val) {
+		return 'boolean' == _class(val)
 	}
 
 	is.infinite = function(val) {
@@ -327,7 +343,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		return !isNaN(num) && 'number' == _class(num)
 	}
 
-	// int or decimal
+	// integer or decimal
 	is.iod = function(val) {
 		if (is.num(val) && !is.infinite(val)) {
 			return true
@@ -342,7 +358,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		return false
 	}
 
-	is.int = function(val) {
+	is.integer = function(val) {
 		if (is.iod(val)) {
 			return 0 == val % 1
 		}
@@ -402,7 +418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		// window has length for iframe too, but it is not arraylike
 		if (!is.window(arr) && is.obj(arr)) {
 			var len = arr.length
-			if (is.int(len) && len >= 0) {
+			if (is.integer(len) && len >= 0) {
 				return true
 			}
 		}
@@ -527,9 +543,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	_.uniq = function(arr) {
+		return _.uniqBy(arr)
+	}
+
+	_.uniqBy = function(arr, fn) {
 		var ret = []
+		var pool = []
+		if (!is.fn(fn)) {
+			fn = null
+		}
 		each(arr, function(item) {
-			if (!includes(ret, item)) ret.push(item)
+			var val = item
+			if (fn) {
+				val = fn(item)
+			}
+			if (!includes(pool, val)) {
+				pool.push(val)
+				ret.push(item)
+			}
 		})
 		return ret
 	}

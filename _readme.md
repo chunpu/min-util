@@ -40,6 +40,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.indexOf`
 - `_.includes`
 - `_.uniq`
+- `_.uniqBy`
 - `_.flatten`
 - `_.union`
 - `_.sample`

@@ -78,9 +78,24 @@ _.asyncMap = function(arr, fn, cb) {
 }
 
 _.uniq = function(arr) {
+	return _.uniqBy(arr)
+}
+
+_.uniqBy = function(arr, fn) {
 	var ret = []
+	var pool = []
+	if (!is.fn(fn)) {
+		fn = null
+	}
 	each(arr, function(item) {
-		if (!includes(ret, item)) ret.push(item)
+		var val = item
+		if (fn) {
+			val = fn(item)
+		}
+		if (!includes(pool, val)) {
+			pool.push(val)
+			ret.push(item)
+		}
 	})
 	return ret
 }
