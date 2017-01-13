@@ -6,7 +6,7 @@ var forIn = _.forIn
 
 _.only = function(obj, keys) {
 	obj = obj || {}
-	if (is.str(keys)) keys = keys.split(/ +/)
+	if (is.string(keys)) keys = keys.split(/ +/)
 	return _.reduce(keys, function(ret, key) {
 		if (null != obj[key]) ret[key] = obj[key]
 		return ret

@@ -192,7 +192,7 @@ _.range = function() {
 	var start = args[0] || 0
 	var last = args[1] || 0
 	var step = args[2]
-	if (!is.num(step)) {
+	if (!is.number(step)) {
 		step = 1
 	}
 	var count = last - start

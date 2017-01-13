@@ -4,7 +4,7 @@ var is = _.is
 var slice = _.slice
 
 _.bind = function(fn, ctx) {
-	if (is.str(ctx)) {
+	if (is.string(ctx)) {
 		var obj = fn
 		fn = obj[ctx]
 		ctx = obj
