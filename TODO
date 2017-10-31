@@ -4,3 +4,6 @@ unit test failed
 - throttle
 - asyncmap
 - delay
+- pick
+- size
+- isString.... done

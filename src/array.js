@@ -32,14 +32,6 @@ _.pluck = function(arr, key) {
 	})
 }
 
-_.size = function(arr) {
-	var len = _.len(arr)
-	if (null == len) {
-		len = _.keys(arr).length
-	}
-	return len
-}
-
 _.first = function(arr) {
 	if (arr) return arr[0]
 }
@@ -244,4 +236,18 @@ _.remove = function(arr, fn) {
 
 _.fill = function(val, start, end) {
 	// TODO
+}
+
+_.size = function(val) {
+	// size is safe length
+	var size = 0
+	if (val) {
+		var len = val.length
+		if (_.isInteger(len) && len >= 0) {
+			size = len
+		} else if (_.isObject(val)) {
+			size = _.keys(val).length
+		}
+	}
+	return size
 }

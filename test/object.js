@@ -236,7 +236,7 @@ describe('pick', function() {
 			foo: 'bar',
 			foo2: 2
 		}
-		var ret = _.pick(obj, _.is.str)
+		var ret = _.pick(obj, _.isString)
 		assert.deepEqual({foo: 'bar'}, ret)
 	})
 	it('should direct pick key', function() {

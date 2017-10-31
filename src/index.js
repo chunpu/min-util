@@ -2,10 +2,11 @@ var cou = require('cou')
 
 module.exports = cou.extend(_, cou)
 
+require('./lang')
+require('./util')
 require('./array')
 require('./object')
 require('./function')
-require('./util')
 require('./string')
 require('./math')
 
@@ -16,4 +17,3 @@ function _(val) {
 	this.__value = val
 	this.__chain = false
 }
-

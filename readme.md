@@ -76,7 +76,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.asyncMap` just like `async.map`, deprecated
 - `_.rest`
 - `_.compact`
-- `_.size`
+- `_.size` safe length for every thing
 - `_.first`
 - `_.last`
 - `_.groupBy`
@@ -163,7 +163,25 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.random`
 - `_.uniqueId` TODO
 
-TODO
+
+#### Lang
+
+- `_.isString`
+- `_.isArray`
+- `_.isArrayLike`
+- `_.isBoolean`
+- `_.isElement`
+- `_.isEmpty`
+- `_.isFunction`
+- `_.isInteger`
+- `_.isNaN`
+- `_.isNumber`
+- `_.isObject`
+- `_.isPlainObject`
+- `_.isRegExp`
+- `_.isString`
+- `_.isUndefined`
+
 
 Support
 ---
