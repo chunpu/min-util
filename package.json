@@ -15,7 +15,7 @@
     "dev": "NODE_ENV=development webpack-dev-server",
     "dev-test": "NODE_ENV=test webpack-dev-server",
     "pregit": "npm run test-node && npm run build-all && npm run readme",
-    "readme": "pretty-readme coveralls gittip > readme.md"
+    "readme": "pretty-readme"
   },
   "author": "chunpu",
   "license": "ISC",

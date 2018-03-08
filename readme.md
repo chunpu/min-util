@@ -13,8 +13,6 @@ min-util
 [david-image]: http://img.shields.io/david/chunpu/min-util.svg?style=flat-square
 [david-url]: https://david-dm.org/chunpu/min-util
 
-[![Test coverage][coveralls-image]][coveralls-url]
-[![Gittip][gittip-image]][gittip-url]
 
 Mini Javascript Util Lib
 
@@ -29,7 +27,7 @@ Usage
 ---
 
 ```js
-var _ = require('min-util')
+var _ = require(&#39;min-util&#39;)
 ```
 
 Inspired by [lodash](https://github.com/lodash/lodash) and [underscore](https://github.com/jashkenas/underscore)
@@ -48,12 +46,12 @@ Check [Unit Tests](http://chunpu.github.io/min-util/test/public)
 `_.is` equals [min-is](https://github.com/chunpu/min-is)
 
 ```js
-assert(_.is.arraylike({0: 'foo', length: 1}))
+assert(_.is.arraylike({0: &#39;foo&#39;, length: 1}))
 ```
 
 #### Array like
 
-- `_.each`
+- `_.each` -&gt; `forEach`
 - `_.map`
 - `_.filter`
 - `_.some`
@@ -86,6 +84,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.pullAt`
 - `_.remove`
 - `_.fill` TODO
+- `_.nth`
 
 
 #### Object
@@ -138,7 +137,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.split`
 - `_.indexOf`
 - `_.slice`
-- `_.tostr`
+- `_.toString`
 - `_.camelCase`
 - `_.capitalize`
 - `_.decapitalize`
@@ -149,6 +148,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.repeat`
 - `_.padLeft`
 - `_.padRight`
+- `_.template` not support templateSettings
 
 
 #### Utility
@@ -190,7 +190,6 @@ Support
 - all browsers even `IE6+`
 - node.js
 
-
 License
 ---
 
@@ -198,9 +197,5 @@ License
 
 [travis-image]: https://img.shields.io/travis/chunpu/min-util.svg?style=flat-square
 [travis-url]: https://travis-ci.org/chunpu/min-util
-[coveralls-image]: https://img.shields.io/coveralls/chunpu/min-util/gh-pages.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/chunpu/min-util
-[gittip-image]: https://img.shields.io/gittip/chunpu.svg?style=flat-square
-[gittip-url]: https://www.gittip.com/chunpu/
 [license-image]: http://img.shields.io/npm/l/min-util.svg?style=flat-square
 [license-url]: #

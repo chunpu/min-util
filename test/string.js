@@ -132,3 +132,11 @@ describe('padEnd', function() {
 		assert(_.padEnd('abc', 3) == 'abc')
 	})
 })
+
+describe('template', function() {
+	it('should parse template', function() {
+		var compiled = _.template('<% _.forEach(users, function(user) { %><li><%- user %></li><% });  %>!');
+		var ret = compiled({ 'users': ['fred', 'barney', '<script>'] })
+		assert.deepEqual(ret, '<li>fred</li><li>barney</li><li>&ltscript&gt</li>!')
+	})
+})

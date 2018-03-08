@@ -1,4 +1,4 @@
-/*! min-util@2.2.0 by chunpu */
+/*! min-util@3.0.0 by chunpu */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -53,7 +53,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(1)
 
@@ -64,9 +64,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	*/
 
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var cou = __webpack_require__(2)
 
@@ -75,9 +75,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	__webpack_require__(4)
 	__webpack_require__(5)
 	__webpack_require__(6)
+	__webpack_require__(7)
 	__webpack_require__(8)
-	__webpack_require__(9)
 	__webpack_require__(10)
+	__webpack_require__(11)
 
 	_.mixin(_, _)
 
@@ -88,10 +89,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 
-
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var is = __webpack_require__(3)
 
@@ -155,7 +155,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		var len = getLength(arr)
 		if (len >= 0) {
 			start = start || 0
-			end = end || len
+			if (0 !== end) {
+				end = end || len
+			}
 			// raw array and string use self slice
 			if (!is.fn(arr.slice)) {
 				arr = toArray(arr)
@@ -237,7 +239,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function indexOf(val, sub) {
-		if (is.str(val)) return val.indexOf(sub)
+		if (is.string(val)) return val.indexOf(sub)
 
 		return findIndex(val, function(item) {
 			// important!
@@ -273,9 +275,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {var is = exports
 
@@ -283,27 +285,43 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var navigator = global.navigator
 
-	// reserved words in es3
+	// reserved words in es3: instanceof null undefined arguments boolean false true function int
+	// only have is.string and is.object, not is.str and is.obj
 	// instanceof null undefined arguments boolean false true function int
 
-	is.browser = (function() {
-		return global.window == global
-	})()
+	is.browser = function() {
+		if (!is.wechatApp()) {
+			if (navigator && global.window == global) {
+				return true
+			}
+		}
+		return false
+	}
 
 	// simple modern browser detect
-	is.h5 = (function() {
-		if (is.browser && navigator.geolocation) {
+	is.h5 = function() {
+		if (is.browser() && navigator.geolocation) {
 			return true
 		}
 		return false
-	})()
+	}
 
-	is.mobile = (function() {
-		if (is.browser && /mobile/i.test(navigator.userAgent)) {
+	is.mobile = function() {
+		if (is.browser() && /mobile/i.test(navigator.userAgent)) {
 			return true
 		}
 		return false
-	})()
+	}
+
+	is.wechatApp = function() {
+		if ('object' == typeof wx) {
+			if (wx && is.fn(wx.createVideoContext)) {
+				// wechat js sdk has no createVideoContext
+				return true
+			}
+		}
+		return false
+	}
 
 	function _class(val) {
 		var name = obj.toString.call(val)
@@ -339,13 +357,13 @@ return /******/ (function(modules) { // webpackBootstrap
 		return val == Infinity || val == -Infinity
 	}
 
-	is.num = is.number = function(num) {
+	is.number = function(num) {
 		return !isNaN(num) && 'number' == _class(num)
 	}
 
 	// integer or decimal
 	is.iod = function(val) {
-		if (is.num(val) && !is.infinite(val)) {
+		if (is.number(val) && !is.infinite(val)) {
 			return true
 		}
 		return false
@@ -375,7 +393,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	// regexp should return object
-	is.obj = is.object = function(obj) {
+	is.object = function(obj) {
 		return is.oof(obj) && 'function' != _class(obj)
 	}
 
@@ -401,13 +419,13 @@ return /******/ (function(modules) { // webpackBootstrap
 		return 'function' == _class(fn)
 	}
 
-	is.str = is.string = function(str) {
+	is.string = function(str) {
 		return 'string' == _class(str)
 	}
 
 	// number or string
 	is.nos = function(val) {
-		return is.iod(val) || is.str(val)
+		return is.iod(val) || is.string(val)
 	}
 
 	is.array = function(arr) {
@@ -416,7 +434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	is.arraylike = function(arr) {
 		// window has length for iframe too, but it is not arraylike
-		if (!is.window(arr) && is.obj(arr)) {
+		if (!is.window(arr) && is.object(arr)) {
 			var len = arr.length
 			if (is.integer(len) && len >= 0) {
 				return true
@@ -433,7 +451,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	is.empty = function(val) {
-		if (is.str(val) || is.arraylike(val)) {
+		if (is.string(val) || is.arraylike(val)) {
 			return 0 === val.length
 		}
 		if (is.hash(val)) {
@@ -457,15 +475,122 @@ return /******/ (function(modules) { // webpackBootstrap
 		return 'regexp' == _class(val)
 	}
 
+
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
+
+	var _ = module.exports = __webpack_require__(1)
+	var is = _.is
+
+	_.isString = is.string
+
+	_.isArray = is.array
+
+	_.isArrayLike = is.arraylike
+
+	_.isBoolean = is.bool
+
+	_.isElement = is.element
+
+	_.isEmpty = is.empty
+
+	_.isFunction = is.fn
+
+	_.isInteger = is.integer
+
+	_.isNaN = is.nan
+
+	_.isNumber = is.number
+
+	_.isObject = is.object
+
+	_.isPlainObject = is.plainObject
+
+	_.isRegExp = is.regexp
+
+	_.isString = is.string
+
+	_.isUndefined = is.undef
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var _ = module.exports = __webpack_require__(1)
+	var is = _.is
+
+	_.now = function() {
+		return +new Date
+	}
+
+	_.constant = function(val) {
+		return function() {
+			return val
+		}
+	}
+
+	_.identity = function(val) {
+		return val
+	}
+
+	_.random = function(min, max) {
+		return min + Math.floor(Math.random() * (max - min + 1))
+	}
+
+	_.mixin = function(dst, src, opt) {
+		var keys = _.functions(src)
+		if (dst) {
+			if (is.fn(dst)) {
+				opt = opt || {}
+				var isChain = !!opt.chain
+				// add to prototype
+				var proto = dst.prototype
+				_.each(keys, function(key) {
+					var fn = src[key]
+					proto[key] = function() {
+						var me = this
+						var args = [me.__value]
+						args.push.apply(args, arguments)
+						var ret = fn.apply(me, args)
+						if (me.__chain) {
+							me.__value = ret
+							return me
+						}
+						return ret
+					}
+				})
+			} else {
+				_.each(keys, function(key) {
+					dst[key] = src[key]
+				})
+			}
+		}
+		return dst
+	}
+
+	_.chain = function(val) {
+		var ret = _(val)
+		ret.__chain = true
+		return ret
+	}
+
+	_.value = function() {
+		this.__chain = false
+		return this.__value
+	}
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var _ = module.exports = __webpack_require__(1)
 
-	var each = _.each
+	var each = _.forEach = _.each
 	var includes = _.includes
 	var is = _.is
 	var proto = Array.prototype
@@ -497,22 +622,25 @@ return /******/ (function(modules) { // webpackBootstrap
 		})
 	}
 
-	_.size = function(arr) {
-		var len = _.len(arr)
-		if (null == len) {
-			len = _.keys(arr).length
+	_.nth = function(arr, n) {
+		n = n || 0
+		var ret
+		if (_.isString(arr)) {
+			ret = arr.charAt(n)
+		} else {
+			ret = arr[n]
 		}
-		return len
+		return ret
 	}
 
 	_.first = function(arr) {
-		if (arr) return arr[0]
+		if (arr) return _.nth(arr, 0)
 	}
 
 	_.last = function(arr) {
 		var len = _.len(arr)
 		if (len) {
-			return arr[len - 1]
+			return _.nth(arr, len - 1)
 		}
 	}
 
@@ -657,7 +785,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		var start = args[0] || 0
 		var last = args[1] || 0
 		var step = args[2]
-		if (!is.num(step)) {
+		if (!is.number(step)) {
 			step = 1
 		}
 		var count = last - start
@@ -711,10 +839,24 @@ return /******/ (function(modules) { // webpackBootstrap
 		// TODO
 	}
 
+	_.size = function(val) {
+		// size is safe length
+		var size = 0
+		if (val) {
+			var len = val.length
+			if (_.isInteger(len) && len >= 0) {
+				size = len
+			} else if (_.isObject(val)) {
+				size = _.keys(val).length
+			}
+		}
+		return size
+	}
 
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var _ = module.exports = __webpack_require__(1)
 
@@ -724,7 +866,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	_.only = function(obj, keys) {
 		obj = obj || {}
-		if (is.str(keys)) keys = keys.split(/ +/)
+		if (is.string(keys)) keys = keys.split(/ +/)
 		return _.reduce(keys, function(ret, key) {
 			if (null != obj[key]) ret[key] = obj[key]
 			return ret
@@ -892,7 +1034,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function toPath(val) {
 		if (is.array(val)) return val
 		var ret = []
-		_.tostr(val).replace(rePropName, function(match, number, quote, string) {
+		_.toString(val).replace(rePropName, function(match, number, quote, string) {
 			var item = number || match
 			if (quote) {
 				item = string.replace(reEscapeChar, '$1')
@@ -903,9 +1045,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var _ = module.exports = __webpack_require__(1)
 
@@ -913,7 +1055,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var slice = _.slice
 
 	_.bind = function(fn, ctx) {
-		if (is.str(ctx)) {
+		if (is.string(ctx)) {
 			var obj = fn
 			fn = obj[ctx]
 			ctx = obj
@@ -1049,7 +1191,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		return memoized
 	}
 
-	memoize.Cache = __webpack_require__(7)
+	memoize.Cache = __webpack_require__(9)
 
 	_.memoize = memoize
 
@@ -1078,9 +1220,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var _ = __webpack_require__(1)
 	var is = _.is
@@ -1110,81 +1252,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = module.exports = __webpack_require__(1)
-	var is = _.is
-
-	_.now = function() {
-		return +new Date
-	}
-
-	_.constant = function(val) {
-		return function() {
-			return val
-		}
-	}
-
-	_.identity = function(val) {
-		return val
-	}
-
-	_.random = function(min, max) {
-		return min + Math.floor(Math.random() * (max - min + 1))
-	}
-
-	_.mixin = function(dst, src, opt) {
-		var keys = _.functions(src)
-		if (dst) {
-			if (is.fn(dst)) {
-				opt = opt || {}
-				var isChain = !!opt.chain
-				// add to prototype
-				var proto = dst.prototype
-				_.each(keys, function(key) {
-					var fn = src[key]
-					proto[key] = function() {
-						var me = this
-						var args = [me.__value]
-						args.push.apply(args, arguments)
-						var ret = fn.apply(me, args)
-						if (me.__chain) {
-							me.__value = ret
-							return me
-						}
-						return ret
-					}
-				})
-			} else {
-				_.each(keys, function(key) {
-					dst[key] = src[key]
-				})
-			}
-		}
-		return dst
-	}
-
-	_.chain = function(val) {
-		var ret = _(val)
-		ret.__chain = true
-		return ret
-	}
-
-	_.value = function() {
-		this.__chain = false
-		return this.__value
-	}
-
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var _ = module.exports = __webpack_require__(1)
 
-	_.tostr = tostr // lodash toString
+	_.tostr = _.toString = tostr // lodash toString
 
 	var indexOf = _.indexOf
 
@@ -1238,21 +1312,76 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	_.padStart = function(str, len, chars) {
-		str = _.tostr(str)
+		str = tostr(str)
 		len = len || 0
 		var delta = len - str.length
 		return getPadStr(chars, delta) + str
 	}
 
 	_.padEnd = function(str, len, chars) {
-		str = _.tostr(str)
+		str = tostr(str)
 		len = len || 0
 		var delta = len - str.length
 		return str + getPadStr(chars, delta)
 	}
 
+
+	var htmlEscapes = {
+	  '&': '&amp',
+	  '<': '&lt',
+	  '>': '&gt',
+	  '"': '&quot',
+	  "'": '&#39'
+	}
+
+	_.escape = function(str) {
+	    return tostr(str).replace(/[&<>"']/g, function(item) {
+	        return htmlEscapes[item] || item
+	    })
+	}
+
+	// 不支持定制 templateSettings
+	_.template = function(str) {
+		var arr = ['with(data) {var ret = ""']
+		_.each(_.split(str, '<%'), function(x, i) {
+			var two = x.split('%>')
+			if (two[1]) {
+				genJS(_.trim(two[0]))
+				return filter(two[1])
+			}
+			filter(two[0])
+		})
+
+		arr.push('return ret}')
+		var func = new Function('data', arr.join('\n'))
+		var internalData = {
+			_: _
+		}
+		var ret = function(data) {
+			return func(_.extend({}, internalData, data))
+		}
+		return ret
+
+		function genJS(jsstr) {
+			var first = _.first(jsstr)
+			if (first === '=' || first === '-') {
+				var text = _.slice(jsstr, 1)
+				if (first === '-') {
+					text = '_.escape(' + text + ')'
+				}
+				arr.push('ret += ' + text) // 插入文本
+			} else {
+				arr.push(jsstr)
+			}
+		}
+
+		function filter(html) {
+			arr.push('ret += "' + html.replace(/('|"|\\)/g, '\\$1').replace(/\r/g, '\\r').replace(/\n/g, '\\n') + '"')
+		}
+	}
+
 	function getPadStr(chars, len) {
-		chars = _.tostr(chars) || ' ' // '' will never end
+		chars = tostr(chars) || ' ' // '' will never end
 		var count = Math.floor(len / chars.length) + 1
 		return _.repeat(chars, count).slice(0, len)
 	}
@@ -1263,9 +1392,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var _ = module.exports = __webpack_require__(1)
 
@@ -1310,7 +1439,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;

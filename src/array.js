@@ -1,6 +1,6 @@
 var _ = module.exports = require('./')
 
-var each = _.each
+var each = _.forEach = _.each
 var includes = _.includes
 var is = _.is
 var proto = Array.prototype
@@ -32,14 +32,25 @@ _.pluck = function(arr, key) {
 	})
 }
 
+_.nth = function(arr, n) {
+	n = n || 0
+	var ret
+	if (_.isString(arr)) {
+		ret = arr.charAt(n)
+	} else {
+		ret = arr[n]
+	}
+	return ret
+}
+
 _.first = function(arr) {
-	if (arr) return arr[0]
+	if (arr) return _.nth(arr, 0)
 }
 
 _.last = function(arr) {
 	var len = _.len(arr)
 	if (len) {
-		return arr[len - 1]
+		return _.nth(arr, len - 1)
 	}
 }
 

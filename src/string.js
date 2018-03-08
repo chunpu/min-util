@@ -1,6 +1,6 @@
 var _ = module.exports = require('./')
 
-_.tostr = tostr // lodash toString
+_.tostr = _.toString = tostr // lodash toString
 
 var indexOf = _.indexOf
 
@@ -54,21 +54,76 @@ _.repeat = function(str, count) {
 }
 
 _.padStart = function(str, len, chars) {
-	str = _.tostr(str)
+	str = tostr(str)
 	len = len || 0
 	var delta = len - str.length
 	return getPadStr(chars, delta) + str
 }
 
 _.padEnd = function(str, len, chars) {
-	str = _.tostr(str)
+	str = tostr(str)
 	len = len || 0
 	var delta = len - str.length
 	return str + getPadStr(chars, delta)
 }
 
+
+var htmlEscapes = {
+  '&': '&amp',
+  '<': '&lt',
+  '>': '&gt',
+  '"': '&quot',
+  "'": '&#39'
+}
+
+_.escape = function(str) {
+    return tostr(str).replace(/[&<>"']/g, function(item) {
+        return htmlEscapes[item] || item
+    })
+}
+
+// 不支持定制 templateSettings
+_.template = function(str) {
+	var arr = ['with(data) {var ret = ""']
+	_.each(_.split(str, '<%'), function(x, i) {
+		var two = x.split('%>')
+		if (two[1]) {
+			genJS(_.trim(two[0]))
+			return filter(two[1])
+		}
+		filter(two[0])
+	})
+
+	arr.push('return ret}')
+	var func = new Function('data', arr.join('\n'))
+	var internalData = {
+		_: _
+	}
+	var ret = function(data) {
+		return func(_.extend({}, internalData, data))
+	}
+	return ret
+
+	function genJS(jsstr) {
+		var first = _.first(jsstr)
+		if (first === '=' || first === '-') {
+			var text = _.slice(jsstr, 1)
+			if (first === '-') {
+				text = '_.escape(' + text + ')'
+			}
+			arr.push('ret += ' + text) // 插入文本
+		} else {
+			arr.push(jsstr)
+		}
+	}
+
+	function filter(html) {
+		arr.push('ret += "' + html.replace(/('|"|\\)/g, '\\$1').replace(/\r/g, '\\r').replace(/\n/g, '\\n') + '"')
+	}
+}
+
 function getPadStr(chars, len) {
-	chars = _.tostr(chars) || ' ' // '' will never end
+	chars = tostr(chars) || ' ' // '' will never end
 	var count = Math.floor(len / chars.length) + 1
 	return _.repeat(chars, count).slice(0, len)
 }

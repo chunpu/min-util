@@ -174,7 +174,7 @@ var reEscapeChar = /\\(\\)?/g;
 function toPath(val) {
 	if (is.array(val)) return val
 	var ret = []
-	_.tostr(val).replace(rePropName, function(match, number, quote, string) {
+	_.toString(val).replace(rePropName, function(match, number, quote, string) {
 		var item = number || match
 		if (quote) {
 			item = string.replace(reEscapeChar, '$1')
