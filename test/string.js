@@ -139,4 +139,8 @@ describe('template', function() {
 		var ret = compiled({ 'users': ['fred', 'barney', '<script>'] })
 		assert.deepEqual(ret, '<li>fred</li><li>barney</li><li>&ltscript&gt</li>!')
 	})
+	it('should auto trim', function() {
+		var compiled = _.template('123<%=a%>567<%=  b %>9')
+		assert.deepEqual(compiled({a: 4, b: 8}), '123456789')
+	})
 })
