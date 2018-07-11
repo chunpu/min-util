@@ -83,7 +83,7 @@ assert(_.is.arraylike({0: &#39;foo&#39;, length: 1}))
 - `_.range`
 - `_.pullAt`
 - `_.remove`
-- `_.fill` TODO
+- `_.fill`
 - `_.nth`
 
 

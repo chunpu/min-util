@@ -231,10 +231,13 @@ _.remove = function(arr, fn) {
 }
 
 _.fill = function(arr, val, start, end) {
-	// TODO
-	_.each(arr, function(item, i) {
+	var size = _.size(arr)
+	start = getRealIndex(start, arr) || 0
+	end = getRealIndex(end, arr) || size
+	for (var i = start; i < end && i < size; i++) {
 		arr[i] = val
-	})
+	}
+	return arr
 }
 
 _.size = function(val) {

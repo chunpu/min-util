@@ -411,7 +411,6 @@ describe('pullAt', function() {
 		var evens = _.pullAt(arr, 3, 1)
 		assert.deepEqual(arr, [5, 15])
 		assert.deepEqual(evens, [10, 20])
-
 	})
 })
 
@@ -423,5 +422,20 @@ describe('remove', function() {
 		})
 		assert.deepEqual(arr, [1, 3])
 		assert.deepEqual(evens, [2, 4])
+	})
+})
+
+describe('fill', function() {
+	it('should fill array with start end', function() {
+		var arr = [4, 6, 8, 10]
+		var arr2 = _.fill(arr, '*', 1, 3)
+		assert(arr === arr2, 'fill is inplace')
+		assert.deepEqual(arr, [4, '*', '*', 10])
+
+		assert.deepEqual(_.fill([1, 2, 3], 'a'), ['a', 'a', 'a'])
+		assert.deepEqual(_.fill([0, 0, 0, 0, 0], 8, undefined, 4), [8, 8, 8, 8, 0])
+		assert.deepEqual(_.fill([], 8), [])
+
+		assert.deepEqual(_.fill([0, 0, 0, 0, 0], 8, -3, 42), [0, 0, 8, 8, 8])
 	})
 })
