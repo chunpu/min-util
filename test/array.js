@@ -175,6 +175,13 @@ describe('size', function() {
 	})
 })
 
+describe('nth', function() {
+	it('return nth of iteraton', function() {
+		assert(_.nth(['a', 'b', 'c', 'd'], 1) === 'b')
+		assert(_.nth(['a', 'b', 'c', 'd'], -2) === 'c')
+	})
+})
+
 describe('first', function() {
 	it('return first of iteraton', function() {
 		assert(undefined === _.first())

@@ -33,6 +33,7 @@ _.pluck = function(arr, key) {
 }
 
 _.nth = function(arr, n) {
+	n = getRealIndex(n, arr)
 	n = n || 0
 	var ret
 	if (_.isString(arr)) {
@@ -217,22 +218,6 @@ _.pullAt = function(arr) {
 	return mutateDifference(arr, indexes)
 }
 
-function mutateDifference(arr, indexes) {
-	var ret = []
-	var len = _.len(indexes)
-	if (len) {
-		indexes = indexes.sort(function(a, b) {
-			return a - b
-		})
-		while (len--) {
-			var index = indexes[len]
-			ret.push(proto.splice.call(arr, index, 1)[0])
-		}
-	}
-	ret.reverse()
-	return ret
-}
-
 _.remove = function(arr, fn) {
 	// `_.filter` but mutate
 	var len = _.len(arr) || 0
@@ -245,8 +230,11 @@ _.remove = function(arr, fn) {
 	return mutateDifference(arr, indexes)
 }
 
-_.fill = function(val, start, end) {
+_.fill = function(arr, val, start, end) {
 	// TODO
+	_.each(arr, function(item, i) {
+		arr[i] = val
+	})
 }
 
 _.size = function(val) {
@@ -261,4 +249,28 @@ _.size = function(val) {
 		}
 	}
 	return size
+}
+
+// 可以获取负数
+function getRealIndex(index, arr) {
+	if (index < 0) {
+		index += _.size(arr)
+	}
+	return index
+}
+
+function mutateDifference(arr, indexes) {
+	var ret = []
+	var len = _.len(indexes)
+	if (len) {
+		indexes = indexes.sort(function(a, b) {
+			return a - b
+		})
+		while (len--) {
+			var index = indexes[len]
+			ret.push(proto.splice.call(arr, index, 1)[0])
+		}
+	}
+	ret.reverse()
+	return ret
 }
