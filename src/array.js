@@ -234,7 +234,8 @@ _.fill = function(arr, val, start, end) {
 	var size = _.size(arr)
 	start = getRealIndex(start, arr) || 0
 	end = getRealIndex(end, arr) || size
-	for (var i = start; i < end && i < size; i++) {
+	console.log(start, end, 7777)
+	for (var i = start; i < end; i++) {
 		arr[i] = val
 	}
 	return arr
@@ -254,12 +255,19 @@ _.size = function(val) {
 	return size
 }
 
-// 可以获取负数
+// support negative
 function getRealIndex(index, arr) {
+	var size = _.size(arr)
 	if (index < 0) {
-		index += _.size(arr)
+		index += size
 	}
-	return index
+	if (index < 0) {
+		index = 0 // smallest is zero
+	}
+	if (index > size) {
+		index = size // biggest is size, because [start, end)
+	}
+	return index || 0 // default zero
 }
 
 function mutateDifference(arr, indexes) {

@@ -436,6 +436,9 @@ describe('fill', function() {
 		assert.deepEqual(_.fill([0, 0, 0, 0, 0], 8, undefined, 4), [8, 8, 8, 8, 0])
 		assert.deepEqual(_.fill([], 8), [])
 
-		assert.deepEqual(_.fill([0, 0, 0, 0, 0], 8, -3, 42), [0, 0, 8, 8, 8])
+		assert.deepEqual(_.fill([0, 0, 0, 0, 0], 8, -3, 100), [0, 0, 8, 8, 8], 'big end')
+		assert.deepEqual(_.fill([0, 0, 0], 8, -100, 2), [8, 8, 0], 'big negative start')
+		assert.deepEqual(_.fill([0, 0, 0], 8, -100, 2), [8, 8, 0], 'big negative start')
+		assert.deepEqual(_.fill([0, 0, 0], 8, 2, 1), [0, 0, 0], 'nothing should happen')
 	})
 })
