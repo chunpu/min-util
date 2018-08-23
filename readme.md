@@ -27,7 +27,7 @@ Usage
 ---
 
 ```js
-var _ = require(&#39;min-util&#39;)
+var _ = require('min-util')
 ```
 
 Inspired by [lodash](https://github.com/lodash/lodash) and [underscore](https://github.com/jashkenas/underscore)
@@ -46,12 +46,12 @@ Check [Unit Tests](http://chunpu.github.io/min-util/test/public)
 `_.is` equals [min-is](https://github.com/chunpu/min-is)
 
 ```js
-assert(_.is.arraylike({0: &#39;foo&#39;, length: 1}))
+assert(_.is.arraylike({0: 'foo', length: 1}))
 ```
 
 #### Array like
 
-- `_.each` -&gt; `forEach`
+- `_.each` -> `forEach`
 - `_.map`
 - `_.filter`
 - `_.some`
