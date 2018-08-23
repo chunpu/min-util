@@ -22,12 +22,13 @@ if (PRODUCTION) {
 }
 
 var config = {
-	entry: './',
+	entry: {
+		'min-util': './',
+		'browser': './src/browser'
+	},
 	output: {
-		path: path.join(__dirname, 'browser'),
-		filename: 'browser.js',
-		library: '_',
-		libraryTarget: 'umd'
+		path: path.join(__dirname, 'dist'),
+		filename: '[name].js'
 	},
 	plugins: [
 		new webpack.optimize.DedupePlugin(),

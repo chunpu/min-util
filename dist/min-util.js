@@ -1,15 +1,5 @@
-/*! min-util@3.0.0 by chunpu */
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["_"] = factory();
-	else
-		root["_"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+/*! min-util@3.2.0 by chunpu */
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -282,6 +272,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */(function(global) {var is = exports
 
 	var obj = Object.prototype
+
+	global = global || {}
 
 	var navigator = global.navigator
 
@@ -623,6 +615,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	_.nth = function(arr, n) {
+		n = getRealIndex(n, arr)
 		n = n || 0
 		var ret
 		if (_.isString(arr)) {
@@ -807,22 +800,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		return mutateDifference(arr, indexes)
 	}
 
-	function mutateDifference(arr, indexes) {
-		var ret = []
-		var len = _.len(indexes)
-		if (len) {
-			indexes = indexes.sort(function(a, b) {
-				return a - b
-			})
-			while (len--) {
-				var index = indexes[len]
-				ret.push(proto.splice.call(arr, index, 1)[0])
-			}
-		}
-		ret.reverse()
-		return ret
-	}
-
 	_.remove = function(arr, fn) {
 		// `_.filter` but mutate
 		var len = _.len(arr) || 0
@@ -835,8 +812,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		return mutateDifference(arr, indexes)
 	}
 
-	_.fill = function(val, start, end) {
-		// TODO
+	_.fill = function(arr, val, start, end) {
+		var size = _.size(arr)
+		start = getRealIndex(start, arr) || 0
+		end = getRealIndex(end, arr) || size
+		console.log(start, end, 7777)
+		for (var i = start; i < end; i++) {
+			arr[i] = val
+		}
+		return arr
 	}
 
 	_.size = function(val) {
@@ -851,6 +835,37 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}
 		return size
+	}
+
+	// support negative
+	function getRealIndex(index, arr) {
+		var size = _.size(arr)
+		if (index < 0) {
+			index += size
+		}
+		if (index < 0) {
+			index = 0 // smallest is zero
+		}
+		if (index > size) {
+			index = size // biggest is size, because [start, end)
+		}
+		return index || 0 // default zero
+	}
+
+	function mutateDifference(arr, indexes) {
+		var ret = []
+		var len = _.len(indexes)
+		if (len) {
+			indexes = indexes.sort(function(a, b) {
+				return a - b
+			})
+			while (len--) {
+				var index = indexes[len]
+				ret.push(proto.splice.call(arr, index, 1)[0])
+			}
+		}
+		ret.reverse()
+		return ret
 	}
 
 
@@ -1440,6 +1455,4 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ })
-/******/ ])
-});
-;
+/******/ ]);
