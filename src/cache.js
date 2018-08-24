@@ -1,5 +1,5 @@
-var _ = require('./')
-var is = _.is
+var cou = require('cou')
+var is = cou.is
 
 module.exports = Cache
 

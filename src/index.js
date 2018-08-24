@@ -2,13 +2,13 @@ var cou = require('cou')
 
 module.exports = cou.extend(_, cou)
 
-require('./lang')
-require('./util')
-require('./array')
-require('./object')
-require('./function')
-require('./string')
-require('./math')
+require('./lang')(_)
+require('./util')(_)
+require('./array')(_)
+require('./object')(_)
+require('./function')(_)
+require('./string')(_)
+require('./math')(_)
 
 _.mixin(_, _)
 

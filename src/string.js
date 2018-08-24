@@ -1,4 +1,4 @@
-var _ = module.exports = require('./')
+module.exports = function(_) {
 
 _.tostr = _.toString = tostr // lodash toString
 
@@ -131,4 +131,6 @@ function getPadStr(chars, len) {
 function tostr(str) {
 	if (str || 0 == str) return str + ''
 	return ''
+}
+
 }

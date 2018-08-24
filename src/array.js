@@ -1,4 +1,4 @@
-var _ = module.exports = require('./')
+module.exports = function(_) {
 
 var each = _.forEach = _.each
 var includes = _.includes
@@ -234,7 +234,6 @@ _.fill = function(arr, val, start, end) {
 	var size = _.size(arr)
 	start = getRealIndex(start, arr) || 0
 	end = getRealIndex(end, arr) || size
-	console.log(start, end, 7777)
 	for (var i = start; i < end; i++) {
 		arr[i] = val
 	}
@@ -284,4 +283,6 @@ function mutateDifference(arr, indexes) {
 	}
 	ret.reverse()
 	return ret
+}
+
 }

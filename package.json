@@ -2,7 +2,7 @@
   "name": "min-util",
   "version": "3.2.0",
   "description": "Mini Javascript Util Lib",
-  "main": "dist/min-util.js",
+  "main": "index.js",
   "scripts": {
     "test-cover": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test",
     "test-sauce": "karma start karma.sauce.config.js",

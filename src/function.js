@@ -1,4 +1,4 @@
-var _ = module.exports = require('./')
+module.exports = function(_) {
 
 var is = _.is
 var slice = _.slice
@@ -166,4 +166,6 @@ _.curry = function(fn) {
 			return setter(arr)
 		}
 	}
+}
+
 }

@@ -1,3 +1,5 @@
-var _ = require('./')
+module.exports = function(_) {
 
 window._ = _
+
+}

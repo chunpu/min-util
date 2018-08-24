@@ -1,4 +1,5 @@
-var _ = module.exports = require('./')
+module.exports = function(_) {
+
 var is = _.is
 
 _.now = function() {
@@ -59,4 +60,6 @@ _.chain = function(val) {
 _.value = function() {
 	this.__chain = false
 	return this.__value
+}
+
 }

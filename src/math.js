@@ -1,4 +1,4 @@
-var _ = module.exports = require('./')
+module.exports = function(_) {
 
 _.sum = function(arr) {
 	return _.reduce(arr, function(sum, val) {
@@ -38,4 +38,6 @@ _.min = function(arr, fn) {
 		return arr[index]
 	}
 	return data
+}
+
 }

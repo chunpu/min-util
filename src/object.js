@@ -1,4 +1,4 @@
-var _ = module.exports = require('./')
+module.exports = function(_) {
 
 var is = _.is
 var each = _.each
@@ -182,4 +182,6 @@ function toPath(val) {
 		ret.push(item)
 	})
 	return ret
+}
+
 }

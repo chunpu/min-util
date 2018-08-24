@@ -1,4 +1,5 @@
-var _ = module.exports = require('./')
+module.exports = function(_) {
+
 var is = _.is
 
 _.isString = is.string
@@ -30,3 +31,5 @@ _.isRegExp = is.regexp
 _.isString = is.string
 
 _.isUndefined = is.undef
+
+}
