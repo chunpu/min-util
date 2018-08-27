@@ -136,6 +136,8 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.split`
 - `_.indexOf`
 - `_.slice`
+- `_.toLower`
+- `_.toUpper`
 - `_.toString`
 - `_.camelCase`
 - `_.capitalize`

@@ -37,12 +37,12 @@ _.endsWith = function(str, val) {
 	return val == _.slice(str, _.len(str) - _.len(val))
 }
 
-_.lower = function(str) {
+_.toLower = _.lower = function(str) {
 	// lodash toLower
 	return tostr(str).toLowerCase()
 }
 
-_.upper = function(str) {
+_.toUpper = _.upper = function(str) {
 	// lodash toUpper
 	return tostr(str).toUpperCase()
 }
