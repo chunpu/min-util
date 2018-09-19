@@ -14,7 +14,7 @@ min-util
 [david-url]: https://david-dm.org/chunpu/min-util
 
 
-Mini Javascript Util Lib
+A minimalist JavaScript Util library with a largely Lodash-compatible API.
 
 Installation
 ---
