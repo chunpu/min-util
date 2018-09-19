@@ -3,7 +3,7 @@ var assert = require('assert')
 
 // Basic
 describe('test', function() {
-	it('should support browser feature', function() {
+  it('should support browser feature', function() {
 
-	})
+  })
 })

@@ -13,7 +13,7 @@ require('./math')(_)
 _.mixin(_, _)
 
 function _(val) {
-	if (!(this instanceof _)) return new _(val)
-	this.__value = val
-	this.__chain = false
+  if (!(this instanceof _)) return new _(val)
+  this.__value = val
+  this.__chain = false
 }
