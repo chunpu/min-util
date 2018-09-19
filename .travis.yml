@@ -3,7 +3,7 @@ node_js:
     - node
 branches:
   only:
-  - gh-pages
+  - master
 env:
   global:
   - SAUCE_USERNAME: chunpu2

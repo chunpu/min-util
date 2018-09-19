@@ -1,7 +1,6 @@
 module.exports = function(_) {
 
 var is = _.is
-var each = _.each
 var forIn = _.forIn
 
 _.only = function(obj, keys) {

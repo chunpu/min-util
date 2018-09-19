@@ -9,7 +9,7 @@
     "test-node": "mocha test/index",
     "test-all": "npm run test-node && npm run test-sauce && npm run test-cover",
     "test": "npm run test-node",
-    "build": "webpack",
+    "build": "rm -rf dist/* && webpack",
     "build-test": "NODE_ENV=test webpack",
     "build-all": "npm run build-release && npm run build-test",
     "dev": "NODE_ENV=development webpack-dev-server",

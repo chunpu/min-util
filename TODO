@@ -2,5 +2,4 @@ unit test failed
 
 - debounce
 - throttle
-- asyncmap
 - delay

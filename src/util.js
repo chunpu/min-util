@@ -25,7 +25,6 @@ _.mixin = function(dst, src, opt) {
   if (dst) {
     if (is.fn(dst)) {
       opt = opt || {}
-      var isChain = !!opt.chain
       // add to prototype
       var proto = dst.prototype
       _.each(keys, function(key) {

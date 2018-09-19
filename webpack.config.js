@@ -5,7 +5,7 @@ var util = require('util')
 var NODE_ENV = process.env.NODE_ENV // production, development, test
 var TEST = 'test' == NODE_ENV
 var DEBUG = 'development' == NODE_ENV
-var PRODUCTION = 'production' == NODE_ENV
+var PRODUCTION = true
 
 if (TEST) {
   console.log('test mode')
@@ -23,12 +23,13 @@ if (PRODUCTION) {
 
 var config = {
   entry: {
-    'min-util': './',
-    'browser': './src/browser'
+    'min-util': './'
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: '[name].js',
+    libraryTarget: 'umd',
+    library: '_'
   },
   plugins: [
     new webpack.optimize.DedupePlugin(),
@@ -37,11 +38,7 @@ var config = {
       VERSION: JSON.stringify(pkg.version),
       DEBUG: DEBUG
     })
-  ],
-  devServer: {
-    contentBase: './browser',
-    host: '0.0.0.0'
-  }
+  ]
 }
 
 if (TEST) {
