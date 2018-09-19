@@ -120,7 +120,7 @@ _.union = function() {
 	return _.uniq(_.flatten(arguments))
 }
 
-_.sample = function(arr, n) {
+_.sampleSize = function(arr, n) {
 	var ret = _.toArray(arr)
 	var len = ret.length
 	var need = Math.min(n || 1, len)
@@ -131,14 +131,15 @@ _.sample = function(arr, n) {
 		ret[i] = tmp
 	}
 	ret.length = need
-	if (null == n) {
-		return ret[0]
-	}
 	return ret
 }
 
+_.sample = function(arr) {
+	return _.first(_.sampleSize(arr, 1))
+}
+
 _.shuffle = function(arr) {
-	return _.sample(arr, Infinity)
+	return _.sampleSize(arr, Infinity)
 }
 
 _.compact = function(arr) {

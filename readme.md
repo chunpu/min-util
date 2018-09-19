@@ -69,6 +69,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.flatten`
 - `_.union`
 - `_.sample`
+- `_.sampleSize`
 - `_.shuffle`
 - `_.difference`
 - `_.without`

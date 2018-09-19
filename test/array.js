@@ -305,15 +305,26 @@ describe('union', function() {
 })
 
 describe('sample', function() {
-	it('should return n random elements from array', function() {
+	it('should return one random element from array', function() {
 		var ret = _.sample([1, 2, 3, 4])
 		assert(-1 != _.indexOf([1, 2, 3, 4], ret))
 
-		var arr = _.sample([1, 2, 3, 4], 2)
-		assert(2 == arr.length)
-		assert(2 == _.difference([1, 2, 3, 4], arr).length)
+		var ret2 = _.sample([1, 2, 3, 4], 2)
+		assert(_.isNumber(ret2))
+	})
+})
 
-		assert(4 == _.sample([1, 2, 3, 4], 1000).length)
+describe('sampleSize', function() {
+	it('should return n random elements from array', function() {
+		var arr1 = _.sampleSize([1, 2, 3, 4])
+		assert(arr1.length === 1)
+		assert(-1 != _.indexOf([1, 2, 3, 4], arr1[0]))
+
+		var arr2 = _.sampleSize([1, 2, 3, 4], 2)
+		assert(2 == arr2.length)
+		assert(2 == _.difference([1, 2, 3, 4], arr2).length)
+
+		assert(4 == _.sampleSize([1, 2, 3, 4], 1000).length)
 	})
 })
 
