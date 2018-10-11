@@ -33,19 +33,19 @@ var _ = require('min-util')
 Inspired by [lodash](https://github.com/lodash/lodash) and [underscore](https://github.com/jashkenas/underscore)
 
 
+### Very Small Size
+
+min-util [(~4kb gzipped)](http://chunpu.github.io/min-util/dist/min-util.js)
+
+Lodash is ~24kb gzipped
+
+
 Try
 ---
 
-Try in [console](//chunpu.github.io/min-util/docs), exports as `_`
+Try in [console](http://chunpu.github.io/min-util/docs), exports as `_`
 
-Check [Unit Tests](//chunpu.github.io/min-util/test/public)
-
-
-## Very Small Size
-
-![](//img.badgesize.io/chunpu/min-util/master/dist/min-util.js.svg?compression=gzip)
-
-Lodash is ~24kb
+Check [Unit Tests](http://chunpu.github.io/min-util/test/public)
 
 
 ### Array like
