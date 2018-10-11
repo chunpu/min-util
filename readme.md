@@ -23,8 +23,7 @@ Installation
 npm i min-util
 ```
 
-Usage
----
+## Usage
 
 ```js
 var _ = require('min-util')
@@ -40,13 +39,14 @@ min-util [(~4kb gzipped)](http://chunpu.github.io/min-util/dist/min-util.js)
 Lodash is ~24kb gzipped
 
 
-Try
----
+## Try in Browser
 
 Try in [console](http://chunpu.github.io/min-util/docs), exports as `_`
 
 Check [Unit Tests](http://chunpu.github.io/min-util/test/public)
 
+
+## Api
 
 ### Array like
 
@@ -193,8 +193,7 @@ Check [Unit Tests](http://chunpu.github.io/min-util/test/public)
 assert(_.is.arraylike({0: 'foo', length: 1}))
 ```
 
-Support
----
+## Platform Support
 
 - all browsers even `IE6+`
 - node.js
