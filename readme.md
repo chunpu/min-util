@@ -41,15 +41,7 @@ Try in [console](http://chunpu.github.io/min-util/docs), exports as `_`
 Check [Unit Tests](http://chunpu.github.io/min-util/test/public)
 
 
-#### Type Check
-
-`_.is` equals [min-is](https://github.com/chunpu/min-is)
-
-```js
-assert(_.is.arraylike({0: 'foo', length: 1}))
-```
-
-#### Array like
+### Array like
 
 - `_.each` -> `forEach`
 - `_.map`
@@ -73,10 +65,9 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.shuffle`
 - `_.difference`
 - `_.without`
-- `_.asyncMap` just like `async.map`, deprecated
 - `_.rest`
 - `_.compact`
-- `_.size` safe length for every thing
+- `_.size`
 - `_.first`
 - `_.last`
 - `_.groupBy`
@@ -88,7 +79,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.nth`
 
 
-#### Object
+### Object
 
 - `_.keys`
 - `_.forIn`
@@ -110,7 +101,7 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.invert`
 
 
-#### Function
+### Function
 
 - `_.bind`
 - `_.once`
@@ -125,13 +116,13 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.before`
 - `_.spread` TODO
 - `_.ary` TODO
-- `_.curry` TODO
+- `_.curry`
 - `_.curryRight` TODO
 - `_.wrap`
 - `_.negate`
 
 
-#### String
+### String
 
 - `_.trim`
 - `_.split`
@@ -142,7 +133,8 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.toString`
 - `_.camelCase`
 - `_.capitalize`
-- `_.decapitalize`
+- `_.upperFirst`
+- `_.lowerFirst`
 - `_.includes`
 - `_.size`
 - `_.startsWith`
@@ -153,21 +145,21 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.template` not support templateSettings
 
 
-#### Utility
+### Utility
 
 - `_.noop`
 - `_.now`
 - `_.chain`
 - `_.value`
 - `_.constant`
-- `_.identity` return arguments[0]
+- `_.identity`
 - `_.mixin`
 - `_.inherits`
 - `_.random`
-- `_.uniqueId` TODO
+- `_.uniqueId`
 
 
-#### Lang
+### Lang
 
 - `_.isString`
 - `_.isArray`
@@ -185,6 +177,14 @@ assert(_.is.arraylike({0: 'foo', length: 1}))
 - `_.isString`
 - `_.isUndefined`
 
+
+### More Check
+
+`_.is` equals [min-is](https://github.com/chunpu/min-is)
+
+```js
+assert(_.is.arraylike({0: 'foo', length: 1}))
+```
 
 Support
 ---

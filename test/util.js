@@ -51,3 +51,10 @@ describe('random', function() {
     }
   })
 })
+
+describe('uniqueId', function() {
+  it('return uniqueId', function() {
+    assert.deepEqual(_.uniqueId('contact_'), 'contact_1')
+    assert.deepEqual(_.uniqueId(), '2')
+  })
+})

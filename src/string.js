@@ -11,10 +11,15 @@ _.split = function(str, separator, limit) {
 
 _.capitalize = function(str) {
   str = tostr(str)
+  return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase()
+}
+
+_.upperFirst = function(str) {
+  str = tostr(str)
   return str.charAt(0).toUpperCase() + str.substr(1)
 }
 
-_.decapitalize = function(str) {
+_.lowerFirst = function(str) {
   str = tostr(str)
   return str.charAt(0).toLowerCase() + str.substr(1)
 }
@@ -25,7 +30,7 @@ _.camelCase = function(str) {
   arr = _.map(arr, function(val) {
     return _.capitalize(val)
   })
-  return _.decapitalize(arr.join(''))
+  return _.lowerFirst(arr.join(''))
 }
 
 _.startsWith = function(str, val) {

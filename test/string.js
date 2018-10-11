@@ -29,7 +29,7 @@ describe('split', function() {
 describe('capitalize', function() {
   it('should ok', function() {
     assert(_.capitalize('foo') == 'Foo')
-    assert(_.capitalize('bAr') == 'BAr')
+    assert(_.capitalize('bAr') == 'Bar')
   })
   it('should work with shit', function() {
     assert(_.capitalize() == '')
@@ -40,17 +40,31 @@ describe('capitalize', function() {
   })
 })
 
-describe('decapitalize', function() {
+describe('upperFirst', function() {
   it('should ok', function() {
-    assert(_.decapitalize('Foo') == 'foo')
-    assert(_.decapitalize('BAr') == 'bAr')
+    assert(_.upperFirst('foo') == 'Foo')
+    assert(_.upperFirst('bAr') == 'BAr')
   })
   it('should work with shit', function() {
-    assert(_.decapitalize() == '')
-    assert(_.decapitalize('') == '')
-    assert(_.decapitalize(NaN) == '')
-    assert(_.decapitalize(0) == '0')
-    assert(_.decapitalize(_.decapitalize).length > 10)
+    assert(_.upperFirst() == '')
+    assert(_.upperFirst('') == '')
+    assert(_.upperFirst(NaN) == '')
+    assert(_.upperFirst(0) == '0')
+    assert(_.upperFirst(_.upperFirst).length > 10)
+  })
+})
+
+describe('lowerFirst', function() {
+  it('should ok', function() {
+    assert(_.lowerFirst('Foo') == 'foo')
+    assert(_.lowerFirst('BAr') == 'bAr')
+  })
+  it('should work with shit', function() {
+    assert(_.lowerFirst() == '')
+    assert(_.lowerFirst('') == '')
+    assert(_.lowerFirst(NaN) == '')
+    assert(_.lowerFirst(0) == '0')
+    assert(_.lowerFirst(_.lowerFirst).length > 10)
   })
 })
 
@@ -59,7 +73,7 @@ describe('camelCase', function() {
     var str = _.camelCase('__foo_bar__ foo2 bar2* ')
     assert.equal('fooBarFoo2Bar2', str)
     var str = _.camelCase(' Foo BAR')
-    assert.equal('fooBAR', str)
+    assert.equal('fooBar', str)
   })
 })
 

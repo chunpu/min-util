@@ -61,4 +61,11 @@ _.value = function() {
   return this.__value
 }
 
+var uniqueId = 0
+
+_.uniqueId = function(prefix) {
+  uniqueId++
+  return _.toString(prefix) + uniqueId
+}
+
 }
