@@ -115,16 +115,10 @@ Check [Unit Tests](http://chunpu.github.io/min-util/test/public)
 - `_.memoize`
 - `_.throttle`
 - `_.debounce`
-- `_.flow` TODO
-- `_.flowRight` `_.compose` TODO
 - `_.delay`
-- `_.defer` TODO
 - `_.after`
 - `_.before`
-- `_.spread` TODO
-- `_.ary` TODO
 - `_.curry`
-- `_.curryRight` TODO
 - `_.wrap`
 - `_.negate`
 
@@ -181,7 +175,6 @@ Check [Unit Tests](http://chunpu.github.io/min-util/test/public)
 - `_.isObject`
 - `_.isPlainObject`
 - `_.isRegExp`
-- `_.isString`
 - `_.isUndefined`
 
 

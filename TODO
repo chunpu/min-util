@@ -1,5 +1,40 @@
-unit test failed
+## unit test failed
 
 - debounce
 - throttle
 - delay
+
+## Lodash Core Api to Support
+
+- assignIn
+- clone
+- concat
+- defer
+- escape
+- flattenDeep
+- head
+- isArguments
+- isDate
+- isEqual
+- isFinite
+- isNull
+- iteratee
+- matches
+- max
+- min
+- noConflict
+- result
+- sortBy
+- tap
+- thru
+- toArray
+
+## Other Api
+
+- defaultsDeep
+- flow
+- flowRight
+- compose
+- spread
+- ary
+- curryRight
