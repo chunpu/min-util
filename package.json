@@ -1,6 +1,6 @@
 {
   "name": "min-util",
-  "version": "3.6.0",
+  "version": "3.6.1",
   "description": "A minimalist JavaScript Util library with a largely Lodash-compatible API.",
   "main": "index.js",
   "scripts": {
